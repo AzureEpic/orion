@@ -1,3 +1,9 @@
+workspace.Trucks:FindFirstChild("Supply Truck").Driver.ClickDetector.Detector:FireServer()
+wait(0.5)
+
+
+
+
 
 
 _G.TruckTPPos = Vector3.new(46.4887, 3.80013, 126.255)
