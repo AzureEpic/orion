@@ -1,7 +1,9 @@
 -----good riddance
-if game:GetService("CoreGui").Game then
-	game.CoreGui.Game:Destroy()
+local existingGui = game:GetService("CoreGui"):FindFirstChild("Game")
+if existingGui then
+	existingGui:Destroy()
 end
+
 
 
 
@@ -26,11 +28,13 @@ local playerName = game.Players.LocalPlayer.Name
 local camera = workspace.CurrentCamera
 local rootpart = char:FindFirstChild("HumanoidRootPart")
 
-plr.CharacterAdded:Connect(function(character: Model) 
-
-character.PrimaryPart =rootpart
-	
+plr.CharacterAdded:Connect(function(character) 
+	local rootpart = character:WaitForChild("HumanoidRootPart", 10) -- Waits 10 seconds for root part
+	if rootpart then
+		character.PrimaryPart = rootpart
+	end
 end)
+
 
 
 -------g
@@ -61,7 +65,7 @@ local maxPlayers = game.Players.MaxPlayers
 local plrTime =  os.date("%X")
 
 
-while wait(.01) do
+while wait(.1) do
 
 	fps = math.floor(workspace:GetRealPhysicsFPS())
 	 ws = hum.WalkSpeed
