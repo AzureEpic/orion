@@ -103,10 +103,16 @@ pizza:AddButton({
 	Name = "Ring all house doorbells (troll)",
 	Callback = function()
 		for i = 1, 11 do
-			local door = workspace.Houses["House" .. i].Medium.Doors.FrontDoorMain.ClickDetector.Detector
+			for _, thing in workspace.Houses:GetDescendants() do
+				if thing.Name == "Detector" then 
+			
+			local door = thing
 			if door then
 				door:FireServer()
 				wait(_G.DoorbellDelay)
+			end
+			
+				end
 			end
 		end
 	end
