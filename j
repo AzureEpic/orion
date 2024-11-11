@@ -1,3 +1,7 @@
+
+
+
+
 -- New draggable Orion Lib script for hub creations!
 local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/AzureEpic/orion/refs/heads/main/Source')))()
 
@@ -10,7 +14,7 @@ local hum = char:FindFirstChildOfClass("Humanoid")
 
 local sitting = hum.SeatPart
 
-
+local playerName = game.Players.LocalPlayer.Name
 
 
 -------g
@@ -52,18 +56,35 @@ local Section = Tab:AddSection({
 	Name = "Info"
 })
 
-local playerName = game.Players.LocalPlayer.Name
+Tab:AddLabel("Game: " .. game.Name)
+Tab:AddLabel("Game ID: ".. game.GameId)
 
-Tab:AddButton({
-	Name = "Welcome " .. playerName .. "! this is still in development so lol",
-	Callback = function()
-	end
-})
+
+
+
+Tab:AddLabel("ur fps [ "..math.floor(workspace:GetRealPhysicsFPS()).."]")
+Tab:AddLabel("ur walkspeed ["..hum.WalkSpeed.."]")
+Tab:AddLabel("ur ping [ "..game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString().." ]")
+Tab:AddLabel("# of players [ "..#game.Players:GetPlayers().." / "..game.Players.MaxPlayers.." ]")
+Tab:AddLabel("Server Run Time [ "..math.floor(workspace.DistributedGameTime / 60 / 60).." hour(s) | "..math.floor(workspace.DistributedGameTime / 60) - (math.floor(workspace.DistributedGameTime / 60 / 60) * 60).." Minutes | "..math.floor(workspace.DistributedGameTime) - (math.floor(workspace.DistributedGameTime / 60) * 60).." seconds ]")
+Tab:AddLabel("your time [ "..os.date("%X").." ]")
+Tab:AddLabel("account age [ "..game.Players.LocalPlayer.AccountAge.. " days"..  " ]")
+
+Tab:AddSection({"Useless stuff"})
+
+Tab:AddLabel("Amount of instances: ".. #game:GetDescendants())
+
+
+
+
+
+
+
 
 --[[
 
 Tab:AddButton({
-	Name = "Check out our official discord server in your clipboard.",
+	Name = "discord server",
 	Callback = function()
 		setclipboard("https://discord.gg/9vsvzS6mer")
 		toclipboard("https://discord.gg/9vsvzS6mer")
@@ -91,7 +112,7 @@ Tab:AddButton({
 
 local ftap = Window:MakeTab({
 	Name = "FTAP",
-	Icon = "rbxassetid://18398583877",
+	Icon = "rbxassetid://12006440375",
 	PremiumOnly = false
 	
 	
@@ -121,7 +142,7 @@ local pizza = Window:MakeTab({
 
 
 
-
+--[[
 pizza:AddButton({
 	Name = "Ring all house doorbells (troll)",
 	Callback = function()
@@ -140,7 +161,7 @@ pizza:AddButton({
 		end
 	end
 })
-
+]]
 
 
 
@@ -149,25 +170,44 @@ pizza:AddButton({
 pizza:AddButton({
 	Name = "Teleport a supply truck into restaurant (troll)",
 	Callback = function()
-		local success, errorMessage = pcall(function()
-			workspace.Trucks:FindFirstChild("Supply Truck").Driver.ClickDetector.Detector:FireServer()
-			wait(0.5)
-
-			-- Teleport the truck to the specified position
-			if sitting and sitting.Parent:IsA("Model") then
-				sitting.Parent:PivotTo(truckTP.CFrame)
-				hum.Sit = false
-			else
-				error("failed to teleport truck: player is not sitting in a valid seat.")
-			end
-		end)
-
-		if not success then
-			OrionLib:MakeNotification({
-				Title = "Error",
-				Text = "supply truck cant tp, " ..errorMessage,
-				Time = 5
-			})
-		end
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/AzureEpic/orion/refs/heads/main/truck"))()
 	end
 })
+
+
+
+
+
+
+pizza:AddButton({
+	Name = "Snowball random player",
+	Callback = function()
+		local players = game.Players:GetPlayers()
+		local randomPlayer = players[math.random(1, #players)]
+		local character = randomPlayer.Character
+		local humanoidRootPart = character:FindFirstChild("HumanoidRootPart")
+		if humanoidRootPart and humanoidRootPart:IsA("Part") then
+
+		
+			game:GetService("Players").LocalPlayer.Character.Snowball.Clicked:FireServer(humanoidRootPart.Position)
+
+	
+	
+	
+	end
+	end,
+	
+	
+	
+})
+
+
+
+--pizza:AddParagraph("","Below will be teleports.")
+
+
+
+
+
+
+
