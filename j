@@ -210,7 +210,6 @@ pizza:AddButton({
 })
 ]]
 
-pizza:AddSection({Name = "Troll others!"})
 
 
 
@@ -260,8 +259,6 @@ print("no snowball")
 
 
 ]]
-
-pizza:AddSection({Name = "Teleports"})
 
 
 pizza:AddDropdown({
