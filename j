@@ -10,6 +10,16 @@ _G.TruckTPPos = Vector3.new(46.4887, 3.80013, 126.255)
 
 
 
+--------other instances
+
+local truckTP = Instance.new("Part")
+truckTP.Parent = workspace
+truckTP.Position = _G.TruckTPPos
+
+
+
+
+
 local Window = OrionLib:MakeWindow({
 	Name = "Azure's Thing",
 	HidePremium = false,
@@ -122,10 +132,18 @@ pizza:AddButton({
 pizza:AddButton({
 	Name = "Teleport supply truck into restaurant (troll)",
 	Callback = function()
+		
+		
+		
 		workspace.Trucks:FindFirstChild("Supply Truck").Driver.ClickDetector.Detector:FireServer()
+		
+		
+		
+		
+		
 wait(.5)
 		
-game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart").Position = _G.TruckTPPos
+game.Players.LocalPlayer.Character:PivotTo(truckTP.CFrame) 
 	end,
 	
 	
