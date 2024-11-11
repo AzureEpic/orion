@@ -1,8 +1,8 @@
-
-
+-----good riddance
 if game:GetService("CoreGui").Game then
 	game.CoreGui.Game:Destroy()
 end
+
 
 -- New draggable Orion Lib script for hub creations!
 local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/AzureEpic/orion/refs/heads/main/Source')))()
@@ -197,6 +197,8 @@ pizza:AddButton({
 			game:GetService("Players").LocalPlayer.Character.Snowball.Clicked:FireServer(humanoidRootPart.Position)
 
 	camera.CameraSubject = character
+	print("throwing at " randomPlayer.Name
+	)
 	wait(3)
 	camera.CameraSubject = char
 	
