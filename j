@@ -18,7 +18,7 @@ local sitting = hum.SeatPart
 
 local playerName = game.Players.LocalPlayer.Name
 
-
+local camera = workspace.CurrentCamera
 -------g
 
 
@@ -196,7 +196,9 @@ pizza:AddButton({
 		
 			game:GetService("Players").LocalPlayer.Character.Snowball.Clicked:FireServer(humanoidRootPart.Position)
 
-	
+	camera.CameraSubject = character
+	wait(3)
+	camera.CameraSubject = char
 	
 	
 	end
