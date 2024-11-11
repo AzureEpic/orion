@@ -2,6 +2,14 @@
 local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/AzureEpic/orion/refs/heads/main/Source')))()
 
 
+
+
+_G.DoorbellDelay = .4
+
+
+
+
+
 local Window = OrionLib:MakeWindow({
 	Name = "Azure's Thing",
 	HidePremium = false,
@@ -79,5 +87,27 @@ ftap:AddButton({
 
 
 
+local pizza = Window:MakeTab({
+	Name = "🍕Pizza Place🍕",
+	Icon = "rbxassetid://131356501692031",
+	PremiumOnly = false
 
 
+
+})
+
+
+
+
+pizza:AddButton({
+	Name = "Ring all house doorbells (troll)",
+	Callback = function()
+		for i = 1, 11 do
+			local door = workspace.Houses["House" .. i].Medium.Doors.FrontDoorMain.ClickDetector.Detector
+			if door then
+				door:FireServer()
+				wait(_G.DoorbellDelay)
+			end
+		end
+	end
+})
