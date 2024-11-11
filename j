@@ -1,6 +1,8 @@
 
 
-
+if game:GetService("CoreGui").Game then
+	game.CoreGui.Game:Destroy()
+end
 
 -- New draggable Orion Lib script for hub creations!
 local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/AzureEpic/orion/refs/heads/main/Source')))()
@@ -56,7 +58,7 @@ local Section = Tab:AddSection({
 	Name = "Info"
 })
 
-Tab:AddLabel("Game: " .. game.Name)
+Tab:AddLabel("Game: " .. game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name)
 Tab:AddLabel("Game ID: ".. game.GameId)
 
 
@@ -70,7 +72,10 @@ Tab:AddLabel("Server Run Time [ "..math.floor(workspace.DistributedGameTime / 60
 Tab:AddLabel("your time [ "..os.date("%X").." ]")
 Tab:AddLabel("account age [ "..game.Players.LocalPlayer.AccountAge.. " days"..  " ]")
 
-Tab:AddSection({"Useless stuff"})
+Tab:AddSection({
+
+Name = 	"Useless stuff"
+})
 
 Tab:AddLabel("Amount of instances: ".. #game:GetDescendants())
 
