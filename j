@@ -233,7 +233,32 @@ pizza:AddButton({
 
 
 
+pizza:AddDropdown({
+	Name = "Choose Job",
+	Default = "Pizza Place",
+	Options = {"Pizza Place", "Supplier Place", "Secret Island 1", "Secret Island 2"},
+	Callback = function(Value)
+		print("Selected tp location:", Value)
 
+	
+		local locationPositions = {
+			["Pizza Place"] = _G.TruckTPPos,
+			["Supplier Place"] = _G.Suppliers, 
+			["Secret Island 1"] = _G.NewIsland,
+			["Secret Island 2 (old one)"] = _G.OldIsland
+		}
+
+
+		local selectedPosition = locationPositions[Value]
+
+		
+		if selectedPosition then
+			game.Players.LocalPlayer.Character:PivotTo(CFrame.new(selectedPosition))
+		else
+			print("no positions")
+		end
+	end    
+})
 
 
 pizza:AddDropdown({
