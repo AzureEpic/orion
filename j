@@ -230,11 +230,6 @@ pizza:AddButton({
 
 
 
-pizza:AddSection({
-	Name = "Local"
-
-})
-
 
 
 pizza:AddDropdown({
@@ -261,4 +256,3 @@ pizza:AddDropdown({
 	end    
 })
 
---
