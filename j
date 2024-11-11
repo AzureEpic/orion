@@ -29,6 +29,9 @@ local camera = workspace.CurrentCamera
 
 _G.DoorbellDelay = .1
 _G.TruckTPPos = Vector3.new(46.4887, 3.80013, 126.255)
+_G.NewIsland = Vector3.new(-1090.03, 28.8735, 641.124)
+_G.OldIsland = Vector3.new(1496.06, 0.100165, 1344.64)
+_G.Suppliers = Vector3.new(7.29875, 14.5, -1032.49)
 
 
 
@@ -232,9 +235,8 @@ pizza:AddButton({
 ]]
 
 
-
 pizza:AddDropdown({
-	Name = "Choose Job",
+	Name = "Teleports",
 	Default = "Pizza Place",
 	Options = {"Pizza Place", "Supplier Place", "Secret Island 1", "Secret Island 2"},
 	Callback = function(Value)
