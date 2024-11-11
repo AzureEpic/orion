@@ -38,6 +38,15 @@ truckTP.Position = _G.TruckTPPos
 
 
 
+--------INfo Variables
+
+local fps = math.floor(workspace:GetRealPhysicsFPS())
+local ws = hum.WalkSpeed
+local ping=game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString()
+local currentPlayers = #game.Players:GetPlayers()
+local maxPlayers = game.Players.MaxPlayers
+local plrTime =  os.date("%X")
+
 
 local Window = OrionLib:MakeWindow({
 	Name = "Azure's Thing",
@@ -58,18 +67,20 @@ local Section = Tab:AddSection({
 	Name = "Info"
 })
 
+
+
 Tab:AddLabel("Game: " .. game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name)
 Tab:AddLabel("Game ID: ".. game.GameId)
 
 
 
 
-Tab:AddLabel("ur fps [ "..math.floor(workspace:GetRealPhysicsFPS()).."]")
-Tab:AddLabel("ur walkspeed ["..hum.WalkSpeed.."]")
-Tab:AddLabel("ur ping [ "..game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString().." ]")
-Tab:AddLabel("# of players [ "..#game.Players:GetPlayers().." / "..game.Players.MaxPlayers.." ]")
+Tab:AddLabel("ur fps [ "..fps.."]")
+Tab:AddLabel("ur walkspeed ["..ws.."]")
+Tab:AddLabel("ur ping [ "..ping.." ]")
+Tab:AddLabel("# of players [ "..currentPlayers.." / "..maxPlayers.." ]")
 Tab:AddLabel("Server Run Time [ "..math.floor(workspace.DistributedGameTime / 60 / 60).." hour(s) | "..math.floor(workspace.DistributedGameTime / 60) - (math.floor(workspace.DistributedGameTime / 60 / 60) * 60).." Minutes | "..math.floor(workspace.DistributedGameTime) - (math.floor(workspace.DistributedGameTime / 60) * 60).." seconds ]")
-Tab:AddLabel("your time [ "..os.date("%X").." ]")
+Tab:AddLabel("your time [ "..plrTime.." ]")
 Tab:AddLabel("account age [ "..game.Players.LocalPlayer.AccountAge.. " days"..  " ]")
 
 Tab:AddSection({
@@ -182,7 +193,7 @@ pizza:AddButton({
 
 
 
-
+--[[
 pizza:AddButton({
 	Name = "Snowball random player",
 	Callback = function()
@@ -214,8 +225,39 @@ pizza:AddButton({
 --pizza:AddParagraph("","Below will be teleports.")
 
 
+]]
 
 
 
 
+pizza:AddSection({
+	Name = "Local"
+
+})
+
+
+
+pizza:AddDropdown({
+	Name = "Choose Job",
+	Default = "On Break",
+	Options = {"On Break", "Cashier", "Cook", "Pizza Boxer", "Delivery", "Supplier", "Manager"},
+	Callback = function(Value)
+		print(Value)
+		
+		
+		local args = {
+			[1] = "ChangeJob",
+			[2] = "On Break"
+		}
+
+		game:GetService("ReplicatedStorage").PlayerChannel:FireServer("ChangeJob", Value)
+
+		
+		
+		
+		
+		
+		
+	end    
+})
 
