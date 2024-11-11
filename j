@@ -7,6 +7,10 @@ end
 -- New draggable Orion Lib script for hub creations!
 local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/AzureEpic/orion/refs/heads/main/Source')))()
 
+
+print("starting aashfhfuishfihfdibhijdfbfdbksdfbhkfsd")
+
+
 ------Player variables
 
 local plr = game.Players.LocalPlayer
@@ -255,4 +259,8 @@ pizza:AddDropdown({
 		
 	end    
 })
+
+
+
+print("loaded")
 
