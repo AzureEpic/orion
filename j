@@ -4,8 +4,8 @@ local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/Azu
 
 
 
-_G.DoorbellDelay = .4
-
+_G.DoorbellDelay = .1
+_G.TruckTPPos = Vector3.new(46.4887, 3.80013, 126.255)
 
 
 
@@ -116,4 +116,19 @@ pizza:AddButton({
 			end
 		end
 	end
+})
+
+
+pizza:AddButton({
+	Name = "Teleport supply truck into restaurant (troll)",
+	Callback = function()
+		workspace.Trucks:FindFirstChild("Supply Truck").Driver.ClickDetector.Detector:FireServer()
+wait(.5)
+		
+game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart").Position = _G.TruckTPPos
+	end,
+	
+	
+	
+	
 })
