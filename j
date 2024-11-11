@@ -23,7 +23,7 @@ game:GetService("GuiService"):ClearError()
 
 local OrionLib = loadstring(game:HttpGet(("https://raw.githubusercontent.com/AzureEpic/orion/refs/heads/main/Source")))()
 local GameName = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name
-if game.PlaceId == 6403373529 or game.PlaceId == 9015014224 then
+
 	local Window = OrionLib:MakeWindow({IntroText = "AzureEpic's thing", IntroIcon = "rbxassetid://17459910236",Name = ("AzureEpic's UI".." | ".. identifyexecutor()),IntroToggleIcon = "rbxassetid://17459910236", HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "azure"})
 
 	---Bypass----
@@ -7387,9 +7387,8 @@ if game.PlaceId == 6403373529 or game.PlaceId == 9015014224 then
 	game.Workspace.NoChanged.Changed:Connect(function()
 		AntiRagdoll:Set(game.Workspace.NoChanged.Value)
 	end)
-elseif game.PlaceId == 11520107397 then
-	local Window = OrionLib:MakeWindow({IntroText = (GameName), IntroIcon = "rbxassetid://15315284749",Name = ("Giang Hub - Killstreak Only"),IntroToggleIcon = "rbxassetid://7734091286", HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
 
+	
 	local bypass;
 	bypass = hookmetamethod(game, "__namecall", function(method, ...) 
 		if getnamecallmethod() == "FireServer" and method == game.ReplicatedStorage.Ban then
@@ -9364,8 +9363,6 @@ end
 	game.Workspace.NoChanged.Changed:Connect(function()
 		AntiRagdoll:Set(game.Workspace.NoChanged.Value)
 	end)
-elseif game.PlaceId == 11828384869 then
-	local Window = OrionLib:MakeWindow({IntroText = (GameName), IntroIcon = "rbxassetid://15315284749",Name = ("Giang Hub - "..GameName.." / Server Elude"),IntroToggleIcon = "rbxassetid://7734091286", HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
 
 	--Tab
 	local Tab = Window:MakeTab({
@@ -9711,8 +9708,6 @@ game:GetService("TeleportService"):Teleport(6403373529)
 			end
 		end 
 	})
-elseif game.PlaceId == 13833961666 then
-	local Window = OrionLib:MakeWindow({IntroIcon = "rbxassetid://15315284749",Name = ("Giang Hub - "..GameName.." | ".. identifyexecutor()),IntroToggleIcon = "rbxassetid://7734091286", HidePremium = false, SaveConfig = false, IntroEnabled = false, ConfigFolder = "slap battles"})
 
 	if workspace:FindFirstChild("VoidPart") == nil then
 		local VoidPart = Instance.new("Part", workspace)
@@ -10011,8 +10006,6 @@ elseif game.PlaceId == 13833961666 then
 			end
 		end    
 	})
-elseif game.PlaceId == 9431156611 then
-	local Window = OrionLib:MakeWindow({IntroText = (GameName),IntroIcon = "rbxassetid://15315284749",Name = ("Giang Hub - "..GameName.." | ".. identifyexecutor()),IntroToggleIcon = "rbxassetid://7734091286", HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
 
 	local bypass;
 	bypass = hookmetamethod(game, "__namecall", function(method, ...) 
@@ -10984,8 +10977,6 @@ elseif game.PlaceId == 9431156611 then
 			end
 		end    
 	})
-elseif game.PlaceId == 14422118326 then
-	local Window = OrionLib:MakeWindow({IntroText = (GameName), Name = ("Giang Hub - "..GameName.." | ".. identifyexecutor()), HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
 
 	local Tab = Window:MakeTab({
 		Name = "Misc",
@@ -11134,8 +11125,6 @@ elseif game.PlaceId == 14422118326 then
 			end
 		end 
 	})
-elseif game.PlaceId == 15507333474 then
-	local Window = OrionLib:MakeWindow({IntroText = (GameName),IntroIcon = "rbxassetid://15315284749",Name = ("Giang Hub - "..GameName.." | "..identifyexecutor()),IntroToggleIcon = "rbxassetid://7734091286", HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
 
 	if workspace:FindFirstChild("AntiVoid") == nil then
 		local Anti = Instance.new("Part", workspace)
@@ -11461,8 +11450,6 @@ elseif game.PlaceId == 15507333474 then
 			end
 		end 
 	})
-elseif game.PlaceId == 16034567693 then
-	local Window = OrionLib:MakeWindow({IntroText = (GameName), IntroIcon = "rbxassetid://15315284749",Name = ("Giang Hub - "..GameName.." | ".. identifyexecutor()),IntroToggleIcon = "rbxassetid://7734091286", HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
 
 	local Tab = Window:MakeTab({
 		Name = "Misc",
@@ -11518,8 +11505,6 @@ elseif game.PlaceId == 16034567693 then
 			end
 		end 
 	})
-elseif game.PlaceId == 17290438723 then
-	local Window = OrionLib:MakeWindow({IntroText = (GameName), IntroIcon = "rbxassetid://15315284749",Name = ("Giang Hub - "..GameName.." | ".. identifyexecutor()),IntroToggleIcon = "rbxassetid://7734091286", HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
 
 	local Tab = Window:MakeTab({
 		Name = "Main",
@@ -11556,8 +11541,6 @@ elseif game.PlaceId == 17290438723 then
 			end
 		end 
 	})
-elseif game.PlaceId == 18550498098 then
-	local Window = OrionLib:MakeWindow({IntroText = (GameName), IntroIcon = "rbxassetid://15315284749",Name = ("Giang Hub - "..GameName.." | ".. identifyexecutor()),IntroToggleIcon = "rbxassetid://7734091286", HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
 
 	if game.Workspace:FindFirstChild("VoidPart") == nil then
 		local VoidPart = Instance.new("Part", workspace)
@@ -11979,8 +11962,6 @@ elseif game.PlaceId == 18550498098 then
 			end
 		end    
 	})
-elseif game.PlaceId == 18698003301 then
-	local Window = OrionLib:MakeWindow({IntroText = (GameName), IntroIcon = "rbxassetid://15315284749",Name = ("Giang Hub - "..GameName.." | ".. identifyexecutor()),IntroToggleIcon = "rbxassetid://7734091286", HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
 
 	local Tab = Window:MakeTab({
 		Name = "Misc",
@@ -12048,7 +12029,7 @@ elseif game.PlaceId == 18698003301 then
 			end
 		end 
 	})
-end
+
 --------------------------------------------------------
 if gethui():FindFirstChild("Orion") and game.Players.LocalPlayer.PlayerGui:FindFirstChild("ToggleUi") == nil then
 	local TOGGLE = {}
