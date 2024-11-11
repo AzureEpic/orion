@@ -1,0 +1,33 @@
+
+
+_G.TruckTPPos = Vector3.new(46.4887, 3.80013, 126.255)
+
+
+
+
+--------other instances
+
+local truckTP = Instance.new("Part")
+truckTP.Parent = workspace
+truckTP.Position = _G.TruckTPPos
+
+
+
+
+
+local plr = game.Players.LocalPlayer
+local char = plr.Character
+
+local hum = char:FindFirstChildOfClass("Humanoid")
+
+local sitting = hum.SeatPart
+
+
+
+-- Teleport the truck to the specified position
+if sitting and sitting.Parent:IsA("Model") then
+	sitting.Parent:PivotTo(truckTP.CFrame)
+	hum.Sit = false
+else
+	error("failed to teleport truck: player is not sitting in a valid seat.")
+	end
