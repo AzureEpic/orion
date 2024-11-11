@@ -273,7 +273,7 @@ end)
 
 CreateElement("TFrame", function()
 	local TFrame = Create("Frame", {
-		BackgroundTransparency = .5
+		BackgroundTransparency = 1
 	})
 	return TFrame
 end)
@@ -458,12 +458,12 @@ function OrionLib:MakeWindow(WindowConfig)
 	if WindowConfig.IntroEnabled == nil then
 		WindowConfig.IntroEnabled = true
 	end
-	WindowConfig.IntroToggleIcon = WindowConfig.IntroToggleIcon or "rbxassetid://17459910236"
+	WindowConfig.IntroToggleIcon = WindowConfig.IntroToggleIcon or "rbxassetid://12153971479"
 	WindowConfig.IntroText = WindowConfig.IntroText or "skibidi azure welcomes you"
 	WindowConfig.CloseCallback = WindowConfig.CloseCallback or function() end
 	WindowConfig.ShowIcon = WindowConfig.ShowIcon or false
-	WindowConfig.Icon = WindowConfig.Icon or "rbxassetid://17459910236"
-	WindowConfig.IntroIcon = WindowConfig.IntroIcon or "rbxassetid://17459910236"
+	WindowConfig.Icon = WindowConfig.Icon or "rbxassetid://12153971479"
+	WindowConfig.IntroIcon = WindowConfig.IntroIcon or "rbxassetid://12153971479"
 	OrionLib.Folder = WindowConfig.ConfigFolder
 	OrionLib.SaveCfg = WindowConfig.SaveConfig
 
