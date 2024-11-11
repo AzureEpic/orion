@@ -24,7 +24,7 @@ game:GetService("GuiService"):ClearError()
 local OrionLib = loadstring(game:HttpGet(("https://raw.githubusercontent.com/AzureEpic/orion/refs/heads/main/Source")))()
 local GameName = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name
 if game.PlaceId == 6403373529 or game.PlaceId == 9015014224 then
-	local Window = OrionLib:MakeWindow({IntroText = "AzureEpic's thing", IntroIcon = "rbxassetid://18398583877",Name = ("AzureEpic's UI".." | ".. identifyexecutor()),IntroToggleIcon = "rbxassetid://17459910236", HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "azure"})
+	local Window = OrionLib:MakeWindow({IntroText = "AzureEpic's thing", IntroIcon = "rbxassetid://17459910236",Name = ("AzureEpic's UI".." | ".. identifyexecutor()),IntroToggleIcon = "rbxassetid://17459910236", HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "azure"})
 
 	---Bypass----
 
@@ -4230,44 +4230,6 @@ if game.PlaceId == 6403373529 or game.PlaceId == 9015014224 then
 		end    
 	})
 
-	Tab7:AddDropdown({
-		Name = "Animation Combat",
-		Default = "",
-		Options = {"Skukuchi Attacker", "Skukuchi Target", "Bomb Throw", "Bubble Shoot", "Revolver", "Ban Hammer", "Slapstick", "Dual", "Slap", "Bomb", "Rocket Launcher", "Rojo", "Rojo Recoil", "Thor", "Rob"},
-		Callback = function(Value)
-			if Value == "Skukuchi Attacker" then
-				game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.CutsceneAttacker, game.Players.LocalPlayer.Character.Humanoid):Play()
-			elseif Value == "Skukuchi Target" then
-				game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.CutsceneTarget, game.Players.LocalPlayer.Character.Humanoid):Play()
-			elseif Value == "Bomb Throw" then
-				game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.bombthrow, game.Players.LocalPlayer.Character.Humanoid):Play()
-			elseif Value == "Bubble Shoot" then
-				game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.bubbleshoot, game.Players.LocalPlayer.Character.Humanoid):Play()
-			elseif Value == "Revolver" then
-				game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.Assets.Hitman.RevolverAnim, game.Players.LocalPlayer.Character.Humanoid):Play()
-			elseif Value == "Ban Hammer" then
-				game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.Assets.Retro.Animations["Ban Hammer"], game.Players.LocalPlayer.Character.Humanoid):Play()
-			elseif Value == "Slapstick" then
-				game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.slapstick_slap, game.Players.LocalPlayer.Character.Humanoid):Play()
-			elseif Value == "Dual" then
-				game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.DualSlap, game.Players.LocalPlayer.Character.Humanoid):Play()
-			elseif Value == "Slap" then
-				game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.Slap, game.Players.LocalPlayer.Character.Humanoid):Play()
-			elseif Value == "Bomb" then
-				game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.Assets.Retro.Animations.Bomb, game.Players.LocalPlayer.Character.Humanoid):Play()
-			elseif Value == "Rocket Launcher" then
-				game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.Assets.Retro.Animations["Rocket Launcher"], game.Players.LocalPlayer.Character.Humanoid):Play()
-			elseif Value == "Rojo" then
-				game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.Assets.Rojo.Animation, game.Players.LocalPlayer.Character.Humanoid):Play()
-			elseif Value == "Rojo Recoil" then
-				game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.Assets.Rojo.AnimationRecoil, game.Players.LocalPlayer.Character.Humanoid):Play()
-			elseif Value == "Thor" then
-				game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.Assets.Thor.Animation, game.Players.LocalPlayer.Character.Humanoid):Play()
-			elseif Value == "Rob" then
-				game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.robAnimation, game.Players.LocalPlayer.Character.Humanoid):Play()
-			end
-		end    
-	})
 
 	Tab7:AddTextbox({
 		Name = "Animation",
