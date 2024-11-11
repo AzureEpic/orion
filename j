@@ -1,10 +1,7 @@
 -----good riddance
-local existingGui = game:GetService("CoreGui"):FindFirstChild("Game")
-if existingGui then
-	existingGui:Destroy()
+if game:GetService("CoreGui").Game then
+	game.CoreGui.Game:Destroy()
 end
-
-
 
 
 -- New draggable Orion Lib script for hub creations!
@@ -26,26 +23,15 @@ local sitting = hum.SeatPart
 local playerName = game.Players.LocalPlayer.Name
 
 local camera = workspace.CurrentCamera
-local rootpart = char:FindFirstChild("HumanoidRootPart")
-
-plr.CharacterAdded:Connect(function(character) 
-	local rootpart = character:WaitForChild("HumanoidRootPart", 10) -- Waits 10 seconds for root part
-	if rootpart then
-		character.PrimaryPart = rootpart
-	end
-end)
-
-
-
 -------g
 
 
 
 _G.DoorbellDelay = .1
 _G.TruckTPPos = Vector3.new(46.4887, 3.80013, 126.255)
-_G.NewIsland = Vector3.new(-1090.03, 28.8735, 641.124)
-_G.OldIsland = Vector3.new(1496.06, 0.100165, 1344.64)
-_G.Suppliers = Vector3.new(7.29875, 14.5, -1032.49)
+
+
+
 
 --------other instances
 
@@ -57,6 +43,7 @@ truckTP.Position = _G.TruckTPPos
 
 
 --------INfo Variables
+
 local fps = math.floor(workspace:GetRealPhysicsFPS())
 local ws = hum.WalkSpeed
 local ping=game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString()
@@ -64,20 +51,6 @@ local currentPlayers = #game.Players:GetPlayers()
 local maxPlayers = game.Players.MaxPlayers
 local plrTime =  os.date("%X")
 
---[[
-while wait(.1) do
-
-	fps = math.floor(workspace:GetRealPhysicsFPS())
-	 ws = hum.WalkSpeed
-	 ping=game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString()
-	 currentPlayers = #game.Players:GetPlayers()
-	 maxPlayers = game.Players.MaxPlayers
-	 plrTime =  os.date("%X")
-
-
-
-
-end]]
 
 local Window = OrionLib:MakeWindow({
 	Name = "Azure's Thing",
@@ -106,7 +79,7 @@ Tab:AddLabel("Game ID: ".. game.GameId)
 
 
 
-Tab:AddLabel("ur fps [ ".. fps .."]")
+Tab:AddLabel("ur fps [ "..fps.."]")
 Tab:AddLabel("ur walkspeed ["..ws.."]")
 Tab:AddLabel("ur ping [ "..ping.." ]")
 Tab:AddLabel("# of players [ "..currentPlayers.." / "..maxPlayers.." ]")
@@ -116,7 +89,7 @@ Tab:AddLabel("account age [ "..game.Players.LocalPlayer.AccountAge.. " days"..  
 
 Tab:AddSection({
 
-	Name = 	"Useless stuff"
+Name = 	"Useless stuff"
 })
 
 Tab:AddLabel("Amount of instances: ".. #game:GetDescendants())
@@ -161,9 +134,9 @@ local ftap = Window:MakeTab({
 	Name = "FTAP",
 	Icon = "rbxassetid://12006440375",
 	PremiumOnly = false
-
-
-
+	
+	
+	
 })
 
 
@@ -245,9 +218,7 @@ pizza:AddButton({
 				wait(3)
 				camera.CameraSubject = game.Players.LocalPlayer.Character
 			else
-
-
-print("no snowball")
+				print("no snowball")
 			end
 		end
 	end
@@ -260,41 +231,10 @@ print("no snowball")
 
 ]]
 
---[[
-pizza:AddDropdown({
-	Name = "Choose Job",
-	Default = "Pizza Place",
-	Options = {"Pizza Place", "Supplier Place", "Secret Island 1", "Secret Island 2"},
-	Callback = function(Value)
-		print("Selected tp location:", Value)
-
-	
-		local locationPositions = {
-			["Pizza Place"] = _G.TruckTPPos,
-			["Supplier Place"] = _G.Suppliers, 
-			["Secret Island 1"] = _G.NewIsland,
-			["Secret Island 2 (old one)"] = _G.OldIsland
-		}
 
 
-		local selectedPosition = locationPositions[Value]
 
-		
-		if selectedPosition then
-			game.Players.LocalPlayer.Character:PivotTo(CFrame.new(selectedPosition))
-		else
-			print("no positions")
-		end
-	end    
-})
-]]
 
---[[
-pizza:AddSection({
-
-	Name = 	"Other"
-})
-]]
 
 pizza:AddDropdown({
 	Name = "Choose Job",
@@ -302,8 +242,8 @@ pizza:AddDropdown({
 	Options = {"On Break", "Cashier", "Cook", "Pizza Boxer", "Delivery", "Supplier", "Manager"},
 	Callback = function(Value)
 		print(Value)
-
-
+		
+		
 		local args = {
 			[1] = "ChangeJob",
 			[2] = "On Break"
@@ -311,28 +251,15 @@ pizza:AddDropdown({
 
 		game:GetService("ReplicatedStorage").PlayerChannel:FireServer("ChangeJob", Value)
 
-
-
-
-
-
-
+		
+		
+		
+		
+		
+		
 	end    
 })
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 print("loaded")
-
