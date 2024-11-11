@@ -3,9 +3,6 @@ if game:GetService("CoreGui").Game then
 	game.CoreGui.Game:Destroy()
 end
 
-if not game:IsLoaded() then
-	game.Loaded:Wait()
-end
 
 
 -- New draggable Orion Lib script for hub creations!
