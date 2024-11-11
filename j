@@ -142,28 +142,32 @@ pizza:AddButton({
 })
 
 
+
+
+
+
 pizza:AddButton({
-	Name = "Teleport supply truck into restaurant (troll)",
+	Name = "Teleport a supply truck into restaurant (troll)",
 	Callback = function()
-		
-		
-		
-		workspace.Trucks:FindFirstChild("Supply Truck").Driver.ClickDetector.Detector:FireServer()
-		
-		
-		
-		
-		
-wait(.5)
-		
---game.Players.LocalPlayer.Character:PivotTo(truckTP.CFrame) 
-sitting.Parent:PivotTo(truckTP.CFrame)
-hum.Sit  = false
+		local success, errorMessage = pcall(function()
+			workspace.Trucks:FindFirstChild("Supply Truck").Driver.ClickDetector.Detector:FireServer()
+			wait(0.5)
 
+			-- Teleport the truck to the specified position
+			if sitting and sitting.Parent:IsA("Model") then
+				sitting.Parent:PivotTo(truckTP.CFrame)
+				hum.Sit = false
+			else
+				error("failed to teleport truck: player is not sitting in a valid seat.")
+			end
+		end)
 
-	end,
-	
-	
-	
-	
+		if not success then
+			OrionLib:MakeNotif({
+				Title = "Error",
+				Text = "supply truck cant tp, " ..errorMessage,
+				Time = 5
+			})
+		end
+	end
 })
