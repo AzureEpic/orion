@@ -261,7 +261,7 @@ print("no snowball")
 
 ]]
 
-pizza:AddSection({"Teleports"})
+pizza:AddSection({Name = "Teleports"})
 
 
 pizza:AddDropdown({
@@ -292,12 +292,12 @@ pizza:AddDropdown({
 })
 
 
-
+--[[
 pizza:AddSection({
 
 	Name = 	"Other"
 })
-
+]]
 
 pizza:AddDropdown({
 	Name = "Choose Job",
