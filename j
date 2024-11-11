@@ -1,6 +1,19 @@
 -- New draggable Orion Lib script for hub creations!
 local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/AzureEpic/orion/refs/heads/main/Source')))()
 
+------Player variables
+
+local plr = game.Players.LocalPlayer
+local char = plr.Character
+
+local hum = char:FindFirstChildOfClass("Humanoid")
+
+local sitting = hum.SeatPart
+
+
+
+
+-------g
 
 
 
@@ -143,7 +156,11 @@ pizza:AddButton({
 		
 wait(.5)
 		
-game.Players.LocalPlayer.Character:PivotTo(truckTP.CFrame) 
+--game.Players.LocalPlayer.Character:PivotTo(truckTP.CFrame) 
+sitting.Parent:PivotTo(truckTP.CFrame)
+hum.Sit  = false
+
+
 	end,
 	
 	
