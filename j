@@ -183,31 +183,30 @@ pizza:AddButton({
 
 
 
-
 pizza:AddButton({
 	Name = "Snowball random player",
 	Callback = function()
 		local players = game.Players:GetPlayers()
 		local randomPlayer = players[math.random(1, #players)]
 		local character = randomPlayer.Character
-		local humanoidRootPart = character:FindFirstChild("HumanoidRootPart")
+		local humanoidRootPart = character and character:FindFirstChild("HumanoidRootPart")
+
+
 		if humanoidRootPart and humanoidRootPart:IsA("Part") then
+			local snowball = game.Players.LocalPlayer.Character:FindFirstChild("Snowball")
 
-		
-			game:GetService("Players").LocalPlayer.Character.Snowball.Clicked:FireServer(humanoidRootPart.Position)
+			if snowball and snowball:FindFirstChild("Clicked") then
+				snowball.Clicked:FireServer(humanoidRootPart.Position)
 
-	camera.CameraSubject = character
-	print("throwing at " randomPlayer.Name
-	)
-	wait(3)
-	camera.CameraSubject = char
-	
-	
+				camera.CameraSubject = character
+				print("Throwing at " .. randomPlayer.Name)
+				wait(3)
+				camera.CameraSubject = game.Players.LocalPlayer.Character
+			else
+				print("no snowball")
+			end
+		end
 	end
-	end,
-	
-	
-	
 })
 
 
