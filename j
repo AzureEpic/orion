@@ -165,7 +165,7 @@ Tab:AddButton({
 
 local debTab = Window:MakeTab({
 	Name = "Debugs And Utility",
-	Icon = "rbxassetid://11529272869",
+	Icon = "rbxassetid://14502802745",
 	PremiumOnly = false
 	
 })
