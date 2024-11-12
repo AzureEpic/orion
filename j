@@ -268,18 +268,15 @@ pizza:AddDropdown({
 	Callback = function(Value)
 		print("Selected tp location:", Value)
 
-	
 		local locationPositions = {
 			["Pizza Place"] = _G.TruckTPPos,
 			["Supplier Place"] = _G.Suppliers, 
 			["Secret Island 1"] = _G.NewIsland,
-			["Secret Island 2 (old one)"] = _G.OldIsland
+			["Secret Island 2"] = _G.OldIsland  -- Updated for matching
 		}
-
 
 		local selectedPosition = locationPositions[Value]
 
-		
 		if selectedPosition then
 			game.Players.LocalPlayer.Character:PivotTo(CFrame.new(selectedPosition))
 		else
@@ -287,6 +284,7 @@ pizza:AddDropdown({
 		end
 	end    
 })
+print("Dropdown 'Teleports' created")  -- Confirm if dropdown creation reaches here
 
 
 --[[
