@@ -47,6 +47,11 @@ _G.NewIsland = Vector3.new(-1090.03, 28.8735, 641.124)
 _G.OldIsland = Vector3.new(1496.06, 0.100165, 1344.64)
 _G.Suppliers = Vector3.new(7.29875, 14.5, -1032.49)
 
+_G.Cooks = Vector3.new(39.5155, 3.80013, 61.5834)
+_G.Boxers = Vector3.new(56.6061, 3.78614, 21.5776)
+_G.Manager = Vector3.new(30.8387, 3.77562, 6.88775)
+
+
 --------other instances
 
 local truckTP = Instance.new("Part")
@@ -220,6 +225,88 @@ pizza:AddButton({
 		loadstring(game:HttpGet("https://raw.githubusercontent.com/AzureEpic/orion/refs/heads/main/truck"))()
 	end
 })
+
+
+
+
+pizza:AddDropdown({
+	Name = "Teleport Supply Truck somewhere",
+	Default = "Pizza Place",
+	Options = {"Cashier", "Cooks", "Boxer", "Delivery", "Manager", "Supplier"},
+	Callback = function(Value)
+		print("Selected tp location:", Value)
+
+		local locationPositions = {
+			["Cashier"] = _G.TruckTPPos,
+			["Supplier"] = _G.Suppliers, 
+			["Cooks"] = _G.Cooks,
+			["Boxer"] = _G.Boxers,
+			["Manager"] = _G.Manager  -- Updated for matching
+		}
+
+		local selectedPosition = locationPositions[Value]
+
+		if selectedPosition then
+		
+		
+		
+		
+		
+		
+			workspace.Trucks:FindFirstChild("Supply Truck").Driver.ClickDetector.Detector:FireServer()
+			wait(0.5)
+
+
+
+
+
+
+		
+
+
+
+
+			--------other instances
+
+			local truckTP = Instance.new("Part")
+			truckTP.Parent = workspace
+			truckTP.Position = _G.TruckTPPos
+
+
+
+
+
+			local plr = game.Players.LocalPlayer
+			local char = plr.Character
+
+			local hum = char:FindFirstChildOfClass("Humanoid")
+
+			local sitting = hum.SeatPart
+
+
+
+			-- Teleport the truck to the specified position
+			if sitting and sitting.Parent:IsA("Model") then
+				sitting.Parent:PivotTo(CFrame.new(selectedPosition))
+				hum.Sit = false
+			else
+				error("failed to teleport truck: player is not sitting in a valid seat.")
+			end
+			
+			
+			
+			
+			
+			
+			
+			
+			print("no positions")
+		end
+	end    
+})
+print("Dropdown 'Teleports' created")  -- Confirm if dropdown creation reaches here
+
+
 
 
 
