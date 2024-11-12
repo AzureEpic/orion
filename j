@@ -534,7 +534,9 @@ pizza:AddDropdown({
 			["Supplier"] = _G.Suppliers, 
 			["Cooks"] = _G.Cooks,
 			["Boxer"] = _G.Boxers,
-			["Manager"] = _G.Manager  -- Updated for matching
+			["Manager"] = _G.Manager,  -- Updated for matching
+			["Delivery"] = _G.Delivery,
+			
 		}
 
 		local selectedPosition = locationPositions[Value]
