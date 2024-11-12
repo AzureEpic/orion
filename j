@@ -177,6 +177,35 @@ Tab:AddSlider({
 	end    
 })
 
+
+
+Tab:AddSlider({
+	Name = "Jumppower",
+	Min = 0,
+	Max = 500,
+	Default = 5,
+	Color = Color3.fromRGB(255,255,255),
+	Increment = 1,
+	ValueName = "jump power",
+	Callback = function(Value)
+		hum.JumpPower = Value
+	end    
+})
+
+
+Tab:AddSlider({
+	Name = "HipHeight (can trigger anticheats)",
+	Min = 0,
+	Max = 500,
+	Default = 5,
+	Color = Color3.fromRGB(255,255,255),
+	Increment = 1,
+	ValueName = "height (in studs duh)",
+	Callback = function(Value)
+		hum.HipHeight = Value
+	end    
+})
+
 --[[
 Name = <string> - The name of the slider.
 Min = <number> - The minimal value of the slider.
