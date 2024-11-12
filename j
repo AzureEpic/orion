@@ -662,6 +662,57 @@ print("Dropdown 'Teleports' created")  -- Confirm if dropdown creation reaches h
 
 
 
+pizza:AddButton({
+	Name = "TP Truck to your position",
+	Callback = function()
+		workspace.Trucks:FindFirstChild("Supply Truck").Driver.ClickDetector.Detector:FireServer()
+		
+
+
+
+
+
+
+		
+
+
+
+
+		--------other instances
+
+		local truckTP = Instance.new("Part")
+		truckTP.Parent = workspace
+		truckTP.Position = rootpart.Position
+
+
+
+
+
+		local plr = game.Players.LocalPlayer
+		local char = plr.Character
+
+		local hum = char:FindFirstChildOfClass("Humanoid")
+
+		local sitting = hum.SeatPart
+
+
+
+		-- Teleport the truck to the specified position
+		if sitting and sitting.Parent:IsA("Model") then
+			sitting.Parent:PivotTo(truckTP.CFrame)
+
+		else
+			error("failed to teleport truck: player is not sitting in a valid seat.")
+		end
+	end,
+	
+	
+	
+})
+
+
+
+
 --[[
 pizza:AddButton({
 	Name = "Snowball random player",
