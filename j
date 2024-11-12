@@ -364,6 +364,7 @@ debTab:AddButton({
 		scrollFrame.Size = UDim2.new(0.9, 0, 0.9, 0)
 		scrollFrame.Position = UDim2.new(0.05, 0, 0.05, 0)
 		scrollFrame.BackgroundColor3 = Color3.new(1, 0.8, 0.4) 
+		scrollFrame.CanvasSize = UDim2.new(0, 0,100, 0)
 		scrollFrame.Parent = frame
 
 		local function updateGUI()
