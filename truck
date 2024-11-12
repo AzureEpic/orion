@@ -33,7 +33,7 @@ local sitting = hum.SeatPart
 -- Teleport the truck to the specified position
 if sitting and sitting.Parent:IsA("Model") then
 	sitting.Parent:PivotTo(truckTP.CFrame)
-	hum.Sit = false
+
 else
 	error("failed to teleport truck: player is not sitting in a valid seat.")
 	end
