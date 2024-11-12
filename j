@@ -162,6 +162,48 @@ Tab:AddButton({
 
 
 
+
+local debTab = Window:MakeTab({
+	Name = "Debugs And Utility",
+	Icon = "rbxassetid://11529272869",
+	PremiumOnly = false
+	
+})
+
+
+
+
+
+
+
+
+
+debTab:AddButton({
+Name = "Remote Spy",
+Callback = function()
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/REDzHUB/RS/main/SimpleSpyMobile"))()
+end,
+	
+	
+})
+
+debTab:AddButton({
+	Name = "Dex Raspberry Pi",
+Callback = function()
+		loadstring(game:HttpGet("https://cdn.wearedevs.net/scripts/Dex%20Explorer.txt"))()
+end,
+	
+	
+})
+
+
+
+
+
+
+
+
+
 local ftap = Window:MakeTab({
 	Name = "FTAP",
 	Icon = "rbxassetid://12006440375",
