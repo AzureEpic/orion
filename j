@@ -69,7 +69,7 @@ local currentPlayers = #game.Players:GetPlayers()
 local maxPlayers = game.Players.MaxPlayers
 local plrTime =  os.date("%X")
 
-
+--[[
 while wait(1) do
 
 	fps = math.floor(workspace:GetRealPhysicsFPS())
@@ -82,7 +82,7 @@ while wait(1) do
 
 
 
-end
+end]]
 
 local Window = OrionLib:MakeWindow({
 	Name = "Azure's Thing",
