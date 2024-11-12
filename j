@@ -197,7 +197,7 @@ Tab:AddSlider({
 	Name = "HipHeight (can trigger anticheats)",
 	Min = 0,
 	Max = 500,
-	Default = 5,
+	Default = 0,
 	Color = Color3.fromRGB(255,255,255),
 	Increment = 1,
 	ValueName = "height (in studs duh)",
