@@ -665,6 +665,7 @@ print("Dropdown 'Teleports' created")  -- Confirm if dropdown creation reaches h
 pizza:AddButton({
 	Name = "TP Truck to your position",
 	Callback = function()
+		local currentPos = rootpart.Position
 		workspace.Trucks:FindFirstChild("Supply Truck").Driver.ClickDetector.Detector:FireServer()
 		
 
@@ -682,7 +683,7 @@ pizza:AddButton({
 
 		local truckTP = Instance.new("Part")
 		truckTP.Parent = workspace
-		truckTP.Position = rootpart.Position
+		truckTP.Position = currentPos
 
 
 
