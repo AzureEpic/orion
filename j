@@ -50,7 +50,7 @@ _G.Suppliers = Vector3.new(7.29875, 14.5, -1032.49)
 _G.Cooks = Vector3.new(39.5155, 3.80013, 61.5834)
 _G.Boxers = Vector3.new(56.6061, 3.78614, 21.5776)
 _G.Manager = Vector3.new(30.8387, 3.77562, 6.88775)
-
+_G.Delivery = Vector3.new(54.4401, 3.79878, -10.656)
 
 --------other instances
 
@@ -227,7 +227,7 @@ pizza:AddButton({
 })
 
 
-
+pizza:AddLabel("If truck teleporting doesn't work, just wait.")
 
 pizza:AddDropdown({
 	Name = "Teleport Supply Truck somewhere",
@@ -288,7 +288,7 @@ pizza:AddDropdown({
 			-- Teleport the truck to the specified position
 			if sitting and sitting.Parent:IsA("Model") then
 				sitting.Parent:PivotTo(CFrame.new(selectedPosition))
-				hum.Sit = false
+				
 			else
 				error("failed to teleport truck: player is not sitting in a valid seat.")
 			end
