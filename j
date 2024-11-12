@@ -69,8 +69,8 @@ local currentPlayers = #game.Players:GetPlayers()
 local maxPlayers = game.Players.MaxPlayers
 local plrTime =  os.date("%X")
 
---[[
-while wait(.1) do
+
+while wait(1) do
 
 	fps = math.floor(workspace:GetRealPhysicsFPS())
 	 ws = hum.WalkSpeed
@@ -82,7 +82,7 @@ while wait(.1) do
 
 
 
-end]]
+end
 
 local Window = OrionLib:MakeWindow({
 	Name = "Azure's Thing",
@@ -753,7 +753,7 @@ print("no snowball")
 
 pizza:AddDropdown({
 	Name = "Teleports",
-	Default = "Pizza Place",
+	Default = "",
 	Options = {"Pizza Place", "Supplier Place", "Secret Island 1", "Secret Island 2"},
 	Callback = function(Value)
 		print("Selected tp location:", Value)
