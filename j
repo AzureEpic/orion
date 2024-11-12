@@ -812,6 +812,39 @@ pizza:AddDropdown({
 
 
 
+pizza:AddButton({
+	Name = "drakeface",
+	Callback = function()
+		local args = {
+			[1] = game:GetService("Players").LocalPlayer.Character.Head.face,
+			[2] = "rbxassetid://18102135310"
+		}
+
+		workspace.Main.ChangeFace:FireServer(unpack(args))
+	end,
+	
+	
+	
+	
+})
+
+
+
+pizza:AddTextbox({
+	Name = "Custom Face (Decal ID)",
+	Default = "",
+	TextDisappear = true,
+	Callback = function(Value)
+		workspace.Main.ChangeFace:FireServer(char:FindFirstChild("Head"), "rbxassetid://"..tonumber(Value))
+	end	  
+})
+
+--[[
+Name = <string> - The name of the textbox.
+Default = <string> - The default value of the textbox.
+TextDisappear = <bool> - Makes the text disappear in the textbox after losing focus.
+Callback = <function> - The function of the textbox.
+]]
 
 
 
