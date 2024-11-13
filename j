@@ -575,6 +575,35 @@ pizza:AddButton({
 ]]
 
 
+pizza:AddButton({
+	Name = "Knock down everyone's mailbox",
+
+	Callback = function()
+		
+		for i = 1, 100 do
+			
+		
+		
+		for _, plr in game.Players:GetPlayers() do
+			local plrname = plr.Name
+
+			-- Loop through each house from House7 to House11
+			for houseNum = 1, 11 do
+				local house = workspace.Houses:FindFirstChild("House" .. houseNum)
+
+				-- Check if the house and the player's mailbox exist
+				if house and house:FindFirstChild(plrname) then
+					local args = {
+						[1] = house[plrname]
+					}
+					workspace.Main.KnockMailbox:FireServer(unpack(args))
+				end
+			end
+		end
+		
+		end
+	end,
+})
 
 
 
@@ -722,6 +751,8 @@ pizza:AddButton({
 })
 
 
+
+--[[ scrapped till i find a workaround
 pizza:AddToggle({
 	Name = "Make supply truck(s) follow behind you",
 	Default = false,
@@ -771,6 +802,10 @@ pizza:AddToggle({
 		end
 	end    
 })
+
+]]
+
+
 
 --[[
 Name = <string> - The name of the toggle.
