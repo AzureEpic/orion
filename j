@@ -22,6 +22,7 @@ end
 
 
 
+
 local truckFollowCoroutine
 
 local walkSpeedCoroutine
@@ -91,6 +92,12 @@ truckTP.Position = _G.TruckTPPos
 
 
 --------INfo Variables
+local fps = math.floor(workspace:GetRealPhysicsFPS())
+local ws = hum.WalkSpeed
+local ping=game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString()
+local currentPlayers = #game.Players:GetPlayers()
+local maxPlayers = game.Players.MaxPlayers
+local plrTime =  os.date("%X")
 
 --[[
 while wait(1) do
@@ -105,22 +112,6 @@ while wait(1) do
 
 
 
-end]]
---[[
-while wait() do
-	coroutine.wrap(function() 
-	
-local fps = math.floor(workspace:GetRealPhysicsFPS())
-local ws = hum.WalkSpeed
-local ping=game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString()
-local currentPlayers = #game.Players:GetPlayers()
-local maxPlayers = game.Players.MaxPlayers
-local plrTime =  os.date("%X")
-
-		
-		
-		
-	end)
 end]]
 
 local Window = OrionLib:MakeWindow({
