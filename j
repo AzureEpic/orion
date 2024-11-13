@@ -106,6 +106,7 @@ while wait(1) do
 
 
 end]]
+--[[
 while wait() do
 	coroutine.wrap(function() 
 	
@@ -120,7 +121,7 @@ local plrTime =  os.date("%X")
 		
 		
 	end)
-end
+end]]
 
 local Window = OrionLib:MakeWindow({
 	Name = "Azure's Thing",
