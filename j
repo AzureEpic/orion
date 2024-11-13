@@ -19,6 +19,10 @@ end
 
 
 
+local err, success = pcall(function()  
+
+
+
 
 
 
@@ -1101,3 +1105,7 @@ Callback = <function> - The function of the textbox.
 
 print("loaded")
 
+end)
+if not success then
+	Error(err)
+end
