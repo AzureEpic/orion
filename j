@@ -6,15 +6,30 @@ end
 
 
 
+
+------Notif
+local function Error(err)
+game:GetService("StarterGui"):SetCore("SendNotification", {
+	Title = "AzureEpic",
+	Text = "error: "..tostring(err) .. "However, this may be fixed in a few seconds.",
+	Icon = "rbxassetid://7733658504",
+	Duration = 7
+})
+end
+
+
 local truckFollowCoroutine
 
-
-
+local walkSpeedCoroutine
+local JumpCoroutine
+local hipHeightCoroutine
 
 
 local truckDistance = 10
 
-
+local sliderWalkspeed
+local sliderJump
+local sliderHeight
 
 
 -- New draggable Orion Lib script for hub creations!
@@ -174,7 +189,20 @@ Tab:AddButton({
 
 
 
-Tab:AddSlider({
+
+local plrTab = Window:MakeTab({
+	Name = "Player Settings",
+	Icon = "http://www.roblox.com/asset/?id=13289762774",
+	PremiumOnly = false
+	
+	
+})
+
+
+
+
+
+plrTab:AddSlider({
 	Name = "Walkspeed",
 	Min = 0,
 	Max = 500,
@@ -184,12 +212,53 @@ Tab:AddSlider({
 	ValueName = "speed",
 	Callback = function(Value)
 		hum.WalkSpeed = Value
+		sliderWalkspeed = Value
 	end    
 })
 
 
 
-Tab:AddSlider({
+
+plrTab:AddToggle({
+	Name = "Set WalkSpeed as slider value",
+	Default = false,
+	Callback = function(run)
+		print(" truck follow")
+
+		if run then
+			walkSpeedCoroutine = coroutine.create(function()
+				while true do
+					local success, err = pcall(function()  
+					hum.WalkSpeed = sliderWalkspeed
+					end)
+
+					if not success then
+					Error(err)
+					
+					end
+
+
+
+					task.wait(0.01)  
+				end
+			end)
+
+			coroutine.resume(walkSpeedCoroutine)
+
+		else
+			if walkSpeedCoroutine and coroutine.status(walkSpeedCoroutine) == "suspended" then
+				walkSpeedCoroutine = nil  
+			end
+		end
+	end    
+})
+
+
+
+
+
+
+plrTab:AddSlider({
 	Name = "Jumppower",
 	Min = 0,
 	Max = 500,
@@ -199,11 +268,49 @@ Tab:AddSlider({
 	ValueName = "jump power",
 	Callback = function(Value)
 		hum.JumpPower = Value
+		sliderJump = Value
+		
 	end    
 })
 
 
-Tab:AddSlider({
+
+plrTab:AddToggle({
+	Name = "Set JumpPower as slider value",
+	Default = false,
+	Callback = function(run)
+		print(" truck follow")
+
+		if run then
+			JumpCoroutine = coroutine.create(function()
+				while true do
+					local success, err = pcall(function()  
+						hum.JumpPower = sliderJump
+					end)
+
+					if not success then
+						Error(err)
+
+					end
+
+
+
+					task.wait(0.01)  
+				end
+			end)
+
+			coroutine.resume(JumpCoroutine)
+
+		else
+			if JumpCoroutine and coroutine.status(JumpCoroutine) == "suspended" then
+				JumpCoroutine = nil  
+			end
+		end
+	end    
+})
+
+
+plrTab:AddSlider({
 	Name = "HipHeight (can trigger anticheats)",
 	Min = 0,
 	Max = 500,
@@ -213,8 +320,47 @@ Tab:AddSlider({
 	ValueName = "height (in studs duh)",
 	Callback = function(Value)
 		hum.HipHeight = Value
+		sliderHeight = Value
 	end    
 })
+
+
+
+plrTab:AddToggle({
+	Name = "Set WalkSpeed as slider value",
+	Default = false,
+	Callback = function(run)
+		print(" truck follow")
+
+		if run then
+			hipHeightCoroutine = coroutine.create(function()
+				while true do
+					local success, err = pcall(function()  
+						hum.HipHeight = sliderHeight
+					end)
+
+					if not success then
+						Error(err)
+
+					end
+
+
+
+					task.wait(0.01)  
+				end
+			end)
+
+			coroutine.resume(hipHeightCoroutine)
+
+		else
+			if hipHeightCoroutine and coroutine.status(hipHeightCoroutine) == "suspended" then
+				hipHeightCoroutine = nil  
+			end
+		end
+	end    
+})
+
+
 
 --[[
 Name = <string> - The name of the slider.
@@ -225,6 +371,7 @@ Default = <number> - The default value of the slider.
 ValueName = <string> - The text after the value number.
 Callback = <function> - The function of the slider.
 ]]
+
 
 
 
@@ -642,6 +789,7 @@ pizza:AddDropdown({
 				if truck and truck.Driver and truck.Driver:FindFirstChild("ClickDetector") then
 					truck.Driver.ClickDetector:FireServer()
 					wait(0.5)
+				
 				else
 					error("Supply truck not found or missing ClickDetector")
 				end
@@ -670,9 +818,9 @@ pizza:AddDropdown({
 			if not success then
 				game:GetService("StarterGui"):SetCore("SendNotification", {
 					Title = "AzureEpic",
-					Text = "error: "..tostring(err),
+					Text = "error: "..tostring(err) .. "However, this may be fixed in a few seconds.",
 					Icon = "rbxassetid://7733658504",
-					Duration = 5
+					Duration = 7
 				})
 			end
 		else
@@ -921,7 +1069,7 @@ pizza:AddTextbox({
 	Default = "",
 	TextDisappear = false,
 	Callback = function(Value)
-		workspace.Main.ChangeFace:FireServer(char:FindFirstChild("Head"), "rbxassetid://"..tonumber(Value))
+		workspace.Main.ChangeFace:FireServer(char:FindFirstChild("Head").face, "rbxassetid://"..tonumber(Value))
 	end	  
 })
 
