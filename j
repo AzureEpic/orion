@@ -722,58 +722,53 @@ pizza:AddButton({
 })
 
 
-
-
 pizza:AddToggle({
 	Name = "Make supply truck(s) follow behind you",
 	Default = false,
 	Callback = function(run)
-
-
-
 		print(" truck follow")
 
 		if run then
 			truckFollowCoroutine = coroutine.create(function()
 				while true do
 					local success, err = pcall(function()  
+						local trucks = workspace.Trucks
+						local truck = trucks:FindFirstChild("Supply Truck")
 
-						local trucks =  workspace.Trucks
-						local truck = workspace.Trucks:FindFirstChild("Supply Truck")
+						if truck then
+							for _, part in truck:GetDescendants() do
+								if part:IsA("BasePart") then
+									local bp = part:FindFirstChildOfClass("BodyPosition")
+									if not bp then
+										bp = Instance.new("BodyPosition")
+										bp.Parent = part
+									end
 
-						char:PivotTo(truck:FindFirstChild("Driver").CFrame)
-
-						for _, part in truck:GetDescendants() do
-							if part:IsA("BasePart") then
-								local bp = part:FindFirstChildOfClass("BodyPosition") or Instance.new("BodyPosition")
-								bp.Parent =  part
-
-								local plrPos = rootpart.Position
-								local mainLookVector =rootpart.CFrame.LookVector
-								bp.Position = plrPos - (mainLookVector * truckDistance)
-
-
+									local plrPos = rootpart.Position
+									local mainLookVector = rootpart.CFrame.LookVector
+									bp.Position = plrPos - (mainLookVector * truckDistance)
+								end
 							end
 						end
-
-
 					end)
+
 					if not success then
-						print("cant truck follow cuz of ".. tostring(err))
+						print("truck wont follow cuz: ".. tostring(err))
 					end
+
+
+
+					task.wait(0.01)  
 				end
-
-
 			end)
 
 			coroutine.resume(truckFollowCoroutine)
 
 		else
-			coroutine.close(truckFollowCoroutine)
-
+			if truckFollowCoroutine and coroutine.status(truckFollowCoroutine) == "suspended" then
+				truckFollowCoroutine = nil  
+			end
 		end
-
-
 	end    
 })
 
