@@ -574,7 +574,7 @@ pizza:AddButton({
 })
 ]]
 
-
+--[[
 pizza:AddButton({
 	Name = "Knock down everyone's mailbox",
 
@@ -605,7 +605,7 @@ pizza:AddButton({
 	end,
 })
 
-
+]]
 
 pizza:AddButton({
 	Name = "Teleport a supply truck into restaurant (troll)",
@@ -629,71 +629,58 @@ pizza:AddDropdown({
 			["Supplier"] = _G.Suppliers, 
 			["Cooks"] = _G.Cooks,
 			["Boxer"] = _G.Boxers,
-			["Manager"] = _G.Manager,  -- Updated for matching
+			["Manager"] = _G.Manager,
 			["Delivery"] = _G.Delivery,
-			
 		}
 
 		local selectedPosition = locationPositions[Value]
 
 		if selectedPosition then
-		
-		
-		
-		
-		
-		
-			workspace.Trucks:FindFirstChild("Supply Truck").Driver.ClickDetector.Detector:FireServer()
-			wait(0.5)
+			local success, err = pcall(function()
+				-- Fire the server to activate the supply truck's driver detector
+				local truck = workspace.Trucks:FindFirstChild("Supply Truck")
+				if truck and truck.Driver and truck.Driver:FindFirstChild("ClickDetector") then
+					truck.Driver.ClickDetector:FireServer()
+					wait(0.5)
+				else
+					error("Supply truck not found or missing ClickDetector")
+				end
 
+				-- Create a teleport part at the target location for verification
+				local truckTP = Instance.new("Part")
+				truckTP.Size = Vector3.new(5, 1, 5)
+				truckTP.Anchored = true
+				truckTP.Position = selectedPosition
+				truckTP.Parent = workspace
+				truckTP.Name = "TruckTeleportMarker"  -- This marker can help with debugging.
 
+				-- Teleport the truck to the specified position
+				if game.Players.LocalPlayer.Character then
+					local hum = game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
+					if hum and hum.SeatPart then
+						truck:PivotTo(CFrame.new(selectedPosition))
+						print("Truck teleported successfully.")
+					else
+						error("Failed to teleport truck: player is not sitting in a valid seat.")
+					end
+				end
+			end)
 
-
-
-
-		
-
-
-
-
-			--------other instances
-
-			local truckTP = Instance.new("Part")
-			truckTP.Parent = workspace
-			truckTP.Position = _G.TruckTPPos
-
-
-
-
-
-			local plr = game.Players.LocalPlayer
-			local char = plr.Character
-
-			local hum = char:FindFirstChildOfClass("Humanoid")
-
-			local sitting = hum.SeatPart
-
-
-
-			-- Teleport the truck to the specified position
-			if sitting and sitting.Parent:IsA("Model") then
-				sitting.Parent:PivotTo(CFrame.new(selectedPosition))
-				
-			else
-				error("failed to teleport truck: player is not sitting in a valid seat.")
+			-- Handle errors if the pcall failed
+			if not success then
+				game:GetService("StarterGui"):SetCore("SendNotification", {
+					Title = "AzureEpic",
+					Text = "error: "..tostring(err),
+					Icon = "rbxassetid://7733658504",
+					Duration = 5
+				})
 			end
-			
-			
-			
-			
-			
-			
-			
-			
-			print("no positions")
+		else
+			print("No position found for selection.")
 		end
 	end    
 })
+
 print("Dropdown 'Teleports' created")  -- Confirm if dropdown creation reaches here
 
 
