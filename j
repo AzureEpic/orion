@@ -6,6 +6,16 @@ end
 
 
 
+local truckFollowCoroutine
+
+
+
+
+
+local truckDistance = 10
+
+
+
 
 -- New draggable Orion Lib script for hub creations!
 local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/AzureEpic/orion/refs/heads/main/Source')))()
@@ -714,6 +724,65 @@ pizza:AddButton({
 
 
 
+pizza:AddToggle({
+	Name = "Make supply truck(s) follow behind you",
+	Default = false,
+	Callback = function(run)
+
+
+
+		print(run.. " truck follow")
+
+		if run then
+			truckFollowCoroutine = coroutine.create(function()
+				while true do
+					local success, err = pcall(function()  
+
+						local trucks =  workspace.Trucks
+						local truck = workspace.Trucks:FindFirstChild("Supply Truck")
+
+						char:PivotTo(truck:FindFirstChild("Driver").CFrame)
+
+						for _, part in truck:GetDescendants() do
+							if part:IsA("BasePart") then
+								local bp = part:FindFirstChildOfClass("BodyPosition") or Instance.new("BodyPosition")
+								bp.Parent =  part
+
+								local plrPos = rootpart.Position
+								local mainLookVector =rootpart.CFrame.LookVector
+								bp.Position = plrPos - (mainLookVector * truckDistance)
+
+
+							end
+						end
+
+
+					end)
+					if not success then
+						print("cant truck follow cuz of ".. tostring(err))
+					end
+				end
+
+
+			end)
+
+			coroutine.resume(truckFollowCoroutine)
+
+		else
+			coroutine.close(truckFollowCoroutine)
+
+		end
+
+
+	end    
+})
+
+--[[
+Name = <string> - The name of the toggle.
+Default = <bool> - The default value of the toggle.
+Callback = <function> - The function of the toggle.
+]]
+
 --[[
 pizza:AddButton({
 	Name = "Snowball random player",
@@ -833,7 +902,7 @@ pizza:AddButton({
 pizza:AddTextbox({
 	Name = "Custom Face (Decal ID)",
 	Default = "",
-	TextDisappear = true,
+	TextDisappear = false,
 	Callback = function(Value)
 		workspace.Main.ChangeFace:FireServer(char:FindFirstChild("Head"), "rbxassetid://"..tonumber(Value))
 	end	  
@@ -845,6 +914,11 @@ Default = <string> - The default value of the textbox.
 TextDisappear = <bool> - Makes the text disappear in the textbox after losing focus.
 Callback = <function> - The function of the textbox.
 ]]
+
+
+
+
+
 
 
 
