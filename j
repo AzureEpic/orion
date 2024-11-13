@@ -581,7 +581,7 @@ pizza:AddButton({
 	Callback = function()
 		
 		for i = 1, 100 do
-			
+			task.wait()
 		
 		
 		for _, plr in game.Players:GetPlayers() do
