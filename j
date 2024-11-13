@@ -731,7 +731,7 @@ pizza:AddToggle({
 
 
 
-		print(run.. " truck follow")
+		print(" truck follow")
 
 		if run then
 			truckFollowCoroutine = coroutine.create(function()
