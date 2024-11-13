@@ -18,6 +18,10 @@ game:GetService("StarterGui"):SetCore("SendNotification", {
 end
 
 
+
+
+
+
 local truckFollowCoroutine
 
 local walkSpeedCoroutine
@@ -108,6 +112,21 @@ while wait(1) do
 
 
 end]]
+while wait() do
+	coroutine.wrap(function() 
+		fps = math.floor(workspace:GetRealPhysicsFPS())
+		ws = hum.WalkSpeed
+		ping=game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString()
+		currentPlayers = #game.Players:GetPlayers()
+		maxPlayers = game.Players.MaxPlayers
+		plrTime =  os.date("%X")
+
+
+		
+		
+		
+	end)
+end
 
 local Window = OrionLib:MakeWindow({
 	Name = "Azure's Thing",
