@@ -947,7 +947,51 @@ Callback = <function> - The function of the slider.
 			loadstring(game:HttpGet("https://raw.githubusercontent.com/Raigforce/CrappyFTAPLol/refs/heads/main/FtapSigmaShi"))()
 		end
 	})
+	
+	
+	
+	local duck = Window:MakeTab({
+	Name = "Raise A Duck",
+Icon = "rbxassetid://0",
+PremiumOnly = 0
+		
+	})
 
+
+duck:AddButton({
+	Name = "Kill Raiders",
+	Callback = function()
+			fun:AddButton({
+
+				Name = "Kill NPCS",
+				Callback = function()
+
+					for _, descendant in pairs(workspace.Raid:GetDescendants()) do
+
+						if descendant:IsA("Model") and descendant:FindFirstChild("Humanoid") then
+							local humanoid = descendant:FindFirstChild("Humanoid")
+
+
+							if humanoid and not descendant:IsDescendantOf(game.Players.LocalPlayer.Character) then
+								--descendant:Destroy()
+								char:PivotTo(descendant.PrimaryPart.CFrame)
+								humanoid.Health = 0
+								print("NPC died lol ", descendant.Name)
+							end
+						end
+					end
+
+
+
+				end,
+
+
+			})
+
+
+	end,	
+	
+})
 
 
 
@@ -1307,8 +1351,7 @@ pizza:AddSection({
 
 
 
-
-
+--[[]
 	pizza:AddButton({
 		Name = "drakeface",
 		Callback = function()
@@ -1335,6 +1378,15 @@ pizza:AddSection({
 			workspace.Main.ChangeFace:FireServer(char:FindFirstChild("Head").face, "rbxassetid://"..tonumber(Value))
 		end	  
 	})
+]
+
+
+
+
+
+
+
+
 
 --[[
 Name = <string> - The name of the textbox.
