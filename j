@@ -1013,7 +1013,7 @@ part.CanCollide = false
 					
 						--descendant:Destroy()
 						char:PivotTo(descendant.CFrame)
-			
+			task.wait(.1)
 					
 				end
 				
