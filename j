@@ -392,7 +392,7 @@ Tab:AddButton({
 					AgentHeight = humanoid.HipHeight * 2,
 					AgentCanJump = true,
 					AgentJumpHeight = humanoid.JumpHeight,
-					AgentMaxSlope = humanoid.MaxSlope
+				--	AgentMaxSlope = humanoid.MaxSlope
 				})
 
 				-- Compute the path to the target position
