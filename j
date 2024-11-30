@@ -222,7 +222,8 @@ Tab:AddButton({
 
 
 					if humanoid and not descendant:IsDescendantOf(game.Players.LocalPlayer.Character) then
-						descendant:Destroy()
+						--descendant:Destroy()
+						humanoid.Health = 0
 						print("NPC died lol ", descendant.Name)
 					end
 				end
