@@ -363,6 +363,7 @@ Tab:AddButton({
 
 		Name = "Make all NPC follow you",
 		Callback = function()
+			for i = 1, 100 do
 			local Players = game:GetService("Players")
 			local PathfindingService = game:GetService("PathfindingService")
 			local LocalPlayer = Players.LocalPlayer
@@ -416,7 +417,8 @@ Tab:AddButton({
 					makeNPCFollow(npc)
 				end
 			end
-
+			wait(.01)
+end
 		end,
 
 
