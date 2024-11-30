@@ -953,7 +953,7 @@ Callback = <function> - The function of the slider.
 	local duck = Window:MakeTab({
 	Name = "Raise A Duck",
 Icon = "rbxassetid://0",
-PremiumOnly = 0
+PremiumOnly = false
 		
 	})
 
@@ -990,6 +990,44 @@ duck:AddButton({
 	end,	
 	
 })
+
+
+	duck:AddButton({
+		Name = "Collect All Money",
+		Callback = function()
+
+
+local part = Instance.new("Part")
+part.Parent = workspace
+part.Position = rootpart.Position
+part.Size = Vector3.new(0.1,0.1,0.1)
+part.Anchored = true
+part.Transparency = 1
+
+			for _, descendant in pairs(workspace:GetDescendants()) do
+
+				if descendant:IsA("BasePart") and descendant.Name == "Money" then
+				
+
+
+					
+						--descendant:Destroy()
+						char:PivotTo(descendant.PrimaryPart.CFrame)
+			
+					
+				end
+			end
+
+
+
+
+char:PivotTo(part.CFrame)
+
+
+
+		end,	
+
+	})
 
 
 
