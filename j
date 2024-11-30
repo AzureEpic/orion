@@ -32,7 +32,7 @@ local err, success = pcall(function()
 	local walkSpeedCoroutine
 	local JumpCoroutine
 	local hipHeightCoroutine
-
+local antiTripCoroutine
 
 	local truckDistance = 10
 
@@ -552,7 +552,7 @@ end
 
 
 	plrTab:AddToggle({
-		Name = "Set WalkSpeed as slider value",
+		Name = "Set HipHeight as slider value",
 		Default = false,
 		Callback = function(run)
 			print(" truck follow")
@@ -585,6 +585,44 @@ end
 		end    
 	})
 
+
+
+
+	plrTab:AddToggle({
+		Name = "Anti Trip",
+		Default = false,
+		Callback = function(run)
+			print(" helo")
+
+			if run then
+				antiTripCoroutine = coroutine.create(function()
+					while true do
+						local success, err = pcall(function()  
+							hum.PlatformStand = false 
+							hum.Sit = false
+							
+						end)
+
+						if not success then
+							Error(err)
+
+						end
+
+
+
+						task.wait(0.01)  
+					end
+				end)
+
+				coroutine.resume(antiTripCoroutine)
+
+			else
+				if antiTripCoroutine and coroutine.status(antiTripCoroutine) == "suspended" then
+					antiTripCoroutine = nil  
+				end
+			end
+		end    
+	})
 
 
 --[[
