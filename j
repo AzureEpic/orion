@@ -392,13 +392,13 @@ Tab:AddButton({
 						AgentHeight = humanoid.HipHeight * 2,
 						AgentCanJump = true,
 						AgentJumpHeight = humanoid.JumpHeight,
-						AgentMaxSlope = humanoid.MaxSlopeAngle, -- Corrected property name
+						AgentMaxSlope = humanoid.MaxSlopeAngle,
 					})
 
 					-- Compute the path to the target position
 					path:ComputeAsync(rootPart.Position, targetPosition)
 
-					if path.Status == Enum.PathStatus.Complete then
+					if path.Status == Enum.PathStatus.Success then -- Corrected property check
 						-- Move the NPC along the computed path
 						for _, waypoint in ipairs(path:GetWaypoints()) do
 							humanoid:MoveTo(waypoint.Position)
