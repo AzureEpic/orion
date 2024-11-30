@@ -199,6 +199,153 @@ Tab:AddButton({
 
 
 
+
+	local fun = Window:MakeTab({
+		Name = "Fun",
+		Icon = "rbxassetid://0",
+		PremiumOnly = false
+
+
+
+	})
+
+
+	fun:AddButton({
+
+		Name = "Kill NPCS",
+		Callback = function()
+
+			for _, descendant in pairs(workspace:GetDescendants()) do
+
+				if descendant:IsA("Model") and descendant:FindFirstChild("Humanoid") then
+					local humanoid = descendant:FindFirstChild("Humanoid")
+
+
+					if humanoid and not descendant:IsDescendantOf(game.Players) then
+						descendant:Destroy()
+						print("NPC died lol ", descendant.Name)
+					end
+				end
+			end
+
+
+
+		end,
+
+
+	})
+
+
+
+	fun:AddButton({
+
+		Name = "Fling NPCS",
+		Callback = function()
+
+			for _, descendant in pairs(workspace:GetDescendants()) do
+				if descendant:IsA("Model") and descendant:FindFirstChild("Humanoid") and not descendant:IsDescendantOf(game.Players) then
+					for _, part in pairs(descendant:GetChildren()) do
+						if part:IsA("BasePart") then
+							part.Velocity = Vector3.new(math.random(-500, 500), math.random(200, 500), math.random(-500, 500))
+						end
+					end
+					print("NPC flung:", descendant.Name)
+				end
+			end
+
+
+		end,
+
+
+	})
+
+
+
+	fun:AddButton({
+
+		Name = "Bring NPCS",
+		Callback = function()
+
+			local character = game.Players.LocalPlayer.Character
+			if not character or not character:FindFirstChild("HumanoidRootPart") then
+				warn("Player's character or HumanoidRootPart not found.")
+				return
+			end
+
+			local targetPosition = character.HumanoidRootPart.Position
+			for _, descendant in pairs(workspace:GetDescendants()) do
+				if descendant:IsA("Model") and descendant:FindFirstChild("Humanoid") and not descendant:IsDescendantOf(game.Players) then
+					local humanoidRootPart = descendant:FindFirstChild("HumanoidRootPart")
+					if humanoidRootPart then
+						humanoidRootPart.CFrame = CFrame.new(targetPosition + Vector3.new(math.random(-5, 5), 0, math.random(-5, 5)))
+						print("NPC brought to player:", descendant.Name)
+					end
+				end
+			end
+
+		end,
+
+
+	})
+
+	fun:AddButton({
+
+		Name = "Sit NPCS",
+		Callback = function()
+
+			for _, descendant in pairs(workspace:GetDescendants()) do
+				if descendant:IsA("Model") and descendant:FindFirstChild("Humanoid") and not descendant:IsDescendantOf(game.Players) then
+					local humanoid = descendant:FindFirstChild("Humanoid")
+					if humanoid then
+						humanoid.Sit = true
+						print("NPC is now sitting:", descendant.Name)
+					end
+				end
+			end
+
+		end,
+
+
+	})
+
+
+	fun:AddButton({
+
+		Name = "Blackhole (Bring all UNANCHORED parts)",
+		Callback = function()
+
+			local character = game.Players.LocalPlayer.Character
+			if not character or not character:FindFirstChild("HumanoidRootPart") then
+				warn("Player's character or HumanoidRootPart not found.")
+				return
+			end
+
+			local center = character.HumanoidRootPart.Position -- The position of the "black hole"
+
+			for _, descendant in pairs(workspace:GetDescendants()) do
+				if descendant:IsA("BasePart") and not descendant:IsDescendantOf(game.Players) then
+					-- Create BodyPosition to move the part towards the black hole
+					local bodyPosition = Instance.new("BodyPosition")
+					bodyPosition.MaxForce = Vector3.new(100000, 100000, 100000) -- Strong force
+					bodyPosition.P = 3000 -- Responsiveness of the movement
+					bodyPosition.Position = center
+					bodyPosition.Parent = descendant
+
+					-- Remove BodyPosition after a few seconds
+					task.spawn(function()
+						task.wait(5)
+						if bodyPosition.Parent then
+							bodyPosition:Destroy()
+						end
+					end)
+				end
+			end
+
+		end,
+
+
+	})
+
 	local plrTab = Window:MakeTab({
 		Name = "Player Settings",
 		Icon = "http://www.roblox.com/asset/?id=13289762774",
@@ -1104,153 +1251,6 @@ Callback = <function> - The function of the textbox.
 
 
 
-	
-	
-local fun = Window:MakeTab({
-	Name = "Fun",
-		Icon = "rbxassetid://0",
-	PremiumOnly = false
-
-
-
-})
-
-
-fun:AddButton({
-	
-	Name = "Kill NPCS",
-	Callback = function()
-
-			for _, descendant in pairs(workspace:GetDescendants()) do
-
-				if descendant:IsA("Model") and descendant:FindFirstChild("Humanoid") then
-					local humanoid = descendant:FindFirstChild("Humanoid")
-
-			
-					if humanoid and not descendant:IsDescendantOf(game.Players) then
-						descendant:Destroy()
-						print("NPC died lol ", descendant.Name)
-					end
-				end
-			end
-
-
-
-		end,
-	
-	
-})
-	
-	
-	
-	fun:AddButton({
-
-		Name = "Fling NPCS",
-		Callback = function()
-
-			for _, descendant in pairs(workspace:GetDescendants()) do
-				if descendant:IsA("Model") and descendant:FindFirstChild("Humanoid") and not descendant:IsDescendantOf(game.Players) then
-					for _, part in pairs(descendant:GetChildren()) do
-						if part:IsA("BasePart") then
-							part.Velocity = Vector3.new(math.random(-500, 500), math.random(200, 500), math.random(-500, 500))
-						end
-					end
-					print("NPC flung:", descendant.Name)
-				end
-			end
-
-
-		end,
-
-
-	})
-	
-	
-	
-	fun:AddButton({
-
-		Name = "Bring NPCS",
-		Callback = function()
-
-			local character = game.Players.LocalPlayer.Character
-			if not character or not character:FindFirstChild("HumanoidRootPart") then
-				warn("Player's character or HumanoidRootPart not found.")
-				return
-			end
-
-			local targetPosition = character.HumanoidRootPart.Position
-			for _, descendant in pairs(workspace:GetDescendants()) do
-				if descendant:IsA("Model") and descendant:FindFirstChild("Humanoid") and not descendant:IsDescendantOf(game.Players) then
-					local humanoidRootPart = descendant:FindFirstChild("HumanoidRootPart")
-					if humanoidRootPart then
-						humanoidRootPart.CFrame = CFrame.new(targetPosition + Vector3.new(math.random(-5, 5), 0, math.random(-5, 5)))
-						print("NPC brought to player:", descendant.Name)
-					end
-				end
-			end
-
-		end,
-
-
-	})
-
-	fun:AddButton({
-
-		Name = "Sit NPCS",
-		Callback = function()
-
-			for _, descendant in pairs(workspace:GetDescendants()) do
-				if descendant:IsA("Model") and descendant:FindFirstChild("Humanoid") and not descendant:IsDescendantOf(game.Players) then
-					local humanoid = descendant:FindFirstChild("Humanoid")
-					if humanoid then
-						humanoid.Sit = true
-						print("NPC is now sitting:", descendant.Name)
-					end
-				end
-			end
-
-		end,
-
-
-	})
-
-
-	fun:AddButton({
-
-		Name = "Blackhole (Bring all UNANCHORED parts)",
-		Callback = function()
-
-			local character = game.Players.LocalPlayer.Character
-			if not character or not character:FindFirstChild("HumanoidRootPart") then
-				warn("Player's character or HumanoidRootPart not found.")
-				return
-			end
-
-			local center = character.HumanoidRootPart.Position -- The position of the "black hole"
-
-			for _, descendant in pairs(workspace:GetDescendants()) do
-				if descendant:IsA("BasePart") and not descendant:IsDescendantOf(game.Players) then
-					-- Create BodyPosition to move the part towards the black hole
-					local bodyPosition = Instance.new("BodyPosition")
-					bodyPosition.MaxForce = Vector3.new(100000, 100000, 100000) -- Strong force
-					bodyPosition.P = 3000 -- Responsiveness of the movement
-					bodyPosition.Position = center
-					bodyPosition.Parent = descendant
-
-					-- Remove BodyPosition after a few seconds
-					task.spawn(function()
-						task.wait(5)
-						if bodyPosition.Parent then
-							bodyPosition:Destroy()
-						end
-					end)
-				end
-			end
-
-		end,
-
-
-	})
 
 
 	print("loaded")
