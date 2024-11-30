@@ -364,59 +364,59 @@ Tab:AddButton({
 		Name = "Make all NPC follow you",
 		Callback = function()
 			for i = 1, 100 do
-			local Players = game:GetService("Players")
-			local PathfindingService = game:GetService("PathfindingService")
-			local LocalPlayer = Players.LocalPlayer
-			local Character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
-			local HumanoidRootPart = Character:WaitForChild("HumanoidRootPart")
-			local Workspace = game.Workspace
+				local Players = game:GetService("Players")
+				local PathfindingService = game:GetService("PathfindingService")
+				local LocalPlayer = Players.LocalPlayer
+				local Character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
+				local HumanoidRootPart = Character:WaitForChild("HumanoidRootPart")
+				local Workspace = game.Workspace
 
-			-- Distance to maintain from the player
-			local followDistance = 8
+				-- Distance to maintain from the player
+				local followDistance = 8
 
-			-- Function to make an NPC follow the player once
-			local function makeNPCFollow(npc)
-				local humanoid = npc:FindFirstChild("Humanoid")
-				local rootPart = npc:FindFirstChild("HumanoidRootPart")
+				-- Function to make an NPC follow the player once
+				local function makeNPCFollow(npc)
+					local humanoid = npc:FindFirstChild("Humanoid")
+					local rootPart = npc:FindFirstChild("HumanoidRootPart")
 
-				if not humanoid or not rootPart then
-					return
-				end
+					if not humanoid or not rootPart then
+						return
+					end
 
-				-- Calculate the target position 8 studs behind the player
-				local targetPosition = HumanoidRootPart.Position - (HumanoidRootPart.CFrame.LookVector * followDistance)
+					-- Calculate the target position 8 studs behind the player
+					local targetPosition = HumanoidRootPart.Position - (HumanoidRootPart.CFrame.LookVector * followDistance)
 
-				-- Create a path
-				local path = PathfindingService:CreatePath({
-					AgentRadius = humanoid.HipHeight,
-					AgentHeight = humanoid.HipHeight * 2,
-					AgentCanJump = true,
-					AgentJumpHeight = humanoid.JumpHeight,
-				--	AgentMaxSlope = humanoid.MaxSlope
-				})
+					-- Create a path
+					local path = PathfindingService:CreatePath({
+						AgentRadius = humanoid.HipHeight,
+						AgentHeight = humanoid.HipHeight * 2,
+						AgentCanJump = true,
+						AgentJumpHeight = humanoid.JumpHeight,
+					})
 
-				-- Compute the path to the target position
-				path:ComputeAsync(rootPart.Position, targetPosition)
+					-- Compute the path to the target position
+					path:ComputeAsync(rootPart.Position, targetPosition)
 
-				if path.Status == Enum.PathStatus.Complete then
-					-- Move the NPC along the computed path
-					for _, waypoint in ipairs(path:GetWaypoints()) do
-						humanoid:MoveTo(waypoint.Position)
-						humanoid.MoveToFinished:Wait()
+					if path.Status == Enum.PathStatus.Complete then
+						-- Move the NPC along the computed path
+						for _, waypoint in ipairs(path:GetWaypoints()) do
+							humanoid:MoveTo(waypoint.Position)
+							humanoid.MoveToFinished:Wait()
+						end
 					end
 				end
-			end
 
-			-- Iterate over all NPCs in the workspace and make them follow the player once
-			for _, npc in ipairs(Workspace:GetChildren()) do
-				if npc:IsA("Model") 
-					and npc:FindFirstChild("Humanoid") 
-					and npc:FindFirstChild("HumanoidRootPart") 
-					and not Players:GetPlayerFromCharacter(npc) then
-					-- Exclude player characters
-					makeNPCFollow(npc)
+				-- Iterate over all NPCs in the workspace and make them follow the player once
+				for _, npc in ipairs(Workspace:GetChildren()) do
+					if npc:IsA("Model") 
+						and npc:FindFirstChild("Humanoid") 
+						and npc:FindFirstChild("HumanoidRootPart") 
+						and not Players:GetPlayerFromCharacter(npc) then
+						-- Exclude player characters
+						makeNPCFollow(npc)
+					end
 				end
-			end
+
 			wait(.01)
 end
 		end,
