@@ -246,7 +246,12 @@ Tab:AddButton({
 				if descendant:IsA("Model") and descendant:FindFirstChild("Humanoid") and not descendant:IsDescendantOf(game.Players.LocalPlayer.Character) then
 					for _, part in pairs(descendant:GetChildren()) do
 						if part:IsA("BasePart") then
+							
+							rootpart.Anchored = true
+							
 							part.Velocity = Vector3.new(math.random(-500, 500), math.random(200, 500), math.random(-500, 500))
+							wait(.1)
+							rootpart.Anchored = false
 						end
 					end
 					print("NPC flung:", descendant.Name)
@@ -327,7 +332,7 @@ Tab:AddButton({
 					-- Create BodyPosition to move the part towards the black hole
 					local bodyPosition = Instance.new("BodyPosition")
 					bodyPosition.MaxForce = Vector3.new(100000, 100000, 100000) -- Strong force
-					bodyPosition.P = 3000 -- Responsiveness of the movement
+					bodyPosition.P = 10000 -- Responsiveness of the movement
 					bodyPosition.Position = center
 					bodyPosition.Parent = descendant
 
