@@ -961,10 +961,9 @@ PremiumOnly = 0
 duck:AddButton({
 	Name = "Kill Raiders",
 	Callback = function()
-			fun:AddButton({
 
-				Name = "Kill NPCS",
-				Callback = function()
+			
+	
 
 					for _, descendant in pairs(workspace.Raid:GetDescendants()) do
 
@@ -983,10 +982,9 @@ duck:AddButton({
 
 
 
-				end,
+			
 
 
-			})
 
 
 	end,	
