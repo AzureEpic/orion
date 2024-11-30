@@ -365,7 +365,6 @@ Tab:AddButton({
 		Callback = function()
 			for i = 1, 100 do
 				local Players = game:GetService("Players")
-				local PathfindingService = game:GetService("PathfindingService")
 				local LocalPlayer = Players.LocalPlayer
 				local Character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
 				local HumanoidRootPart = Character:WaitForChild("HumanoidRootPart")
@@ -374,7 +373,7 @@ Tab:AddButton({
 				-- Distance to maintain from the player
 				local followDistance = 8
 
-				-- Function to make an NPC follow the player once
+				-- Function to make an NPC move directly toward the target position
 				local function makeNPCFollow(npc)
 					local humanoid = npc:FindFirstChild("Humanoid")
 					local rootPart = npc:FindFirstChild("HumanoidRootPart")
@@ -386,25 +385,8 @@ Tab:AddButton({
 					-- Calculate the target position 8 studs behind the player
 					local targetPosition = HumanoidRootPart.Position - (HumanoidRootPart.CFrame.LookVector * followDistance)
 
-					-- Create a path
-					local path = PathfindingService:CreatePath({
-						AgentRadius = humanoid.HipHeight,
-						AgentHeight = humanoid.HipHeight * 2,
-						AgentCanJump = true,
-						AgentJumpHeight = humanoid.JumpHeight,
-						AgentMaxSlope = humanoid.MaxSlopeAngle,
-					})
-
-					-- Compute the path to the target position
-					path:ComputeAsync(rootPart.Position, targetPosition)
-
-					if path.Status == Enum.PathStatus.Success then -- Corrected property check
-						-- Move the NPC along the computed path
-						for _, waypoint in ipairs(path:GetWaypoints()) do
-							humanoid:MoveTo(waypoint.Position)
-							humanoid.MoveToFinished:Wait()
-						end
-					end
+					-- Move the NPC directly toward the target position
+					humanoid:MoveTo(targetPosition)
 				end
 
 				-- Iterate over all NPCs in the workspace and make them follow the player once
