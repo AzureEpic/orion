@@ -1003,7 +1003,7 @@ part.Position = rootpart.Position
 part.Size = Vector3.new(0.1,0.1,0.1)
 part.Anchored = true
 part.Transparency = 1
-
+part.CanCollide = false
 			for _, descendant in pairs(workspace:GetDescendants()) do
 
 				if descendant:IsA("BasePart") and descendant.Name == "Money" then
@@ -1012,10 +1012,11 @@ part.Transparency = 1
 
 					
 						--descendant:Destroy()
-						char:PivotTo(descendant.PrimaryPart.CFrame)
+						char:PivotTo(descendant.CFrame)
 			
 					
 				end
+				
 			end
 
 
