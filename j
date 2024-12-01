@@ -242,7 +242,7 @@ Tab:AddButton({
 			local npcs={}
 
 			function disappear(hum)
-				if hum:IsA("Humanoid") and not game:GetService("Players"):GetPlayerFromCharacter(hum.Parent) then
+				if hum:IsA("Humanoid") and not workspace[game.Players.LocalPlayer.Name].Humanoid then
 					table.insert(npcs,{hum,hum.HipHeight})
 					local rootPart=hum.Parent:FindFirstChild("HumanoidRootPart")
 					if rootPart then
