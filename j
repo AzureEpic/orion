@@ -247,6 +247,7 @@ Tab:AddButton({
 					local rootPart=hum.Parent:FindFirstChild("HumanoidRootPart")
 					if rootPart then
 						hum.Health=0
+rootpart.Parent:Destroy()
 					end      
 				end
 			end
