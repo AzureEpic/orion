@@ -428,78 +428,22 @@ Tab:AddButton({
 	
 	
 	
-
-	fun:AddButton({
+	
+	fun:AddToggle({
 		Name = "Walk Fling",
-		Callback = function()
-
-
-			if hiddenfling then
-				hiddenfling = false
-
-				game:GetService("StarterGui"):SetCore("SendNotification", {
-					Title = "AzureEpic",
-					Text = "Walkfling status: ".. hiddenfling,
-					Icon = "rbxassetid://7733658504",
-					Duration = 7
-				})
-			elseif not hiddenfling then
+		Default = false,
+		Callback = function(st)
+			if st then
 				hiddenfling = true
-				game:GetService("StarterGui"):SetCore("SendNotification", {
-					Title = "AzureEpic",
-					Text = "Walkfling status: ".. hiddenfling,
-					Icon = "rbxassetid://7733658504",
-					Duration = 7
-				})
-
+			else
+				hiddenfling = false
 			end
-
-
-
-			local RunService = game:GetService("RunService")
-			hiddenfling=true
-
-			local	function wfling()
-				local hrp,c,vel,movel=nil,nil,nil,0.1
-				while true do
-					RunService.Heartbeat:Wait()
-					if hiddenfling then
-						local lp=game:GetService("Players").LocalPlayer
-						while hiddenfling and not (c and c.Parent and hrp and hrp.Parent) do
-							RunService.Heartbeat:Wait()
-							c=lp.Character
-							hrp=c:FindFirstChild("HumanoidRootPart") or c:FindFirstChild("Torso") or c:FindFirstChild("UpperTorso")
-						end
-						if hiddenfling then
-							vel=hrp.Velocity
-							hrp.Velocity=vel*10000+Vector3.new(0,10000,0)
-							game:GetService("RunService").RenderStepped:Wait()
-							if c and c.Parent and hrp and hrp.Parent then
-								hrp.Velocity=vel
-							end
-							game:GetService("RunService").Stepped:Wait()
-							if c and c.Parent and hrp and hrp.Parent then
-								hrp.Velocity=vel+Vector3.new(0,movel,0)
-								movel=movel*-1
-							end
-						end
-					end
-				end
-			end
-
-			wfling()
-
-
-
-
-
-
-
-
-
 		end,
+		
+		
 	})
-
+	
+	
 	
 
 	local plrTab = Window:MakeTab({
@@ -1566,6 +1510,55 @@ while wait(.1) do
 	 maxPlayers = game.Players.MaxPlayers
 	 plrTime =  os.date("%X")
 
+end
+
+
+
+
+local NA_storage = Instance.new("ScreenGui")
+local RunService = game:GetService("RunService")
+
+
+
+
+
+
+if NA_storage:FindFirstChild("juisdfj0i32i0eidsuf0iok") then
+	hiddenfling=true
+else
+	hiddenfling=true
+	detection=Instance.new("Decal")
+	detection.Name="juisdfj0i32i0eidsuf0iok"
+	detection.Parent=NA_storage
+	function fling()
+		local hrp,c,vel,movel=nil,nil,nil,0.1
+		while true do
+			RunService.Heartbeat:Wait()
+			if hiddenfling then
+				local lp=game:GetService("Players").LocalPlayer
+				while hiddenfling and not (c and c.Parent and hrp and hrp.Parent) do
+					RunService.Heartbeat:Wait()
+					c=lp.Character
+					hrp=c:FindFirstChild("HumanoidRootPart") or c:FindFirstChild("Torso") or c:FindFirstChild("UpperTorso")
+				end
+				if hiddenfling then
+					vel=hrp.Velocity
+					hrp.Velocity=vel*10000+Vector3.new(0,10000,0)
+					RunService.RenderStepped:Wait()
+					if c and c.Parent and hrp and hrp.Parent then
+						hrp.Velocity=vel
+					end
+					game:GetService("RunService").Stepped:Wait()
+					if c and c.Parent and hrp and hrp.Parent then
+						hrp.Velocity=vel+Vector3.new(0,movel,0)
+						movel=movel*-1
+					end
+				end
+			end
+		end
+	end
+
+	fling()
 end
 
 
