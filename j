@@ -371,7 +371,7 @@ Tab:AddButton({
 		Name = "Make all NPC follow you",
 		Callback = function()
 			following = true
-			for i = 1, tonumber(secondsFollow) do
+			for i = 1, tonumber(secondsFollow * 10) do
 if not following then return end
 				local npcs={}
 
@@ -386,7 +386,7 @@ if not following then return end
 				for _,hum in pairs(game:GetService("Workspace"):GetDescendants()) do
 					disappear(hum)
 				end
-				wait(1)
+				wait(.1)
 			end
 		end,
 
@@ -538,7 +538,7 @@ if not following then return end
 		Name = "HipHeight (can trigger anticheats)",
 		Min = 0,
 		Max = 500,
-		Default = 0,
+		Default = 1,
 		Color = Color3.fromRGB(255,255,255),
 		Increment = 1,
 		ValueName = "height (in studs duh)",
