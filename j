@@ -298,7 +298,7 @@ Tab:AddButton({
 	local repoOwner = "AzureEpic"
 	local repoName = "orion"
 	local branch = "main"
-	local filePath = "Source"
+	local filePath = "j"
 
 	-- Construct the API URL
 	local apiUrl = string.format(
@@ -345,7 +345,7 @@ Tab:AddButton({
 	})
 
 	local Section = logs:AddSection({
-		Name = "Last Update: "..latestCommit.commit.author.name
+		Name = "Update Author: "..latestCommit.commit.author.name
 	})
 
 
@@ -1545,6 +1545,86 @@ duck:AddButton({
 
 
 	})
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+	local Players = game:GetService("Players")
+
+	-- Store the dropdown reference to modify its options
+	local dropdown
+
+	-- Function to update the dropdown options
+	local function updateDropdown()
+		local playerNames = {}
+
+		-- Gather all current player names
+		for _, player in ipairs(Players:GetPlayers()) do
+			table.insert(playerNames, player.Name)
+		end
+
+		-- Update the dropdown's options
+		dropdown:Update({
+			Options = playerNames,
+		})
+	end
+
+	-- Initialize the dropdown
+	dropdown = duck:AddDropdown({
+		Name = "Kick Player Lolo",
+		Default = "",
+		Options = {}, -- Start with an empty list
+		Callback = function(Value)
+			print("Player to kick:", Value)
+
+			-- Find the player to kick by name
+			local plrToKick = Players:FindFirstChild(Value)
+			if plrToKick then
+				local success, err = pcall(function()
+					local args = {
+						[1] = "Kick",
+						[2] = plrToKick
+					}
+
+					game:GetService("ReplicatedStorage").RemoteEvents.HostAction:FireServer(unpack(args))
+				end)
+
+				-- Handle errors if the pcall failed
+				if not success then
+					game:GetService("StarterGui"):SetCore("SendNotification", {
+						Title = "AzureEpic",
+						Text = "Error: " .. tostring(err) .. ". This may be fixed in a few seconds.",
+						Icon = "rbxassetid://7733658504",
+						Duration = 7
+					})
+				end
+			else
+				game:GetService("StarterGui"):SetCore("SendNotification", {
+					Title = "AzureEpic",
+					Text = "Player not found.",
+					Icon = "rbxassetid://7733658504",
+					Duration = 5
+				})
+			end
+		end
+	})
+
+	-- Connect player-added and player-removed events
+	Players.PlayerAdded:Connect(function()
+		updateDropdown()
+	end)
+
+	Players.PlayerRemoving:Connect(function()
+		updateDropdown()
+	end)
+
+	-- Initial population of the dropdown
+	updateDropdown()
+
+ 
  
 
 
