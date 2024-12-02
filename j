@@ -803,7 +803,7 @@ Tab:AddButton({
 	})
 	
 	
-	fun:AddTextbox({
+	feat:AddTextbox({
 		Name = "Adjust Orb Size (in studs)",
 		Default = "",
 		TextDisappear = false,
