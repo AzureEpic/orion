@@ -1613,18 +1613,7 @@ duck:AddButton({
 	})
 
 	-- Connect player-added and player-removed events
-	Players.PlayerAdded:Connect(function()
-		updateDropdown()
-	end)
 
-	Players.PlayerRemoving:Connect(function()
-		updateDropdown()
-	end)
-
-	-- Initial population of the dropdown
-	updateDropdown()
-
- 
  
 
 
@@ -2043,7 +2032,18 @@ Callback = <function> - The function of the textbox.
 
 
 
+	Players.PlayerAdded:Connect(function()
+		updateDropdown()
+	end)
 
+	Players.PlayerRemoving:Connect(function()
+		updateDropdown()
+	end)
+
+	-- Initial population of the dropdown
+	updateDropdown()
+
+ 
 
 
 	print("loaded")
