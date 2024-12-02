@@ -102,7 +102,7 @@ rootpart.Massless = true
 
 local function makeSelfOrb(size: number, color, func:string)
 	
-	if func == "CollectMoney" then
+
 
 			
 		
@@ -121,7 +121,7 @@ local function makeSelfOrb(size: number, color, func:string)
 			
 		
 		
-	end
+	
 	
 	
 end
@@ -292,13 +292,19 @@ Tab:AddButton({
 
 
 	local fun = Window:MakeTab({
-		Name = "Fun",
+		Name = "NPC Control",
 		Icon = "http://www.roblox.com/asset/?id=5326720715",
 		PremiumOnly = false
 
 
 
 	})
+
+	fun:AddSection({
+
+		Name = 	"These things only work on NPCS! Get closer to them for it to work better."
+	})
+
 
 
 	fun:AddButton({
@@ -659,6 +665,182 @@ Tab:AddButton({
 		
 		
 	})
+	
+	
+	
+	
+	
+	local part = Window:MakeTab({
+		Name = "Object Control",
+		Icon = "http://www.roblox.com/asset/?id=627675509",
+		PremiumOnly = false
+
+
+
+	})
+
+	part:AddSection({
+
+		Name = 	"These things only work on Parts (or other physical instances)! Get closer to them for it to work better."
+	})
+	
+	
+	
+	fun:AddButton({
+
+		Name = "Blackhole (Bring all UNANCHORED parts)",
+		Callback = function()
+
+			local character = game.Players.LocalPlayer.Character
+			if not character or not character:FindFirstChild("HumanoidRootPart") then
+				warn("Player's character or HumanoidRootPart not found.")
+				return
+			end
+
+			local center = character.HumanoidRootPart.Position -- The position of the "black hole"
+
+			for _, descendant in pairs(workspace:GetDescendants()) do
+				if descendant:IsA("BasePart") and not descendant:IsDescendantOf(game.Players.LocalPlayer.Character) then
+					-- Create BodyPosition to move the part towards the black hole
+					local bodyPosition = Instance.new("BodyPosition")
+					bodyPosition.MaxForce = Vector3.new(100000, 100000, 100000) -- Strong force
+					bodyPosition.P = 10000 -- Responsiveness of the movement
+					bodyPosition.Position = center
+					bodyPosition.Parent = descendant
+
+					-- Remove BodyPosition after a few seconds
+					task.spawn(function()
+						task.wait(5)
+						if bodyPosition.Parent then
+							bodyPosition:Destroy()
+						end
+					end)
+				end
+			end
+
+		end,
+
+
+	})
+
+	fun:AddButton({
+
+		Name = "Make Parts Fly Up",
+		Callback = function()
+			for _, descendant in pairs(workspace:GetDescendants()) do
+				if descendant:IsA("BasePart") and not descendant:IsDescendantOf(workspace[plr.Name] or game.Players.LocalPlayer.Character) then
+					-- Create BodyVelocity to move the part upwards
+					local bodyVelocity = Instance.new("BodyVelocity")
+					bodyVelocity.MaxForce = Vector3.new(100000, 100000, 100000) -- Strong force in all directions
+					bodyVelocity.Velocity = Vector3.new(0, 100, 0) -- Upward velocity
+					bodyVelocity.Parent = descendant
+
+					-- Remove BodyVelocity after a few seconds
+					task.spawn(function()
+						task.wait(50)
+						if bodyVelocity.Parent then
+							bodyVelocity:Destroy()
+						end
+					end)
+				end
+			end
+		end,
+
+
+	})
+
+	
+	
+	
+	
+	local feat = Window:MakeTab({
+		Name = "Random Features",
+		Icon = "http://www.roblox.com/asset/?id=100556601576910",
+		PremiumOnly = false
+
+
+	})
+	
+	local orbColor
+	local orbSize
+	
+	
+	
+	
+	
+	
+
+
+
+	feat:AddSection({
+
+		Name = 	"Some of these things may have things that only you can see!"
+	})
+	
+	
+	
+
+	feat:AddDropdown({
+		Name = "Orb Color",
+		Default = "Green",
+		Options = {"Blue", "Green", "Yellow", "Red"},
+		Callback = function(Value)
+			print("the orb color:", Value)
+
+			local locationPositions = {
+				["Blue"] = Color3.fromRGB(0,0,255),
+				["Green"] = Color3.fromRGB(0,255,0), 
+				["Yellow"] = Color3.fromRGB(255,255,0),
+				["Red"] = Color3.fromRGB(255,0,0),
+			
+			}
+
+	orbColor = Value
+				
+		
+			
+		end    
+	})
+	
+	
+	fun:AddTextbox({
+		Name = "Adjust Orb Size (in studs)",
+		Default = "",
+		TextDisappear = false,
+		Callback = function(Value)
+			orbSize = tonumber(Value)
+		end	  
+	})
+
+	
+	
+	
+	feat:AddButton({
+		Name = "Enable Orb",
+		Callback = function()
+			makeSelfOrb(orbSize, orbColor)
+		end,
+
+
+
+
+	})
+
+	feat:AddButton({
+		Name = "Remove Orb",
+		Callback = function()
+			removeOrb()
+		end,
+
+
+
+
+	})
+
+	
+	
+	
+	
 	
 	
 	
