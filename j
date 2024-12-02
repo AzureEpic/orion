@@ -97,6 +97,45 @@ local antiTripCoroutine
 		end
 	end)
 
+rootpart.Massless = true
+
+
+local function makeSelfOrb(size: number, color, func:string)
+	
+	if func == "CollectMoney" then
+
+			
+		
+		
+		local orb = Instance.new("SpecialMesh")
+		orb.Name = "orb"
+		orb.Parent = rootpart
+		orb.MeshId = "rbxassetid://5697933202"
+		
+		rootpart.Size = Vector3.new(size,size,size)
+		rootpart.Color = color
+		rootpart.Material = Enum.Material.ForceField
+		rootpart.Transparency = 0
+		
+		
+			
+		
+		
+	end
+	
+	
+end
+
+
+
+
+local function removeOrb()
+	rootpart:FindFirstChild("orb"):Destroy()
+		rootpart.Size = Vector3.new(2, 2, 1)
+		rootpart.Transparency = 1
+end
+
+
 
 
 	-------g
@@ -1222,7 +1261,7 @@ part.CanCollide = false
 					
 						--descendant:Destroy()
 						char:PivotTo(descendant.CFrame)
-			task.wait(.1)
+			task.wait(.01)
 					
 				end
 				
@@ -1238,6 +1277,29 @@ char:PivotTo(part.CFrame)
 		end,	
 
 	})
+
+duck:AddButton({
+	Name = "Money Collect Orb",
+	Callback = function()
+		makeSelfOrb(7, Color3.fromRGB(200,255,0), "CollectMoney")
+	end,
+	
+
+	
+	
+})
+
+	duck:AddButton({
+		Name = "Remove Orb",
+		Callback = function()
+		removeOrb()
+		end,
+
+
+
+
+	})
+ 
 
 
 
