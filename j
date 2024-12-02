@@ -11,6 +11,11 @@ end
 
 
 ------Func
+
+
+
+
+
 local function Error(err)
 	game:GetService("StarterGui"):SetCore("SendNotification", {
 		Title = "AzureEpic",
@@ -287,7 +292,66 @@ Tab:AddButton({
 
 
 
+	local HttpService = game:GetService("HttpService")
 
+	-- GitHub API endpoint for commits
+	local repoOwner = "AzureEpic"
+	local repoName = "orion"
+	local branch = "main"
+	local filePath = "Source"
+
+	-- Construct the API URL
+	local apiUrl = string.format(
+		"https://api.github.com/repos/%s/%s/commits?path=%s&sha=%s",
+		repoOwner,
+		repoName,
+		filePath,
+		branch
+	)
+
+	-- Function to fetch the latest commit details
+
+		local success, response = pcall(function()
+			return game:HttpGet(apiUrl)
+		end)
+
+	
+			local commits = HttpService:JSONDecode(response)
+		
+				local latestCommit = commits[1]
+				print("Most Recent Commit Details:")
+				print("Author: " .. latestCommit.commit.author.name)
+				print("Date: " .. latestCommit.commit.author.date)
+				print("Message: " .. latestCommit.commit.message)
+				print("URL: " .. latestCommit.html_url)
+		
+	
+	
+
+	-- Call the function to fetch and print the latest commit details
+
+
+
+
+
+
+
+
+
+	local logs = Window:MakeTab({
+		Name = "Update Logs",
+		Icon = "http://www.roblox.com/asset/?id=13289068576",
+		PremiumOnly = false
+	})
+
+	local Section = logs:AddSection({
+		Name = "Last Update: "..latestCommit.commit.author.name
+	})
+
+
+	local Section = logs:AddSection({
+		Name = "Update Details: "..latestCommit.commit.message
+	})
 
 
 
@@ -1904,7 +1968,7 @@ Callback = <function> - The function of the textbox.
 
 	print("loaded")
 
-	
+	Error("Loaded!")
 
 end) ---NONE PAST HERE
 
