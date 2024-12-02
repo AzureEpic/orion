@@ -1574,7 +1574,7 @@ duck:AddButton({
 
 	-- Initialize the dropdown
 	dropdown = duck:AddDropdown({
-		Name = "Kick Player Lolo",
+		Name = "Kick Player Lol",
 		Default = "",
 		Options = {}, -- Start with an empty list
 		Callback = function(Value)
@@ -1604,7 +1604,7 @@ duck:AddButton({
 			else
 				game:GetService("StarterGui"):SetCore("SendNotification", {
 					Title = "AzureEpic",
-					Text = "Player not found.",
+					Text = "Player not found :(",
 					Icon = "rbxassetid://7733658504",
 					Duration = 5
 				})
