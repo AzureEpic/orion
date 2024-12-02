@@ -7,7 +7,10 @@ end
 
 
 
-------Notif
+
+
+
+------Func
 local function Error(err)
 	game:GetService("StarterGui"):SetCore("SendNotification", {
 		Title = "AzureEpic",
@@ -17,6 +20,27 @@ local function Error(err)
 	})
 end
 
+function getPlrHum(plr)
+	if plr and plr.Character and plr.Character:FindFirstChildOfClass("Humanoid") then
+		return game:GetService("Players").LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
+	else
+		return false
+	end
+end
+
+
+
+function r15(plr)
+	plr=(plr or game:GetService("Players").LocalPlayer)
+	if plr then
+		if plr.Character:FindFirstChildOfClass('Humanoid').RigType==Enum.HumanoidRigType.R15 then
+			return true
+		end
+	end
+	return false
+end
+
+
 
 
 local err, success = pcall(function()  
@@ -24,15 +48,15 @@ local err, success = pcall(function()
 
 
 
-local secondsFollow
-local following
 
+
+	local hiddenfling=false
 	local truckFollowCoroutine
 
 	local walkSpeedCoroutine
 	local JumpCoroutine
 	local hipHeightCoroutine
-	local antiTripCoroutine
+local antiTripCoroutine
 
 	local truckDistance = 10
 
@@ -53,9 +77,9 @@ local following
 	local plr = game.Players.LocalPlayer
 	local char = plr.Character
 
-	local huma = char:FindFirstChildOfClass("Humanoid")
+	local hum = char:FindFirstChildOfClass("Humanoid")
 
-	local sitting = huma.SeatPart
+	local sitting = hum.SeatPart
 
 	local playerName = game.Players.LocalPlayer.Name
 
@@ -97,7 +121,7 @@ local following
 
 	--------INfo Variables
 	local fps = math.floor(workspace:GetRealPhysicsFPS())
-	local ws = huma.WalkSpeed
+	local ws = hum.WalkSpeed
 	local ping=game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString()
 	local currentPlayers = #game.Players:GetPlayers()
 	local maxPlayers = game.Players.MaxPlayers
@@ -142,7 +166,31 @@ end]]
 	Tab:AddLabel("Game: " .. game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name)
 	Tab:AddLabel("Game ID: ".. game.GameId)
 
+Tab:AddButton({
+	Name = "Rejoin Game",
+	Callback = function()
+		
+			local PlaceId,JobId,GameId=game.PlaceId,game.JobId,game.GameId
 
+
+
+			if #game:GetService("Players"):GetPlayers() <=1 then
+				game:GetService("Players").LocalPlayer:Kick("Rejoining...")
+				wait()
+				game:GetService("TeleportService"):Teleport(PlaceId)
+			else
+				game:GetService("TeleportService"):TeleportToPlaceInstance(PlaceId,JobId,game:GetService("Players").LocalPlayer)
+			end
+
+
+
+			wait();
+		
+		
+		
+	end,
+	
+})
 
 
 	Tab:AddLabel("ur fps [ ".. fps .."]")
@@ -215,20 +263,20 @@ Tab:AddButton({
 		Name = "Kill NPCS",
 		Callback = function()
 
-			for _, descendant in pairs(workspace:GetDescendants()) do
+			local npcs={}
 
-				if descendant:IsA("Model") and descendant:FindFirstChild("Humanoid") then
-					local humanoid = descendant:FindFirstChild("Humanoid")
-
-
-					if humanoid and not descendant:IsDescendantOf(game.Players.LocalPlayer.Character) then
-						descendant:Destroy()
-						print("NPC died lol ", descendant.Name)
-					end
+			function disappear(hum)
+				if hum:IsA("Humanoid") and not game:GetService("Players"):GetPlayerFromCharacter(hum.Parent) then
+					table.insert(npcs,{hum,hum.HipHeight})
+					local rootPart=hum.Parent:FindFirstChild("HumanoidRootPart")
+					if rootPart then
+						hum.Health=0
+					end      
 				end
 			end
-
-
+			for _,hum in pairs(game:GetService("Workspace"):GetDescendants()) do
+				disappear(hum)
+			end
 
 		end,
 
@@ -242,22 +290,17 @@ Tab:AddButton({
 		Name = "Fling NPCS",
 		Callback = function()
 
-			for _, descendant in pairs(workspace:GetDescendants()) do
-				if descendant:IsA("Model") and descendant:FindFirstChild("Humanoid") and not descendant:IsDescendantOf(game.Players.LocalPlayer.Character) then
-					for _, part in pairs(descendant:GetChildren()) do
-						if part:IsA("BasePart") then
+			local npcs={}
 
-							rootpart.Anchored = true
-
-							part.Velocity = Vector3.new(math.random(-500, 500), math.random(200, 500), math.random(-500, 500))
-							wait(.1)
-							rootpart.Anchored = false
-						end
-					end
-					print("NPC flung:", descendant.Name)
+			function disappear(hum)
+				if hum:IsA("Humanoid") and not game:GetService("Players"):GetPlayerFromCharacter(hum.Parent) then
+					table.insert(npcs,{hum,hum.HipHeight})
+					hum.HipHeight=1024
 				end
 			end
-
+			for _,hum in pairs(game:GetService("Workspace"):GetDescendants()) do
+				disappear(hum)
+			end
 
 		end,
 
@@ -270,42 +313,67 @@ Tab:AddButton({
 
 		Name = "Bring NPCS",
 		Callback = function()
+			local npcs={}
 
-			local character = game.Players.LocalPlayer.Character
-			if not character or not character:FindFirstChild("HumanoidRootPart") then
-				warn("Player's character or HumanoidRootPart not found.")
-				return
-			end
-
-			local targetPosition = character.HumanoidRootPart.Position
-			for _, descendant in pairs(workspace:GetDescendants()) do
-				if descendant:IsA("Model") and descendant:FindFirstChild("Humanoid") and not descendant:IsDescendantOf(game.Players.LocalPlayer.Character) then
-					local humanoidRootPart = descendant:FindFirstChild("HumanoidRootPart")
-					if humanoidRootPart then
-						humanoidRootPart.CFrame = CFrame.new(targetPosition + Vector3.new(math.random(-5, 5), 0, math.random(-5, 5)))
-						print("NPC brought to player:", descendant.Name)
-					end
+			function disappear(hum)
+				if hum:IsA("Humanoid") and not game:GetService("Players"):GetPlayerFromCharacter(hum.Parent) then
+					table.insert(npcs,{hum,hum.HipHeight})
+					local rootPart=hum.Parent:FindFirstChild("HumanoidRootPart")
+					if rootPart then
+						rootPart.CFrame=game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame
+					end      
 				end
+			end
+			for _,hum in pairs(game:GetService("Workspace"):GetDescendants()) do
+				disappear(hum)
 			end
 
 		end,
 
 
 	})
+	
+	
+	fun:AddButton({
+
+		Name = "Void NPCS",
+		Callback = function()
+			local npcs={}
+
+			function disappear(hum)
+				if hum:IsA("Humanoid") and not game:GetService("Players"):GetPlayerFromCharacter(hum.Parent) then
+					table.insert(npcs,{hum,hum.HipHeight})
+					hum.HipHeight=-1024
+				end
+			end
+			for _,hum in pairs(game:GetService("Workspace"):GetDescendants()) do
+				disappear(hum)
+			end
+		end,
+
+
+	})
+	
+	
 
 	fun:AddButton({
 
 		Name = "Sit NPCS",
 		Callback = function()
 
-			for _, descendant in pairs(workspace:GetDescendants()) do
-				if descendant:IsA("Model") and descendant:FindFirstChild("Humanoid") and not descendant:IsDescendantOf(game.Players.LocalPlayer.Character) then
-					local humanoid = descendant:FindFirstChild("Humanoid")
-					if humanoid then
-						humanoid.Sit = true
-						print("NPC is now sitting:", descendant.Name)
-					end
+			local npcs={}
+
+			function disappear(hum)
+				if hum:IsA("Humanoid") and not game:GetService("Players"):GetPlayerFromCharacter(hum.Parent) then
+					table.insert(npcs,{hum,hum.HipHeight})
+					local rootPart=hum.Parent:FindFirstChild("HumanoidRootPart")
+					if rootPart then
+						hum.Sit=true
+					end      
 				end
+			end
+			for _,hum in pairs(game:GetService("Workspace"):GetDescendants()) do
+				disappear(hum)
 			end
 
 		end,
@@ -350,44 +418,66 @@ Tab:AddButton({
 
 
 	})
-
-
-
-
-
-
-	fun:AddTextbox({
-		Name = "Seconds for NPCs to follow u",
-		Default = "",
-		TextDisappear = false,
-		Callback = function(Value)
-		secondsFollow = tonumber(Value)
-		end	  
-	})
-
-
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	fun:AddButton({
 
 		Name = "Make all NPC follow you",
 		Callback = function()
-			following = true
-			for i = 1, tonumber(secondsFollow * 10) do
-if not following then return end
-				local npcs={}
+			local npcs={}
 
-			local	function disappear(hum)
-					if hum:IsA("Humanoid") and not game:GetService("Players"):GetPlayerFromCharacter(hum.Parent) then
-						table.insert(npcs,{hum,hum.HipHeight})
-						local rootPart=hum.Parent:FindFirstChild("HumanoidRootPart")
-						local targetPos=game:GetService("Players").LocalPlayer.Character:FindFirstChild("HumanoidRootPart").Position
-						hum:MoveTo(targetPos)
-						hum.WalkSpeed = huma.WalkSpeed
+			function disappear(hum)
+				if hum:IsA("Humanoid") and not game:GetService("Players"):GetPlayerFromCharacter(hum.Parent) then
+					table.insert(npcs,{hum,hum.HipHeight})
+					local rootPart=hum.Parent:FindFirstChild("HumanoidRootPart")
+					local targetPos=game:GetService("Players").LocalPlayer.Character:FindFirstChild("HumanoidRootPart").Position
+					hum:MoveTo(targetPos)
+				end
+			end
+			for _,hum in pairs(game:GetService("Workspace"):GetDescendants()) do
+				disappear(hum)
+			end
+		end,
+
+
+	})
+	
+	
+	fun:AddButton({
+
+		Name = "Bang Animation All NPCs",
+		Callback = function()
+			local npcs={}
+
+			function disappear(hum)
+				if hum:IsA("Humanoid") and not game:GetService("Players"):GetPlayerFromCharacter(hum.Parent) then
+					table.insert(npcs,{hum,hum.HipHeight})
+					local rootPart=hum.Parent:FindFirstChild("HumanoidRootPart")
+					local targetPos=game:GetService("Players").LocalPlayer.Character:FindFirstChild("HumanoidRootPart").Position
+				
+					local Target=hum.Parent
+					local bangAnim=Instance.new("Animation")
+					if not r15(game:GetService("Players").LocalPlayer) then
+						bangAnim.AnimationId="rbxassetid://148840371"
+					else
+						bangAnim.AnimationId="rbxassetid://5918726674"
 					end
+
+				local	bang=hum:LoadAnimation(bangAnim)
+					bang:Play(.1,1,1)
+				
+				
 				end
-				for _,hum in pairs(game:GetService("Workspace"):GetDescendants()) do
-					disappear(hum)
-				end
-				wait(.1)
+			end
+			for _,hum in pairs(game:GetService("Workspace"):GetDescendants()) do
+				disappear(hum)
 			end
 		end,
 
@@ -395,25 +485,22 @@ if not following then return end
 	})
 
 
-
-	fun:AddButton({
-
-		Name = "Stop NPC Following",
-		Callback = function()
-			following = false
-		
+	fun:AddToggle({
+		Name = "Walk Fling",
+		Default = false,
+		Callback = function(st)
+			if st then
+				hiddenfling = true
+			else
+				hiddenfling = false
+			end
 		end,
-
-
+		
+		
 	})
-
-
-
-
-
-
-
-
+	
+	
+	
 
 	local plrTab = Window:MakeTab({
 		Name = "Player Settings",
@@ -436,7 +523,7 @@ if not following then return end
 		Increment = 1,
 		ValueName = "speed",
 		Callback = function(Value)
-			huma.WalkSpeed = Value
+			hum.WalkSpeed = Value
 			sliderWalkspeed = Value
 		end    
 	})
@@ -454,7 +541,7 @@ if not following then return end
 				walkSpeedCoroutine = coroutine.create(function()
 					while true do
 						local success, err = pcall(function()  
-							huma.WalkSpeed = sliderWalkspeed
+							hum.WalkSpeed = sliderWalkspeed
 						end)
 
 						if not success then
@@ -492,7 +579,7 @@ if not following then return end
 		Increment = 1,
 		ValueName = "jump power",
 		Callback = function(Value)
-			huma.JumpPower = Value
+			hum.JumpPower = Value
 			sliderJump = Value
 
 		end    
@@ -510,7 +597,7 @@ if not following then return end
 				JumpCoroutine = coroutine.create(function()
 					while true do
 						local success, err = pcall(function()  
-							huma.JumpPower = sliderJump
+							hum.JumpPower = sliderJump
 						end)
 
 						if not success then
@@ -539,12 +626,12 @@ if not following then return end
 		Name = "HipHeight (can trigger anticheats)",
 		Min = 0,
 		Max = 500,
-		Default = 1,
+		Default = 0,
 		Color = Color3.fromRGB(255,255,255),
 		Increment = 1,
 		ValueName = "height (in studs duh)",
 		Callback = function(Value)
-			huma.HipHeight = Value
+			hum.HipHeight = Value
 			sliderHeight = Value
 		end    
 	})
@@ -561,7 +648,7 @@ if not following then return end
 				hipHeightCoroutine = coroutine.create(function()
 					while true do
 						local success, err = pcall(function()  
-							huma.HipHeight = sliderHeight
+							hum.HipHeight = sliderHeight
 						end)
 
 						if not success then
@@ -598,9 +685,9 @@ if not following then return end
 				antiTripCoroutine = coroutine.create(function()
 					while true do
 						local success, err = pcall(function()  
-							huma.PlatformStand = false 
-							huma.Sit = false
-
+							hum.PlatformStand = false 
+							hum.Sit = false
+							
 						end)
 
 						if not success then
@@ -947,49 +1034,49 @@ Callback = <function> - The function of the slider.
 			loadstring(game:HttpGet("https://raw.githubusercontent.com/Raigforce/CrappyFTAPLol/refs/heads/main/FtapSigmaShi"))()
 		end
 	})
-
-
-
+	
+	
+	
 	local duck = Window:MakeTab({
-		Name = "Raise A Duck",
-		Icon = "rbxassetid://0",
-		PremiumOnly = false
-
+	Name = "Raise A Duck",
+Icon = "rbxassetid://0",
+PremiumOnly = false
+		
 	})
 
 
-	duck:AddButton({
-		Name = "Kill Raiders",
-		Callback = function()
+duck:AddButton({
+	Name = "Kill Raiders",
+	Callback = function()
+
+			
+	
+
+					for _, descendant in pairs(workspace.Raid:GetDescendants()) do
+
+						if descendant:IsA("Model") and descendant:FindFirstChild("Humanoid") then
+							local humanoid = descendant:FindFirstChild("Humanoid")
 
 
-
-
-			for _, descendant in pairs(workspace.Raid:GetDescendants()) do
-
-				if descendant:IsA("Model") and descendant:FindFirstChild("Humanoid") then
-					local humanoid = descendant:FindFirstChild("Humanoid")
-
-
-					if humanoid and not descendant:IsDescendantOf(game.Players.LocalPlayer.Character) then
-						--descendant:Destroy()
-						char:PivotTo(descendant.PrimaryPart.CFrame)
-						humanoid.Health = 0
-						print("NPC died lol ", descendant.Name)
+							if humanoid and not descendant:IsDescendantOf(game.Players.LocalPlayer.Character) then
+								--descendant:Destroy()
+								char:PivotTo(descendant.PrimaryPart.CFrame)
+								humanoid.Health = 0
+								print("NPC died lol ", descendant.Name)
+							end
+						end
 					end
-				end
-			end
+
+
+
+			
 
 
 
 
-
-
-
-
-		end,	
-
-	})
+	end,	
+	
+})
 
 
 	duck:AddButton({
@@ -997,32 +1084,32 @@ Callback = <function> - The function of the slider.
 		Callback = function()
 
 
-			local part = Instance.new("Part")
-			part.Parent = workspace
-			part.Position = rootpart.Position
-			part.Size = Vector3.new(0.1,0.1,0.1)
-			part.Anchored = true
-			part.Transparency = 1
-			part.CanCollide = false
+local part = Instance.new("Part")
+part.Parent = workspace
+part.Position = rootpart.Position
+part.Size = Vector3.new(0.1,0.1,0.1)
+part.Anchored = true
+part.Transparency = 1
+part.CanCollide = false
 			for _, descendant in pairs(workspace:GetDescendants()) do
 
 				if descendant:IsA("BasePart") and descendant.Name == "Money" then
+				
 
 
-
-
-					--descendant:Destroy()
-					char:PivotTo(descendant.CFrame)
-					task.wait(.1)
-
+					
+						--descendant:Destroy()
+						char:PivotTo(descendant.CFrame)
+			task.wait(.1)
+					
 				end
-
+				
 			end
 
 
 
 
-			char:PivotTo(part.CFrame)
+char:PivotTo(part.CFrame)
 
 
 
@@ -1451,7 +1538,7 @@ Callback = <function> - The function of the textbox.
 
 	print("loaded")
 
-
+	
 
 end) ---NONE PAST HERE
 
@@ -1471,6 +1558,64 @@ end
 
 
 
+while wait(.1) do
+	 fps = math.floor(workspace:GetRealPhysicsFPS())
+	 ws = game.Players.LocalPlayer.Character.Humanoid.WalkSpeed
+	 ping=game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString()
+	 currentPlayers = #game.Players:GetPlayers()
+	 maxPlayers = game.Players.MaxPlayers
+	 plrTime =  os.date("%X")
+
+end
+
+
+
+
+local NA_storage = Instance.new("ScreenGui")
+local RunService = game:GetService("RunService")
+
+
+
+
+
+
+if NA_storage:FindFirstChild("juisdfj0i32i0eidsuf0iok") then
+	hiddenfling=true
+else
+	hiddenfling=true
+	detection=Instance.new("Decal")
+	detection.Name="juisdfj0i32i0eidsuf0iok"
+	detection.Parent=NA_storage
+	function fling()
+		local hrp,c,vel,movel=nil,nil,nil,0.1
+		while true do
+			RunService.Heartbeat:Wait()
+			if hiddenfling then
+				local lp=game:GetService("Players").LocalPlayer
+				while hiddenfling and not (c and c.Parent and hrp and hrp.Parent) do
+					RunService.Heartbeat:Wait()
+					c=lp.Character
+					hrp=c:FindFirstChild("HumanoidRootPart") or c:FindFirstChild("Torso") or c:FindFirstChild("UpperTorso")
+				end
+				if hiddenfling then
+					vel=hrp.Velocity
+					hrp.Velocity=vel*10000+Vector3.new(0,10000,0)
+					RunService.RenderStepped:Wait()
+					if c and c.Parent and hrp and hrp.Parent then
+						hrp.Velocity=vel
+					end
+					game:GetService("RunService").Stepped:Wait()
+					if c and c.Parent and hrp and hrp.Parent then
+						hrp.Velocity=vel+Vector3.new(0,movel,0)
+						movel=movel*-1
+					end
+				end
+			end
+		end
+	end
+
+	fling()
+end
 
 
 
