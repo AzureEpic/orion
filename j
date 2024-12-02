@@ -25,7 +25,7 @@ local err, success = pcall(function()
 
 
 local secondsFollow
-
+local following
 
 	local truckFollowCoroutine
 
@@ -370,9 +370,9 @@ Tab:AddButton({
 
 		Name = "Make all NPC follow you",
 		Callback = function()
-
+			following = true
 			for i = 1, tonumber(secondsFollow) do
-
+if not following then return end
 				local npcs={}
 
 			local	function disappear(hum)
@@ -388,6 +388,19 @@ Tab:AddButton({
 				end
 				wait(1)
 			end
+		end,
+
+
+	})
+
+
+
+	fun:AddButton({
+
+		Name = "Stop NPC Following",
+		Callback = function()
+			following = false
+		
 		end,
 
 
