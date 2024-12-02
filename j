@@ -45,9 +45,9 @@ end
 
 local err, success = pcall(function()  
 
+local secondsFollow
 
-
-
+local npcSpinFollow
 
 
 	local hiddenfling=false
@@ -265,7 +265,7 @@ Tab:AddButton({
 
 			local npcs={}
 
-			function disappear(hum)
+			function killNpc(hum)
 				if hum:IsA("Humanoid") and not game:GetService("Players"):GetPlayerFromCharacter(hum.Parent) then
 					table.insert(npcs,{hum,hum.HipHeight})
 					local rootPart=hum.Parent:FindFirstChild("HumanoidRootPart")
@@ -275,7 +275,7 @@ Tab:AddButton({
 				end
 			end
 			for _,hum in pairs(game:GetService("Workspace"):GetDescendants()) do
-				disappear(hum)
+				killNpc(hum)
 			end
 
 		end,
@@ -492,9 +492,21 @@ Tab:AddButton({
 	})
 
 
+
+	fun:AddTextbox({
+		Name = "NPC Spin Power",
+		Default = "",
+		TextDisappear = false,
+		Callback = function(Value)
+			npcSpinFollow = tonumber(Value)
+		end	  
+	})
+
+
+
 	fun:AddButton({
 
-		Name = "Bang Animation All NPCs (client only sadly)",
+		Name = "SPIN ALL NPCS",
 		Callback = function()
 			local npcs={}
 
@@ -510,7 +522,7 @@ Tab:AddButton({
 
 					-- Set up angular velocity for violent spinning
 					local bodyAngularVelocity = Instance.new("BodyAngularVelocity")
-					bodyAngularVelocity.AngularVelocity = Vector3.new(1000, 1000, 1000) -- High angular velocity
+					bodyAngularVelocity.AngularVelocity = Vector3.new(npcSpinFollow,npcSpinFollow,npcSpinFollow) -- High angular velocity
 					bodyAngularVelocity.MaxTorque = Vector3.new(1e6, 1e6, 1e6) -- High torque to maintain spin
 					bodyAngularVelocity.P = 1e4 -- Power to keep rotation steady
 					bodyAngularVelocity.Parent = rootPart
