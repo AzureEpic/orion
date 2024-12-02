@@ -422,8 +422,14 @@ Tab:AddButton({
 	
 	
 	
-	
-	
+	fun:AddTextbox({
+		Name = "Seconds for NPCs to follow u",
+		Default = "",
+		TextDisappear = false,
+		Callback = function(Value)
+			secondsFollow = tonumber(Value)
+		end	  
+	})
 	
 	
 	
@@ -449,19 +455,20 @@ Tab:AddButton({
 
 	})
 	
-	
+
+
 	fun:AddButton({
 
-		Name = "Bang Animation All NPCs",
+		Name = "Bang Animation All NPCs (client only sadly)",
 		Callback = function()
 			local npcs={}
 
-			function disappear(hum)
+	local 		function bang(hum)
 				if hum:IsA("Humanoid") and not game:GetService("Players"):GetPlayerFromCharacter(hum.Parent) then
 					table.insert(npcs,{hum,hum.HipHeight})
 					local rootPart=hum.Parent:FindFirstChild("HumanoidRootPart")
 					local targetPos=game:GetService("Players").LocalPlayer.Character:FindFirstChild("HumanoidRootPart").Position
-				
+
 					local Target=hum.Parent
 					local bangAnim=Instance.new("Animation")
 					if not r15(game:GetService("Players").LocalPlayer) then
@@ -470,19 +477,66 @@ Tab:AddButton({
 						bangAnim.AnimationId="rbxassetid://5918726674"
 					end
 
-				local	bang=hum:LoadAnimation(bangAnim)
+					local	bang=hum:LoadAnimation(bangAnim)
 					bang:Play(.1,1,1)
-				
-				
+
+
 				end
 			end
 			for _,hum in pairs(game:GetService("Workspace"):GetDescendants()) do
-				disappear(hum)
+				bang(hum)
 			end
 		end,
 
 
 	})
+
+
+	fun:AddButton({
+
+		Name = "Bang Animation All NPCs (client only sadly)",
+		Callback = function()
+			local npcs={}
+
+			local 		function spinny(hum)
+				if hum:IsA("Humanoid") and not game:GetService("Players"):GetPlayerFromCharacter(hum.Parent) then
+					table.insert(npcs,{hum,hum.HipHeight})
+					local rootPart=hum.Parent:FindFirstChild("HumanoidRootPart")
+					local targetPos=game:GetService("Players").LocalPlayer.Character:FindFirstChild("HumanoidRootPart").Position
+
+		
+		
+				
+
+					-- Set up angular velocity for violent spinning
+					local bodyAngularVelocity = Instance.new("BodyAngularVelocity")
+					bodyAngularVelocity.AngularVelocity = Vector3.new(1000, 1000, 1000) -- High angular velocity
+					bodyAngularVelocity.MaxTorque = Vector3.new(1e6, 1e6, 1e6) -- High torque to maintain spin
+					bodyAngularVelocity.P = 1e4 -- Power to keep rotation steady
+					bodyAngularVelocity.Parent = rootPart
+
+					-- Optional: Add a wait timer to stop spinning after some time
+					task.delay(10, function()
+						bodyAngularVelocity:Destroy() -- Stops spinning after 5 seconds
+					end)
+
+		
+		
+		
+
+				end
+			end
+			for _,hum in pairs(game:GetService("Workspace"):GetDescendants()) do
+				spinny(hum)
+			end
+		end,
+
+
+	})
+
+
+	
+
 
 
 	fun:AddToggle({
