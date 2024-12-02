@@ -545,7 +545,7 @@ Tab:AddButton({
 				
 
 					-- Set up angular velocity for violent spinning
-					local bodyAngularVelocity = Instance.new("BodyAngularVelocity")
+					local bodyAngularVelocity =rootPart.BodyAngularVelocity or Instance.new("BodyAngularVelocity")
 					bodyAngularVelocity.AngularVelocity = Vector3.new(npcSpinFollow,npcSpinFollow,npcSpinFollow) -- High angular velocity
 					bodyAngularVelocity.MaxTorque = Vector3.new(1e6, 1e6, 1e6) -- High torque to maintain spin
 					bodyAngularVelocity.P = 1e4 -- Power to keep rotation steady
