@@ -53,9 +53,9 @@ local following
 	local plr = game.Players.LocalPlayer
 	local char = plr.Character
 
-	local hum = char:FindFirstChildOfClass("Humanoid")
+	local huma = char:FindFirstChildOfClass("Humanoid")
 
-	local sitting = hum.SeatPart
+	local sitting = huma.SeatPart
 
 	local playerName = game.Players.LocalPlayer.Name
 
@@ -97,7 +97,7 @@ local following
 
 	--------INfo Variables
 	local fps = math.floor(workspace:GetRealPhysicsFPS())
-	local ws = hum.WalkSpeed
+	local ws = huma.WalkSpeed
 	local ping=game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString()
 	local currentPlayers = #game.Players:GetPlayers()
 	local maxPlayers = game.Players.MaxPlayers
@@ -381,6 +381,7 @@ if not following then return end
 						local rootPart=hum.Parent:FindFirstChild("HumanoidRootPart")
 						local targetPos=game:GetService("Players").LocalPlayer.Character:FindFirstChild("HumanoidRootPart").Position
 						hum:MoveTo(targetPos)
+						hum.WalkSpeed = huma.WalkSpeed
 					end
 				end
 				for _,hum in pairs(game:GetService("Workspace"):GetDescendants()) do
@@ -435,7 +436,7 @@ if not following then return end
 		Increment = 1,
 		ValueName = "speed",
 		Callback = function(Value)
-			hum.WalkSpeed = Value
+			huma.WalkSpeed = Value
 			sliderWalkspeed = Value
 		end    
 	})
@@ -453,7 +454,7 @@ if not following then return end
 				walkSpeedCoroutine = coroutine.create(function()
 					while true do
 						local success, err = pcall(function()  
-							hum.WalkSpeed = sliderWalkspeed
+							huma.WalkSpeed = sliderWalkspeed
 						end)
 
 						if not success then
@@ -491,7 +492,7 @@ if not following then return end
 		Increment = 1,
 		ValueName = "jump power",
 		Callback = function(Value)
-			hum.JumpPower = Value
+			huma.JumpPower = Value
 			sliderJump = Value
 
 		end    
@@ -509,7 +510,7 @@ if not following then return end
 				JumpCoroutine = coroutine.create(function()
 					while true do
 						local success, err = pcall(function()  
-							hum.JumpPower = sliderJump
+							huma.JumpPower = sliderJump
 						end)
 
 						if not success then
@@ -543,7 +544,7 @@ if not following then return end
 		Increment = 1,
 		ValueName = "height (in studs duh)",
 		Callback = function(Value)
-			hum.HipHeight = Value
+			huma.HipHeight = Value
 			sliderHeight = Value
 		end    
 	})
@@ -560,7 +561,7 @@ if not following then return end
 				hipHeightCoroutine = coroutine.create(function()
 					while true do
 						local success, err = pcall(function()  
-							hum.HipHeight = sliderHeight
+							huma.HipHeight = sliderHeight
 						end)
 
 						if not success then
@@ -597,8 +598,8 @@ if not following then return end
 				antiTripCoroutine = coroutine.create(function()
 					while true do
 						local success, err = pcall(function()  
-							hum.PlatformStand = false 
-							hum.Sit = false
+							huma.PlatformStand = false 
+							huma.Sit = false
 
 						end)
 
