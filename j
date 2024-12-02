@@ -1550,43 +1550,31 @@ duck:AddButton({
  
  
  
+ --[[
  
- 
-	local Players = game:GetService("Players")
-
-	-- Store the dropdown reference to modify its options
-	local dropdown
-
-	-- Function to update the dropdown options
-	local function updateDropdown()
-		local playerNames = {}
-
-		-- Gather all current player names
-		for _, player in ipairs(Players:GetPlayers()) do
-			table.insert(playerNames, player.Name)
-		end
-
-		-- Update the dropdown's options
-		dropdown:Update({
-			Options = playerNames,
-		})
-	end
-
-	-- Initialize the dropdown
-	dropdown = duck:AddDropdown({
-		Name = "Kick Player Lol",
+	duck:AddDropdown({
+		Name = "Kick Player",
 		Default = "",
-		Options = {}, -- Start with an empty list
+		Options = {"Cashier", "Cooks", "Boxer", "Delivery", "Manager", "Supplier"},
 		Callback = function(Value)
-			print("Player to kick:", Value)
+			print("plr to kick:", Value)
 
-			-- Find the player to kick by name
-			local plrToKick = Players:FindFirstChild(Value)
+			local players = {
+				--Nothing here, but this will be where all the players are as values
+		--[[ Example:
+		["PlayerNameExample"] = game.Players["PlayerNameExample"]
+		
+		
+		
+			}
+
+			local plrToKick = players[Value]
+
 			if plrToKick then
 				local success, err = pcall(function()
 					local args = {
 						[1] = "Kick",
-						[2] = plrToKick
+						[2] = game:GetService("Players")[plrToKick]
 					}
 
 					game:GetService("ReplicatedStorage").RemoteEvents.HostAction:FireServer(unpack(args))
@@ -1596,25 +1584,33 @@ duck:AddButton({
 				if not success then
 					game:GetService("StarterGui"):SetCore("SendNotification", {
 						Title = "AzureEpic",
-						Text = "Error: " .. tostring(err) .. ". This may be fixed in a few seconds.",
+						Text = "error: "..tostring(err) .. "However, this may be fixed in a few seconds.",
 						Icon = "rbxassetid://7733658504",
 						Duration = 7
 					})
 				end
 			else
-				game:GetService("StarterGui"):SetCore("SendNotification", {
-					Title = "AzureEpic",
-					Text = "Player not found :(",
-					Icon = "rbxassetid://7733658504",
-					Duration = 5
-				})
+	
 			end
-		end
+		end    
+	}) 
+	]]
+ 
+ 
+	fun:AddTextbox({
+		Name = "Kick Player",
+		Default = "",
+		TextDisappear = false,
+		Callback = function(Value)
+			local args = {
+				[1] = "Kick",
+				[2] = game:GetService("Players")[Value]
+			}
+
+			game:GetService("ReplicatedStorage").RemoteEvents.HostAction:FireServer(unpack(args))
+		end	  
 	})
 
-	-- Connect player-added and player-removed events
-
- 
 
 
 
@@ -2032,18 +2028,7 @@ Callback = <function> - The function of the textbox.
 
 
 
-	Players.PlayerAdded:Connect(function()
-		updateDropdown()
-	end)
 
-	Players.PlayerRemoving:Connect(function()
-		updateDropdown()
-	end)
-
-	-- Initial population of the dropdown
-	updateDropdown()
-
- 
 
 
 	print("loaded")
