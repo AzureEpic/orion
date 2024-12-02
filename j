@@ -652,7 +652,7 @@ Tab:AddButton({
 
 
 
-	fun:AddToggle({
+	Tab:AddToggle({
 		Name = "Walk Fling",
 		Default = false,
 		Callback = function(st)
@@ -686,7 +686,7 @@ Tab:AddButton({
 	
 	
 	
-	fun:AddButton({
+	part:AddButton({
 
 		Name = "Blackhole (Bring all UNANCHORED parts)",
 		Callback = function()
@@ -723,7 +723,7 @@ Tab:AddButton({
 
 	})
 
-	fun:AddButton({
+	part:AddButton({
 
 		Name = "Make Parts Fly Up",
 		Callback = function()
@@ -787,7 +787,7 @@ Tab:AddButton({
 		Callback = function(Value)
 			print("the orb color:", Value)
 
-			local locationPositions = {
+			local colors = {
 				["Blue"] = Color3.fromRGB(0,0,255),
 				["Green"] = Color3.fromRGB(0,255,0), 
 				["Yellow"] = Color3.fromRGB(255,255,0),
@@ -795,7 +795,7 @@ Tab:AddButton({
 			
 			}
 
-	orbColor = Value
+	orbColor = colors[Value]
 				
 		
 			
