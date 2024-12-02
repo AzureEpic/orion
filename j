@@ -24,7 +24,7 @@ local err, success = pcall(function()
 
 
 
-local npcFollowCoroutine
+local secondsFollow
 
 
 	local truckFollowCoroutine
@@ -356,18 +356,38 @@ Tab:AddButton({
 
 
 
+	fun:AddTextbox({
+		Name = "Seconds for NPCs to follow u",
+		Default = "",
+		TextDisappear = false,
+		Callback = function(Value)
+		secondsFollow = tonumber(Value)
+		end	  
+	})
 
 
-	fun:AddToggle({
+	fun:AddButton({
 
 		Name = "Make all NPC follow you",
-		Default = false,
-		Callback = function(t)
-		if t then
-			npcFollowCoroutine = true
-		else
-			npcFollowCoroutine = false
-		end
+		Callback = function()
+
+			for i = 1, tonumber(secondsFollow) do
+
+				local npcs={}
+
+			local	function disappear(hum)
+					if hum:IsA("Humanoid") and not game:GetService("Players"):GetPlayerFromCharacter(hum.Parent) then
+						table.insert(npcs,{hum,hum.HipHeight})
+						local rootPart=hum.Parent:FindFirstChild("HumanoidRootPart")
+						local targetPos=game:GetService("Players").LocalPlayer.Character:FindFirstChild("HumanoidRootPart").Position
+						hum:MoveTo(targetPos)
+					end
+				end
+				for _,hum in pairs(game:GetService("Workspace"):GetDescendants()) do
+					disappear(hum)
+				end
+				wait(1)
+			end
 		end,
 
 
@@ -1416,33 +1436,6 @@ Callback = <function> - The function of the textbox.
 
 
 	print("loaded")
-
-
-	coroutine.wrap(function()
-		while wait(1) do
-			if npcFollowCoroutine == true then
-				local npcs = {}
-
-				local function disappear(hum)
-					if hum:IsA("Humanoid") and not game:GetService("Players"):GetPlayerFromCharacter(hum.Parent) then
-						table.insert(npcs, {hum, hum.HipHeight})
-						local rootPart = hum.Parent:FindFirstChild("HumanoidRootPart")
-						local targetPos = game:GetService("Players").LocalPlayer.Character:FindFirstChild("HumanoidRootPart").Position
-						hum:MoveTo(targetPos)
-					end
-				end
-
-				for _, hum in pairs(game:GetService("Workspace"):GetDescendants()) do
-					disappear(hum)
-				end
-			else
-				return
-			end
-		end
-	end)()
-
-
-
 
 
 
