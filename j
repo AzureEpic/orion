@@ -1597,13 +1597,27 @@ duck:AddButton({
 	]]
  
  
-	fun:AddTextbox({
-		Name = "Kick Player",
+	duck:AddTextbox({
+		Name = "Kick Player (works in-round only)",
 		Default = "",
 		TextDisappear = false,
 		Callback = function(Value)
 			local args = {
 				[1] = "Kick",
+				[2] = game:GetService("Players")[Value]
+			}
+
+			game:GetService("ReplicatedStorage").RemoteEvents.HostAction:FireServer(unpack(args))
+		end	  
+	})
+
+	duck:AddTextbox({
+		Name = "Ban Player (from server only, works in-round only)",
+		Default = "",
+		TextDisappear = false,
+		Callback = function(Value)
+			local args = {
+				[1] = "Ban",
 				[2] = game:GetService("Players")[Value]
 			}
 
