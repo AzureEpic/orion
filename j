@@ -1626,6 +1626,39 @@ duck:AddButton({
 	})
 
 
+	duck:AddTextbox({
+		Name = "Transfer Host to Player",
+		Default = "",
+		TextDisappear = false,
+		Callback = function(Value)
+			local args = {
+				[1] = "Transfer",
+				[2] = game.Players[Value]
+			}
+
+			game:GetService("ReplicatedStorage").RemoteEvents.HostAction:FireServer(unpack(args))
+		end	  
+	})
+
+
+
+	duck:AddButton({
+		Name = "Transfer Host to yourselfl",
+		Callback = function()
+			local args = {
+				[1] = "Transfer",
+				[2] = game.Players.LocalPlayer
+			}
+
+			game:GetService("ReplicatedStorage").RemoteEvents.HostAction:FireServer(unpack(args))
+		end,
+
+
+
+
+	})
+
+
 
 
 
