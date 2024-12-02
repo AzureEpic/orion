@@ -48,6 +48,10 @@ local err, success = pcall(function()
 local secondsFollow
 
 local npcSpinFollow
+local following = false
+
+
+
 
 
 	local hiddenfling=false
@@ -77,9 +81,9 @@ local antiTripCoroutine
 	local plr = game.Players.LocalPlayer
 	local char = plr.Character
 
-	local hum = char:FindFirstChildOfClass("Humanoid")
+	local huma = char:FindFirstChildOfClass("Humanoid")
 
-	local sitting = hum.SeatPart
+	local sitting = huma.SeatPart
 
 	local playerName = game.Players.LocalPlayer.Name
 
@@ -121,7 +125,7 @@ local antiTripCoroutine
 
 	--------INfo Variables
 	local fps = math.floor(workspace:GetRealPhysicsFPS())
-	local ws = hum.WalkSpeed
+	local ws = huma.WalkSpeed
 	local ping=game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString()
 	local currentPlayers = #game.Players:GetPlayers()
 	local maxPlayers = game.Players.MaxPlayers
@@ -292,14 +296,14 @@ Tab:AddButton({
 
 			local npcs={}
 
-			function disappear(hum)
+			function FlingNpc(hum)
 				if hum:IsA("Humanoid") and not game:GetService("Players"):GetPlayerFromCharacter(hum.Parent) then
 					table.insert(npcs,{hum,hum.HipHeight})
 					hum.HipHeight=1024
 				end
 			end
 			for _,hum in pairs(game:GetService("Workspace"):GetDescendants()) do
-				disappear(hum)
+				FlingNpc(hum)
 			end
 
 		end,
@@ -432,28 +436,48 @@ Tab:AddButton({
 	})
 	
 	
-	
 	fun:AddButton({
 
 		Name = "Make all NPC follow you",
 		Callback = function()
-			local npcs={}
+			following = true
+			for i = 1, tonumber(secondsFollow * 10) do
+				if not following then return end
+				local npcs={}
 
-			function disappear(hum)
-				if hum:IsA("Humanoid") and not game:GetService("Players"):GetPlayerFromCharacter(hum.Parent) then
-					table.insert(npcs,{hum,hum.HipHeight})
-					local rootPart=hum.Parent:FindFirstChild("HumanoidRootPart")
-					local targetPos=game:GetService("Players").LocalPlayer.Character:FindFirstChild("HumanoidRootPart").Position
-					hum:MoveTo(targetPos)
+				local	function disappear(hum)
+
+					if hum:IsA("Humanoid") and not game:GetService("Players"):GetPlayerFromCharacter(hum.Parent) then
+						table.insert(npcs,{hum,hum.HipHeight})
+						local rootPart=hum.Parent:FindFirstChild("HumanoidRootPart")
+						local targetPos=game:GetService("Players").LocalPlayer.Character:FindFirstChild("HumanoidRootPart").Position
+						hum:MoveTo(targetPos)
+						hum.WalkSpeed = huma.WalkSpeed
+					end
 				end
-			end
-			for _,hum in pairs(game:GetService("Workspace"):GetDescendants()) do
-				disappear(hum)
+				for _,hum in pairs(game:GetService("Workspace"):GetDescendants()) do
+					disappear(hum)
+				end
+				wait(.1)
 			end
 		end,
 
 
 	})
+
+
+
+	fun:AddButton({
+
+		Name = "Stop NPC Following",
+		Callback = function()
+			following = false
+
+		end,
+
+
+	})
+
 	
 
 
@@ -528,10 +552,7 @@ Tab:AddButton({
 					bodyAngularVelocity.Parent = rootPart
 
 					-- Optional: Add a wait timer to stop spinning after some time
-					task.delay(10, function()
-						bodyAngularVelocity:Destroy() -- Stops spinning after 5 seconds
-					end)
-
+				
 		
 		
 		
@@ -546,8 +567,43 @@ Tab:AddButton({
 
 	})
 
+	fun:AddButton({
 
-	
+		Name = "Stop NPC Spin",
+		Callback = function()
+			local npcs={}
+
+			local 		function Notspinny(hum)
+				if hum:IsA("Humanoid") and not game:GetService("Players"):GetPlayerFromCharacter(hum.Parent) then
+					table.insert(npcs,{hum,hum.HipHeight})
+					local rootPart=hum.Parent:FindFirstChild("HumanoidRootPart")
+					local targetPos=game:GetService("Players").LocalPlayer.Character:FindFirstChild("HumanoidRootPart").Position
+
+
+
+
+
+					-- Set up angular velocity for violent spinning
+					local bodyAngularVelocity =rootPart.BodyAngularVelocity
+					if  bodyAngularVelocity then
+						bodyAngularVelocity:Destroy()
+					end
+				
+
+
+
+
+				end
+			end
+			for _,hum in pairs(game:GetService("Workspace"):GetDescendants()) do
+				Notspinny(hum)
+			end
+		end,
+
+
+	})
+
+
 
 
 
@@ -589,7 +645,7 @@ Tab:AddButton({
 		Increment = 1,
 		ValueName = "speed",
 		Callback = function(Value)
-			hum.WalkSpeed = Value
+			huma.WalkSpeed = Value
 			sliderWalkspeed = Value
 		end    
 	})
@@ -607,7 +663,7 @@ Tab:AddButton({
 				walkSpeedCoroutine = coroutine.create(function()
 					while true do
 						local success, err = pcall(function()  
-							hum.WalkSpeed = sliderWalkspeed
+							huma.WalkSpeed = sliderWalkspeed
 						end)
 
 						if not success then
@@ -645,7 +701,7 @@ Tab:AddButton({
 		Increment = 1,
 		ValueName = "jump power",
 		Callback = function(Value)
-			hum.JumpPower = Value
+			huma.JumpPower = Value
 			sliderJump = Value
 
 		end    
@@ -663,7 +719,7 @@ Tab:AddButton({
 				JumpCoroutine = coroutine.create(function()
 					while true do
 						local success, err = pcall(function()  
-							hum.JumpPower = sliderJump
+							huma.JumpPower = sliderJump
 						end)
 
 						if not success then
@@ -697,7 +753,7 @@ Tab:AddButton({
 		Increment = 1,
 		ValueName = "height (in studs duh)",
 		Callback = function(Value)
-			hum.HipHeight = Value
+			huma.HipHeight = Value
 			sliderHeight = Value
 		end    
 	})
@@ -714,7 +770,7 @@ Tab:AddButton({
 				hipHeightCoroutine = coroutine.create(function()
 					while true do
 						local success, err = pcall(function()  
-							hum.HipHeight = sliderHeight
+							huma.HipHeight = sliderHeight
 						end)
 
 						if not success then
@@ -751,8 +807,8 @@ Tab:AddButton({
 				antiTripCoroutine = coroutine.create(function()
 					while true do
 						local success, err = pcall(function()  
-							hum.PlatformStand = false 
-							hum.Sit = false
+							huma.PlatformStand = false 
+							huma.Sit = false
 							
 						end)
 
