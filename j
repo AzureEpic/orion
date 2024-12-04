@@ -828,11 +828,11 @@ part:AddButton({
 		end
 
 		local center = character.HumanoidRootPart -- Center point for the orbit
-		local orbitRadius = 20 -- Radius of the orbit
+		local orbitRadius = 30 -- Radius of the orbit
 		local orbitSpeed = 5 -- Speed of the orbit
 
 		for _, descendant in pairs(workspace:GetDescendants()) do
-			if descendant:IsA("BasePart") and not descendant:IsDescendantOf(game.Players.LocalPlayer.Character) then
+			if descendant:IsA("BasePart") and not descendant:IsDescendantOf(workspace[plr.Name] or game.Players.LocalPlayer.Character) then
 				-- Create a BodyPosition to control movement
 				local bodyPosition = Instance.new("BodyPosition")
 				bodyPosition.MaxForce = Vector3.new(100000, 100000, 100000)
@@ -875,6 +875,21 @@ part:AddButton({
 			end
 		end
 	end,
+})
+
+
+part:AddButton({
+	Name = "Cancel Orbit",
+	Callback = function()
+		for _, descendant in pairs(workspace:GetDescendants()) do
+			if descendant:IsA("BodyPosition") or descendant:IsA("BodyGyro") and descendant.Parent:IsA("BasePart") then
+				descendant:Destroy()
+			end
+		end
+	end,
+	
+	
+	
 })
 
 	
