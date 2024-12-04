@@ -852,19 +852,17 @@ part:AddSlider({
 
 	
 part:AddButton({
-	Name = "Orbit Parts",
+	Name = "Orbit (pray it doesnt break)",
 	Callback = function()
 		local character = game.Players.LocalPlayer.Character
 		if not character or not character:FindFirstChild("HumanoidRootPart") then
-			warn("no char lol")
+			warn("Player's character or HumanoidRootPart not found.")
 			return
 		end
 
 		local center = character.HumanoidRootPart -- Center point for the orbit
-		local orbitRadius = orbitRadius -- Radius of the orbit
-		local orbitSpeed = partOrbitSpeed -- Speed of the orbit
-
--- BOOKMARK the = false
+		local orbitRadius = 10 -- Radius of the orbit
+		local orbitSpeed = 1 -- Speed of the orbit
 
 		for _, descendant in pairs(workspace:GetDescendants()) do
 			if descendant:IsA("BasePart") and 
