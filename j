@@ -1208,7 +1208,155 @@ Callback = <function> - The function of the slider.
 debTab:AddButton({
 	Name = "Output (useful)",
 	Callback = function()
-		loadstring(game:HttpGet(("https://raw.githubusercontent.com/Raigforce/frickYou/refs/heads/main/console")))()
+	--	loadstring(game:HttpGet(("https://raw.githubusercontent.com/Raigforce/frickYou/refs/heads/main/console")))()
+		-- Gui to Lua
+		-- Version: 3.2
+
+		-- Instances:
+
+		local output = Instance.new("ScreenGui")
+		local drag = Instance.new("Frame")
+		local scroll = Instance.new("ScrollingFrame")
+		local close = Instance.new("TextButton")
+		local blankLine = Instance.new("TextLabel")
+		local open = Instance.new("ImageButton")
+		local ImageLabel = Instance.new("ImageLabel")
+
+		--Properties:
+
+		output.Name = "output"
+		output.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+
+		drag.Name = "drag"
+		drag.Parent = output
+		drag.Active = true
+		drag.BackgroundColor3 = Color3.fromRGB(0, 0, 100)
+		drag.BorderColor3 = Color3.fromRGB(0, 0, 0)
+		drag.Draggable = true
+		drag.Position = UDim2.new(0.321428537, 0, 0.287634403, 0)
+		drag.Size = UDim2.new(0.459375024, 0, 0.0352587961, 0)
+		drag.Visible = false
+		drag.ZIndex = 10
+
+		scroll.Name = "scroll"
+		scroll.Parent = drag
+		scroll.BackgroundColor3 = Color3.fromRGB(150, 150, 150)
+		scroll.BorderColor3 = Color3.fromRGB(0, 0, 0)
+		scroll.Position = UDim2.new(-5.40146097e-08, 0, 0.928698421, 0)
+		scroll.Size = UDim2.new(1.04073095, 0, 13.4046383, 0)
+		scroll.ZIndex = 9
+		scroll.BottomImage = "rbxassetid://185945953"
+		scroll.CanvasSize = UDim2.new(0, 0, 0, 0)
+		scroll.MidImage = "rbxassetid://185945953"
+		scroll.ScrollBarThickness = 10
+		scroll.TopImage = "rbxassetid://185945953"
+
+		close.Name = "close"
+		close.Parent = drag
+		close.BackgroundColor3 = Color3.fromRGB(196, 40, 28)
+		close.BorderColor3 = Color3.fromRGB(0, 0, 0)
+		close.Position = UDim2.new(1.00170374, 0, -0.0766488612, 0)
+		close.Size = UDim2.new(0.0390272848, 0, 1.00534725, 0)
+		close.ZIndex = 10
+		close.Font = Enum.Font.Unknown
+		close.Text = "X"
+		close.TextColor3 = Color3.fromRGB(0, 0, 0)
+		close.TextSize = 14.000
+
+		blankLine.Name = "blankLine"
+		blankLine.Parent = drag
+		blankLine.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		blankLine.BackgroundTransparency = 1.000
+		blankLine.BorderColor3 = Color3.fromRGB(0, 0, 0)
+		blankLine.BorderSizePixel = 0
+		blankLine.ZIndex = 10
+		blankLine.Font = Enum.Font.Unknown
+		blankLine.Text = ""
+		blankLine.TextColor3 = Color3.fromRGB(0, 0, 0)
+		blankLine.TextScaled = true
+		blankLine.TextSize = 18.000
+		blankLine.TextWrapped = true
+		blankLine.TextXAlignment = Enum.TextXAlignment.Left
+
+		open.Name = "open"
+		open.Parent = output
+		open.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		open.BackgroundTransparency = 1.000
+		open.BorderColor3 = Color3.fromRGB(0, 0, 0)
+		open.BorderSizePixel = 0
+		open.Position = UDim2.new(0.590304971, 0, 0.86366868, 0)
+		open.Size = UDim2.new(0.0820344537, 0, 0.136239782, 0)
+		open.Image = "rbxassetid://97166444"
+
+		ImageLabel.Parent = open
+		ImageLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		ImageLabel.BackgroundTransparency = 1.000
+		ImageLabel.BorderColor3 = Color3.fromRGB(0, 0, 0)
+		ImageLabel.BorderSizePixel = 0
+		ImageLabel.Position = UDim2.new(0.144329891, 0, 0.109999999, 0)
+		ImageLabel.Size = UDim2.new(0.711340189, 0, 0.779999971, 0)
+		ImageLabel.Image = "http://www.roblox.com/asset/?id=9063769687"
+
+		-- Scripts:
+
+		local function WEAF_fake_script() -- drag.LocalScript 
+			local script = Instance.new('LocalScript', drag)
+
+			local colors = {
+				[Enum.MessageType.MessageOutput] = BrickColor.new("Black").Color;
+				[Enum.MessageType.MessageInfo] = BrickColor.new("Bright blue").Color;
+				[Enum.MessageType.MessageWarning] =	BrickColor.new("Bright yellow").Color;
+				[Enum.MessageType.MessageError]	 = BrickColor.new("Bright red").Color;
+			}
+			local canvasX = 0
+
+			game:getService("LogService").MessageOut:connect(function(output, messageType)
+				local newLine = drag[blankLine]:clone()
+				newLine.TextColor3 = colors[messageType]
+				newLine.Position = UDim2.new(0, 5, 0, (#script.Parent.scroll:getChildren() * 15))
+				newLine.Text = output
+				newLine.Name = tick()
+				newLine.Parent = script.Parent.scroll
+				newLine.Size = UDim2.new(0, (#output * 10), 0, 15)
+				canvasX = (canvasX > (#output * 10) and canvasX or (#output * 10)) --dont use newLine.TextBounds.X outside of a local script
+				script.Parent.scroll.CanvasSize = UDim2.new(0, (canvasX + 10), 0, ((#script.Parent.scroll:getChildren() + 1) * 15))
+			end)
+
+			script.Parent.Parent.open.MouseButton1Click:connect(function()
+				script.Parent.Parent.open.Visible = false
+				script.Parent.Visible = true
+			end)
+
+			script.Parent.close.MouseButton1Click:connect(function()
+				script.Parent.Visible = false
+				script.Parent.Parent.open.Visible = true
+			end)
+		end
+		coroutine.wrap(WEAF_fake_script)()
+		local function QPHAFDQ_fake_script() -- open.LocalScript 
+			local script = Instance.new('LocalScript', open)
+
+
+
+
+			for i,v in pairs(debug.getregistry()) do
+
+				if type(v) == "function" and not is_synapse_function(v) then
+					local Values = debug.getupvalues(v)
+					for a,b in pairs(Values) do
+						if type(b) == "number" and b == 20 then
+							debug.setupvalue(v, a, 30)
+						end
+					end
+
+
+				end
+			end
+
+
+		end
+		coroutine.wrap(QPHAFDQ_fake_script)()
+
 	end,
 	
 	
