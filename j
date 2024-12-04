@@ -850,7 +850,7 @@ part:AddSlider({
 })
 
 
-	
+	--[[
 part:AddButton({
 	Name = "Orbit parts",
 	Callback = function()
@@ -921,6 +921,67 @@ part:AddButton({
 				end)
 			else
 				print("Excluding part:", descendant:GetFullName())
+			end
+		end
+	end,
+})
+]]
+	
+	
+part:AddButton({
+	Name = "Orbit Parts around u",
+	Callback = function()
+		local character = game.Players.LocalPlayer.Character
+		if not character or not character:FindFirstChild("HumanoidRootPart") then
+			warn("no char lol")
+			return
+		end
+
+		local center = character.HumanoidRootPart -- Center point for the orbit
+		local orbitRadius = orbitRadius -- Radius of the orbit
+		local orbitSpeed = partOrbitSpeed -- Speed of the orbit
+
+		for _, descendant in pairs(workspace:GetDescendants()) do
+			if descendant:IsA("BasePart") and not descendant:IsDescendantOf(game.Players.LocalPlayer.Character) then
+				-- Create a BodyPosition to control movement
+				local bodyPosition = Instance.new("BodyPosition")
+				bodyPosition.MaxForce = Vector3.new(100000, 100000, 100000)
+				bodyPosition.P = 10000 -- Responsiveness of the movement
+				bodyPosition.D = 100 -- Damping for smoother motion
+				bodyPosition.Parent = descendant
+
+				-- Create a BodyGyro to keep the part oriented properly
+				local bodyGyro = Instance.new("BodyGyro")
+				bodyGyro.MaxTorque = Vector3.new(400000, 400000, 400000)
+				bodyGyro.D = 100
+				bodyGyro.P = 3000
+				bodyGyro.Parent = descendant
+
+				-- Animate the orbit
+				task.spawn(function()
+					local angle = 0 -- Start angle for orbit
+					while bodyPosition.Parent and bodyGyro.Parent and descendant.Parent do
+						angle = angle + orbitSpeed * task.wait() -- Increment angle based on speed
+
+						-- Calculate the new position for orbit
+						local offsetX = orbitRadius * math.cos(angle)
+						local offsetZ = orbitRadius * math.sin(angle)
+						bodyPosition.Position = center.Position + Vector3.new(offsetX, 0, offsetZ)
+
+						-- Keep the part upright
+						bodyGyro.CFrame = CFrame.new(bodyPosition.Position, center.Position)
+
+						task.wait(0.03) -- Adjust for smoother or faster orbiting
+					end
+
+					-- Cleanup
+					if bodyPosition.Parent then
+						bodyPosition:Destroy()
+					end
+					if bodyGyro.Parent then
+						bodyGyro:Destroy()
+					end
+				end)
 			end
 		end
 	end,
