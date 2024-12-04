@@ -852,7 +852,7 @@ part:AddSlider({
 
 	
 part:AddButton({
-	Name = "Orbit Parts around u",
+	Name = "Orbit Parts",
 	Callback = function()
 		local character = game.Players.LocalPlayer.Character
 		if not character or not character:FindFirstChild("HumanoidRootPart") then
@@ -867,7 +867,7 @@ part:AddButton({
 -- BOOKMARK the = false
 
 		for _, descendant in pairs(workspace:GetDescendants()) do
-			if descendant:IsA("BasePart") and not descendant:IsDescendantOf(workspace[plr.Name] or game.Players.LocalPlayer.Character) then
+			if descendant:IsA("BasePart") and not descendant:IsDescendantOf(workspace[plr.Name] and game.Players.LocalPlayer.Character) then
 				-- Create a BodyPosition to control movement
 				local bodyPosition = Instance.new("BodyPosition")
 				bodyPosition.MaxForce = Vector3.new(100000, 100000, 100000)
