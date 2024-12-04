@@ -77,7 +77,7 @@ local antiTripCoroutine
 	
 	
 	-- New draggable Orion Lib script for hub creations!
-	local OrionLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/Raigforce/frickYou/refs/heads/main/-"))()
+	local OrionLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/Raigforce/frickYou/refs/heads/main/%E1%85%A0%E1%85%A0%E1%85%A0"))()
 	
 	--local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/AzureEpic/orion/refs/heads/main/Source')))() obfu
 
