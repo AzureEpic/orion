@@ -911,6 +911,13 @@ part:AddButton({
 					if bodyGyro.Parent then
 						bodyGyro:Destroy()
 					end
+					
+					for _, part in game.Players.LocalPlayer.Character:GetDescendants() do
+						if part:IsA("BodyGyro") or part:IsA("BodyPosition") then
+							part:Destroy()
+						end
+					end
+					
 				end)
 			else
 				print("Excluding part:", descendant:GetFullName())
