@@ -938,8 +938,6 @@ part:AddButton({
 		end
 
 		local center = character.HumanoidRootPart -- Center point for the orbit
-		local orbitRadius = orbitRadius -- Radius of the orbit
-		local orbitSpeed = partOrbitSpeed -- Speed of the orbit
 
 		for _, descendant in pairs(workspace:GetDescendants()) do
 			if descendant:IsA("BasePart") and not descendant:IsDescendantOf(game.Players.LocalPlayer.Character) then
@@ -957,13 +955,11 @@ part:AddButton({
 				bodyGyro.P = 3000
 				bodyGyro.Parent = descendant
 
-rootpart.Anchored = true
-
 				-- Animate the orbit
 				task.spawn(function()
 					local angle = 0 -- Start angle for orbit
 					while bodyPosition.Parent and bodyGyro.Parent and descendant.Parent do
-						angle = angle + orbitSpeed * task.wait() -- Increment angle based on speed
+						angle = angle + partOrbitSpeed * task.wait() -- Increment angle based on speed
 
 						-- Calculate the new position for orbit
 						local offsetX = orbitRadius * math.cos(angle)
@@ -983,22 +979,12 @@ rootpart.Anchored = true
 					if bodyGyro.Parent then
 						bodyGyro:Destroy()
 					end
-					
-					
-					
-					if bodyPosition.Parent:IsDescendantOf(game.Players.LocalPlayer.Character) then
-						bodyPosition:Destroy()
-					end
-					if bodyGyro.Parent:IsDescendantOf(game.Players.LocalPlayer.Character) then
-						bodyGyro:Destroy()
-					end
-					
-					
 				end)
 			end
 		end
 	end,
 })
+
 
 
 part:AddButton({
