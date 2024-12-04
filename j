@@ -986,10 +986,10 @@ rootpart.Anchored = true
 					
 					
 					
-					if bodyPosition.Parent:IsDescendantOf(char) then
+					if bodyPosition.Parent:IsDescendantOf(game.Players.LocalPlayer.Character) then
 						bodyPosition:Destroy()
 					end
-					if bodyGyro.Parent:IsDescendantOf(char) then
+					if bodyGyro.Parent:IsDescendantOf(game.Players.LocalPlayer.Character) then
 						bodyGyro:Destroy()
 					end
 					
