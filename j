@@ -940,7 +940,8 @@ part:AddButton({
 		local center = character.HumanoidRootPart -- Center point for the orbit
 
 		for _, descendant in pairs(workspace:GetDescendants()) do
-			if descendant:IsA("BasePart") and not descendant:IsDescendantOf(game.Players.LocalPlayer.Character) then
+			-- Exclude parts that belong to the LocalPlayer's character
+			if descendant:IsA("BasePart") and not descendant:IsDescendantOf(character) then
 				-- Create a BodyPosition to control movement
 				local bodyPosition = Instance.new("BodyPosition")
 				bodyPosition.MaxForce = Vector3.new(100000, 100000, 100000)
@@ -984,6 +985,7 @@ part:AddButton({
 		end
 	end,
 })
+
 
 
 
