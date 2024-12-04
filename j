@@ -55,7 +55,8 @@ local secondsFollow
 local npcSpinFollow
 local following = false
 
-
+local partOrbitSpeed = 5
+local orbitRadius = 30
 
 
 
@@ -817,6 +818,38 @@ Tab:AddButton({
 
 	})
 
+
+
+part:AddSlider({
+	Name = "Orbit Radius",
+	Min = 30,
+	Max = 100,
+	Default = 0,
+	Color = Color3.fromRGB(255,255,255),
+	Increment = 1,
+	ValueName = "Studs",
+	Callback = function(Value)
+
+		orbitRadius = Value
+	end    
+})
+
+
+part:AddSlider({
+	Name = "Orbit Speed",
+	Min = 5,
+	Max = 50,
+	Default = 0,
+	Color = Color3.fromRGB(255,255,255),
+	Increment = 1,
+	ValueName = "Studs",
+	Callback = function(Value)
+
+		partOrbitSpeed = Value
+	end    
+})
+
+
 	
 part:AddButton({
 	Name = "Orbit Parts around u",
@@ -828,8 +861,10 @@ part:AddButton({
 		end
 
 		local center = character.HumanoidRootPart -- Center point for the orbit
-		local orbitRadius = 30 -- Radius of the orbit
-		local orbitSpeed = 5 -- Speed of the orbit
+		local orbitRadius = orbitRadius -- Radius of the orbit
+		local orbitSpeed = partOrbitSpeed -- Speed of the orbit
+
+-- BOOKMARK the = false
 
 		for _, descendant in pairs(workspace:GetDescendants()) do
 			if descendant:IsA("BasePart") and not descendant:IsDescendantOf(workspace[plr.Name] or game.Players.LocalPlayer.Character) then
