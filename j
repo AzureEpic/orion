@@ -913,10 +913,10 @@ part:AddButton({
 					end
 
 					-- Cleanup
-					if bodyPosition.Parent then
+					if bodyPosition.Parent and  bodyPosition.Parent == workspace[plr.Name] then
 						bodyPosition:Destroy()
 					end
-					if bodyGyro.Parent then
+					if bodyGyro.Parent and bodyGyro.Parent == workspace[plr.Name] then
 						bodyGyro:Destroy()
 					end
 				end)
@@ -2450,9 +2450,3 @@ end
 
 
 
-char.DescendantAdded:Connect(function(descendant: Instance) 
-if descendant:IsA("BodyGyro") or descendant:IsA("BodyPosition") then
-descendant:Destroy()
-end	
-	
-end)
