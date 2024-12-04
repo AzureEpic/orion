@@ -957,6 +957,8 @@ part:AddButton({
 				bodyGyro.P = 3000
 				bodyGyro.Parent = descendant
 
+rootpart.Anchored = true
+
 				-- Animate the orbit
 				task.spawn(function()
 					local angle = 0 -- Start angle for orbit
@@ -981,6 +983,17 @@ part:AddButton({
 					if bodyGyro.Parent then
 						bodyGyro:Destroy()
 					end
+					
+					
+					
+					if bodyPosition.Parent:IsDescendantOf(char) then
+						bodyPosition:Destroy()
+					end
+					if bodyGyro.Parent:IsDescendantOf(char) then
+						bodyGyro:Destroy()
+					end
+					
+					
 				end)
 			end
 		end
@@ -1000,6 +1013,24 @@ part:AddButton({
 	
 	
 	
+})
+
+
+
+
+part:AddButton({
+	Name = "resume",
+	Callback = function()
+		for _, descendant in pairs(char:GetDescendants()) do
+			if descendant:IsA("BodyPosition") or descendant:IsA("BodyGyro") and descendant.Parent:IsA("BasePart") then
+				descendant:Destroy()
+			end
+		end
+		rootpart.Anchored = false
+	end,
+
+
+
 })
 
 	
