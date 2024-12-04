@@ -870,7 +870,7 @@ part:AddButton({
 			if player.Character then
 				for _, part in ipairs(player.Character:GetDescendants()) do
 					if part:IsA("BasePart") then
-						excludedParts[part] = true
+						excludedParts[part] = true -- Store the part as a key in the table
 					end
 				end
 			end
@@ -878,53 +878,46 @@ part:AddButton({
 
 		-- Process workspace parts
 		for _, descendant in pairs(workspace:GetDescendants()) do
-			if descendant:IsA("BasePart") then
-				if excludedParts[descendant] then
-					-- Debug: part belongs to a player's character
-					print("Excluding player part:", descendant:GetFullName())
-				elseif descendant.Anchored then
-					-- Debug: part is anchored
-					print("Excluding anchored part:", descendant:GetFullName())
-				else
-					-- Debug: part is valid
-					print("Including part:", descendant:GetFullName())
+			if descendant:IsA("BasePart") and not excludedParts[descendant] and not descendant.Anchored then
+				-- Debug: part is valid
+				print("Including part:", descendant:GetFullName())
 
-					-- Add orbit mechanics
-					local bodyPosition = Instance.new("BodyPosition")
-					bodyPosition.MaxForce = Vector3.new(100000, 100000, 100000)
-					bodyPosition.P = 10000
-					bodyPosition.D = 100
-					bodyPosition.Parent = descendant
+				-- Add orbit mechanics
+				local bodyPosition = Instance.new("BodyPosition")
+				bodyPosition.MaxForce = Vector3.new(100000, 100000, 100000)
+				bodyPosition.P = 10000
+				bodyPosition.D = 100
+				bodyPosition.Parent = descendant
 
-					local bodyGyro = Instance.new("BodyGyro")
-					bodyGyro.MaxTorque = Vector3.new(400000, 400000, 400000)
-					bodyGyro.D = 100
-					bodyGyro.P = 3000
-					bodyGyro.Parent = descendant
+				local bodyGyro = Instance.new("BodyGyro")
+				bodyGyro.MaxTorque = Vector3.new(400000, 400000, 400000)
+				bodyGyro.D = 100
+				bodyGyro.P = 3000
+				bodyGyro.Parent = descendant
 
-					task.spawn(function()
-						local angle = 0 -- Start angle for orbit
-						while bodyPosition.Parent and bodyGyro.Parent and descendant.Parent do
-							angle = angle + orbitSpeed * task.wait() -- Increment angle based on speed
-							local offsetX = orbitRadius * math.cos(angle)
-							local offsetZ = orbitRadius * math.sin(angle)
-							bodyPosition.Position = center.Position + Vector3.new(offsetX, 0, offsetZ)
-							bodyGyro.CFrame = CFrame.new(bodyPosition.Position, center.Position)
-							task.wait(0.03)
-						end
-						if bodyPosition.Parent then
-							bodyPosition:Destroy()
-						end
-						if bodyGyro.Parent then
-							bodyGyro:Destroy()
-						end
-					end)
-				end
+				task.spawn(function()
+					local angle = 0 -- Start angle for orbit
+					while bodyPosition.Parent and bodyGyro.Parent and descendant.Parent do
+						angle = angle + orbitSpeed * task.wait() -- Increment angle based on speed
+						local offsetX = orbitRadius * math.cos(angle)
+						local offsetZ = orbitRadius * math.sin(angle)
+						bodyPosition.Position = center.Position + Vector3.new(offsetX, 0, offsetZ)
+						bodyGyro.CFrame = CFrame.new(bodyPosition.Position, center.Position)
+						task.wait(0.03)
+					end
+					if bodyPosition.Parent then
+						bodyPosition:Destroy()
+					end
+					if bodyGyro.Parent then
+						bodyGyro:Destroy()
+					end
+				end)
+			else
+				print("Excluding part:", descendant:GetFullName())
 			end
 		end
 	end,
 })
-
 
 
 part:AddButton({
