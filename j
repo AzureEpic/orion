@@ -48,7 +48,7 @@ end
 
 
 
-local err, success = pcall(function()  
+
 
 local secondsFollow
 
@@ -323,11 +323,11 @@ Tab:AddButton({
 			local commits = HttpService:JSONDecode(response)
 		
 				local latestCommit = commits[1]
-				print("Most Recent Commit Details:")
+			--[[	print("Most Recent Commit Details:")
 				print("Author: " .. latestCommit.commit.author.name)
 				print("Date: " .. latestCommit.commit.author.date)
 				print("Message: " .. latestCommit.commit.message)
-				print("URL: " .. latestCommit.html_url)
+				print("URL: " .. latestCommit.html_url)]]
 		
 	
 	
@@ -818,7 +818,65 @@ Tab:AddButton({
 	})
 
 	
-	
+part:AddButton({
+	Name = "Orbit Parts around u",
+	Callback = function()
+		local character = game.Players.LocalPlayer.Character
+		if not character or not character:FindFirstChild("HumanoidRootPart") then
+			warn("no char lol")
+			return
+		end
+
+		local center = character.HumanoidRootPart -- Center point for the orbit
+		local orbitRadius = 10 -- Radius of the orbit
+		local orbitSpeed = 1 -- Speed of the orbit
+
+		for _, descendant in pairs(workspace:GetDescendants()) do
+			if descendant:IsA("BasePart") and not descendant:IsDescendantOf(game.Players.LocalPlayer.Character) then
+				-- Create a BodyPosition to control movement
+				local bodyPosition = Instance.new("BodyPosition")
+				bodyPosition.MaxForce = Vector3.new(100000, 100000, 100000)
+				bodyPosition.P = 10000 -- Responsiveness of the movement
+				bodyPosition.D = 100 -- Damping for smoother motion
+				bodyPosition.Parent = descendant
+
+				-- Create a BodyGyro to keep the part oriented properly
+				local bodyGyro = Instance.new("BodyGyro")
+				bodyGyro.MaxTorque = Vector3.new(400000, 400000, 400000)
+				bodyGyro.D = 100
+				bodyGyro.P = 3000
+				bodyGyro.Parent = descendant
+
+				-- Animate the orbit
+				task.spawn(function()
+					local angle = 0 -- Start angle for orbit
+					while bodyPosition.Parent and bodyGyro.Parent and descendant.Parent do
+						angle = angle + orbitSpeed * task.wait() -- Increment angle based on speed
+
+						-- Calculate the new position for orbit
+						local offsetX = orbitRadius * math.cos(angle)
+						local offsetZ = orbitRadius * math.sin(angle)
+						bodyPosition.Position = center.Position + Vector3.new(offsetX, 0, offsetZ)
+
+						-- Keep the part upright
+						bodyGyro.CFrame = CFrame.new(bodyPosition.Position, center.Position)
+
+						task.wait(0.03) -- Adjust for smoother or faster orbiting
+					end
+
+					-- Cleanup
+					if bodyPosition.Parent then
+						bodyPosition:Destroy()
+					end
+					if bodyGyro.Parent then
+						bodyGyro:Destroy()
+					end
+				end)
+			end
+		end
+	end,
+})
+
 	
 	
 	local feat = Window:MakeTab({
@@ -876,7 +934,7 @@ Tab:AddButton({
 		Default = "",
 		TextDisappear = false,
 		Callback = function(Value)
-			orbSize = tonumber(Value)
+			orbSize = Value
 		end	  
 	})
 
@@ -1042,7 +1100,7 @@ Tab:AddButton({
 		Increment = 1,
 		ValueName = "height (in studs duh)",
 		Callback = function(Value)
-			huma.HipHeight = Value
+			
 			sliderHeight = Value
 		end    
 	})
@@ -1147,7 +1205,14 @@ Callback = <function> - The function of the slider.
 
 
 
-
+debTab:AddButton({
+	Name = "Output (useful)",
+	Callback = function()
+		loadstring(game:HttpGet(("https://raw.githubusercontent.com/Raigforce/frickYou/refs/heads/main/console")))()
+	end,
+	
+	
+})
 
 
 
@@ -1155,7 +1220,7 @@ Callback = <function> - The function of the slider.
 	debTab:AddButton({
 		Name = "Remote Spy",
 		Callback = function()
-			loadstring(game:HttpGet("https://raw.githubusercontent.com/REDzHUB/RS/main/SimpleSpyMobile"))()
+			loadstring(game:HttpGet("https://raw.githubusercontent.com/yofriendfromschool1/Sky-Hub-Backup/main/SimpleSpyV3/mobilemain.lua"))()
 		end,
 
 
@@ -1450,7 +1515,7 @@ Callback = <function> - The function of the slider.
 	
 	local duck = Window:MakeTab({
 	Name = "Raise A Duck",
-Icon = "rbxassetid://0",
+		Icon = "rbxassetid://102001121509025",
 PremiumOnly = false
 		
 	})
@@ -1469,11 +1534,11 @@ duck:AddButton({
 							local humanoid = descendant:FindFirstChild("Humanoid")
 
 
-							if humanoid and not descendant:IsDescendantOf(game.Players.LocalPlayer.Character) then
+							if humanoid and not descendant:IsDescendantOf(workspace[plr.Name] or game.Players.LocalPlayer.Character) then
 								--descendant:Destroy()
 								char:PivotTo(descendant.PrimaryPart.CFrame)
 								humanoid.Health = 0
-								print("NPC died lol ", descendant.Name)
+								print("raider died lol ", descendant.Name)
 							end
 						end
 					end
@@ -1511,7 +1576,7 @@ part.CanCollide = false
 					
 						--descendant:Destroy()
 						char:PivotTo(descendant.CFrame)
-			task.wait(.05)
+			task.wait(.1)
 					
 				end
 				
@@ -1647,7 +1712,7 @@ duck:AddButton({
 
 
 	duck:AddButton({
-		Name = "Transfer Host to yourselfl",
+		Name = "Transfer Host to yourself",
 		Callback = function()
 			local args = {
 				[1] = "Transfer",
@@ -2021,6 +2086,17 @@ pizza:AddSection({
 
 
 
+
+
+
+
+
+
+
+
+
+
+
 --[[]
 	pizza:AddButton({
 		Name = "drakeface",
@@ -2086,7 +2162,6 @@ Callback = <function> - The function of the textbox.
 
 	Error("Loaded!")
 
-end) ---NONE PAST HERE
 
 
 
@@ -2097,9 +2172,6 @@ end) ---NONE PAST HERE
 
 
 
-if not success then
-	Error(err)
-end
 
 
 
