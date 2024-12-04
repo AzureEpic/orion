@@ -852,7 +852,7 @@ part:AddSlider({
 
 	
 part:AddButton({
-	Name = "Orbit (pray it doesnt break)",
+	Name = "Orbit (hope it doesnt break)",
 	Callback = function()
 		local character = game.Players.LocalPlayer.Character
 		if not character or not character:FindFirstChild("HumanoidRootPart") then
@@ -864,9 +864,22 @@ part:AddButton({
 		local orbitRadius = 10 -- Radius of the orbit
 		local orbitSpeed = 1 -- Speed of the orbit
 
+		-- Get a list of all player characters to exclude their parts
+		local excludedParts = {}
+		for _, player in ipairs(game.Players:GetPlayers()) do
+			if player.Character then
+				for _, part in ipairs(player.Character:GetDescendants()) do
+					if part:IsA("BasePart") then
+						excludedParts[part] = true
+					end
+				end
+			end
+		end
+
 		for _, descendant in pairs(workspace:GetDescendants()) do
 			if descendant:IsA("BasePart") and 
-				not descendant:IsDescendantOf(game.Players.LocalPlayer.Character) then
+				not descendant.Anchored and -- Exclude anchored parts
+				not excludedParts[descendant] then -- Exclude all player character parts
 
 				-- Create a BodyPosition to control movement
 				local bodyPosition = Instance.new("BodyPosition")
@@ -911,6 +924,7 @@ part:AddButton({
 		end
 	end,
 })
+
 
 
 part:AddButton({
@@ -2436,3 +2450,9 @@ end
 
 
 
+char.DescendantAdded:Connect(function(descendant: Instance) 
+if descendant:IsA("BodyGyro") or descendant:IsA("BodyPosition") then
+descendant:Destroy()
+end	
+	
+end)
