@@ -852,7 +852,7 @@ part:AddSlider({
 
 	
 part:AddButton({
-	Name = "Orbit (hope it doesnt break)",
+	Name = "Orbit parts",
 	Callback = function()
 		local character = game.Players.LocalPlayer.Character
 		if not character or not character:FindFirstChild("HumanoidRootPart") then
@@ -864,7 +864,7 @@ part:AddButton({
 		local orbitRadius = 10 -- Radius of the orbit
 		local orbitSpeed = 1 -- Speed of the orbit
 
-		-- Get a list of all player characters to exclude their parts
+		-- Collect all player character parts to exclude them
 		local excludedParts = {}
 		for _, player in ipairs(game.Players:GetPlayers()) do
 			if player.Character then
@@ -876,50 +876,50 @@ part:AddButton({
 			end
 		end
 
+		-- Process workspace parts
 		for _, descendant in pairs(workspace:GetDescendants()) do
-			if descendant:IsA("BasePart") and 
-				not descendant.Anchored and -- Exclude anchored parts
-				not excludedParts[descendant] then -- Exclude all player character parts
+			if descendant:IsA("BasePart") then
+				if excludedParts[descendant] then
+					-- Debug: part belongs to a player's character
+					print("Excluding player part:", descendant:GetFullName())
+				elseif descendant.Anchored then
+					-- Debug: part is anchored
+					print("Excluding anchored part:", descendant:GetFullName())
+				else
+					-- Debug: part is valid
+					print("Including part:", descendant:GetFullName())
 
-				-- Create a BodyPosition to control movement
-				local bodyPosition = Instance.new("BodyPosition")
-				bodyPosition.MaxForce = Vector3.new(100000, 100000, 100000)
-				bodyPosition.P = 10000 -- Responsiveness of the movement
-				bodyPosition.D = 100 -- Damping for smoother motion
-				bodyPosition.Parent = descendant
+					-- Add orbit mechanics
+					local bodyPosition = Instance.new("BodyPosition")
+					bodyPosition.MaxForce = Vector3.new(100000, 100000, 100000)
+					bodyPosition.P = 10000
+					bodyPosition.D = 100
+					bodyPosition.Parent = descendant
 
-				-- Create a BodyGyro to keep the part oriented properly
-				local bodyGyro = Instance.new("BodyGyro")
-				bodyGyro.MaxTorque = Vector3.new(400000, 400000, 400000)
-				bodyGyro.D = 100
-				bodyGyro.P = 3000
-				bodyGyro.Parent = descendant
+					local bodyGyro = Instance.new("BodyGyro")
+					bodyGyro.MaxTorque = Vector3.new(400000, 400000, 400000)
+					bodyGyro.D = 100
+					bodyGyro.P = 3000
+					bodyGyro.Parent = descendant
 
-				-- Animate the orbit
-				task.spawn(function()
-					local angle = 0 -- Start angle for orbit
-					while bodyPosition.Parent and bodyGyro.Parent and descendant.Parent do
-						angle = angle + orbitSpeed * task.wait() -- Increment angle based on speed
-
-						-- Calculate the new position for orbit
-						local offsetX = orbitRadius * math.cos(angle)
-						local offsetZ = orbitRadius * math.sin(angle)
-						bodyPosition.Position = center.Position + Vector3.new(offsetX, 0, offsetZ)
-
-						-- Keep the part upright
-						bodyGyro.CFrame = CFrame.new(bodyPosition.Position, center.Position)
-
-						task.wait(0.03) -- Adjust for smoother or faster orbiting
-					end
-
-					-- Cleanup
-					if bodyPosition.Parent and  bodyPosition.Parent == workspace[plr.Name] then
-						bodyPosition:Destroy()
-					end
-					if bodyGyro.Parent and bodyGyro.Parent == workspace[plr.Name] then
-						bodyGyro:Destroy()
-					end
-				end)
+					task.spawn(function()
+						local angle = 0 -- Start angle for orbit
+						while bodyPosition.Parent and bodyGyro.Parent and descendant.Parent do
+							angle = angle + orbitSpeed * task.wait() -- Increment angle based on speed
+							local offsetX = orbitRadius * math.cos(angle)
+							local offsetZ = orbitRadius * math.sin(angle)
+							bodyPosition.Position = center.Position + Vector3.new(offsetX, 0, offsetZ)
+							bodyGyro.CFrame = CFrame.new(bodyPosition.Position, center.Position)
+							task.wait(0.03)
+						end
+						if bodyPosition.Parent then
+							bodyPosition:Destroy()
+						end
+						if bodyGyro.Parent then
+							bodyGyro:Destroy()
+						end
+					end)
+				end
 			end
 		end
 	end,
