@@ -828,8 +828,8 @@ part:AddButton({
 		end
 
 		local center = character.HumanoidRootPart -- Center point for the orbit
-		local orbitRadius = 10 -- Radius of the orbit
-		local orbitSpeed = 1 -- Speed of the orbit
+		local orbitRadius = 20 -- Radius of the orbit
+		local orbitSpeed = 5 -- Speed of the orbit
 
 		for _, descendant in pairs(workspace:GetDescendants()) do
 			if descendant:IsA("BasePart") and not descendant:IsDescendantOf(game.Players.LocalPlayer.Character) then
