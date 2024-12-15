@@ -259,7 +259,7 @@ game:GetService("Players").LocalPlayer.Character:FindFirstChild("Sword of the Be
         warn("Sword of the Behemoth not found in Backpack!")
     end
 
-    wait(3.5)
+    wait(4.5)
 
     -- Toggle asset off
    local args = {
