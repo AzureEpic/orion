@@ -243,7 +243,7 @@ game:GetService("ReplicatedStorage").Remotes.ToggleAsset:InvokeServer(unpack(arg
 
 game:GetService("Players").LocalPlayer.Character:FindFirstChild("Sword of the Behemoth").Click:FireServer(unpack(args))
 
-            wait(15)
+            wait(16)
 
             -- Fire the "Click" event with false
            local args = {
