@@ -107,7 +107,7 @@ local antiTripCoroutine
 		end
 	end)
 
-rootpart.Massless = true
+
 
 
 local function makeSelfOrb(size: number, color, func:string)
