@@ -1977,7 +1977,7 @@ cmd.add({"teleporttoplace","toplace","ttp"},{"teleporttoplace (PlaceId) (toplace
 end)
 
 
-cmd.add({"Blackhole","bhole","bh"},{"teleporttoplace (PlaceId) (toplace,ttp)","stolen part blackhole script LMAO "},function(...)
+cmd.add({"Blackholegui","bhole","bh"},{"blackholegui (PlaceId) (bhg,bholegui)","stolen part blackhole script LMAO "},function(...)
 loadstring(game:HttpGet("https://raw.githubusercontent.com/AzureEpic/orion/refs/heads/main/bla"))()
 
 end)
