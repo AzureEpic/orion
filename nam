@@ -13,7 +13,7 @@ NACaller(function() getgenv().RealNamelessLoaded=true end)
 NACaller(function() getgenv().NATestingVer=false end)
 
 --[[ Version ]]--
-local curVer=2.2
+local curVer=2.3
 
 --[[ Brand ]]--
 local mainName='gay'
@@ -1734,6 +1734,14 @@ end)
 cmd.add({"commands","cmds"},{"commands (cmds)","Open the command list"},function()
 	gui.commands()
 end)
+
+cmd.add({"invistool","intool"},{"invisibility (tool","Gives an invis tool (actually works)"},function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/AzureEpic/orion/refs/heads/main/invis"))()
+end)
+
+
+
+
 
 --[[cmd.add({"adonisfinder","adfind"},{"adonis finder (adfind)","Lets you see if the game has adonis admin"},function()
 	loadstring(game:HttpGet("https://github.com/ltseverydayyou/Nameless-Admin/blob/main/AdonisScanner.lua?raw=adonfind"))()
