@@ -46,6 +46,15 @@ catalog.Name = "catalog"
 catalog.Parent = game.CoreGui
 catalog.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
+
+if syn then
+	syn.protect_gui(catalog)
+	catalog.Parent = game.CoreGui
+else
+	catalog.Parent = gethui() or game.CoreGui
+end
+
+
 Frame.Parent = catalog
 Frame.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
 Frame.BorderColor3 = Color3.fromRGB(0, 0, 0)
