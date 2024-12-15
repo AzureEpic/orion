@@ -1,0 +1,142 @@
+local OFFSET = 1100
+local TOOL_NAME = "Invisible"
+local LOCAL_PLAYER = game.Players.LocalPlayer
+local invisibleMode = false
+local handle, weld, heldTool, gripChanged
+local grips = {}
+
+
+local oghh = LOCAL_PLAYER.Character.Humanoid.HipHeight
+
+
+
+
+
+-- Utility function to set the display distance for all players
+local function setDisplayDistance(distance)
+    for _, player in pairs(game.Players:GetPlayers()) do
+        local humanoid = player.Character and player.Character:FindFirstChildWhichIsA("Humanoid")
+        if humanoid then
+            humanoid.NameDisplayDistance = distance
+            humanoid.HealthDisplayDistance = distance
+        end
+    end
+end
+
+-- Function to activate invisibility
+local function enableInvisibility(tool)
+    invisibleMode = true
+    tool.Name = "Enabled Invisible"
+
+    -- Create and configure the invisible handle
+    handle = Instance.new("Part")
+    handle.Name = "Handle"
+    handle.Size = Vector3.new(2, 1, 1)
+    handle.Transparency = 1
+    handle.CanCollide = true -- Enable collision to prevent falling
+    handle.Parent = workspace
+
+    -- Attach the handle to the player with a weld
+    weld = Instance.new("Weld", handle)
+    weld.Part0 = handle
+    weld.Part1 = LOCAL_PLAYER.Character.HumanoidRootPart
+    weld.C0 = CFrame.new(0, OFFSET - 1.5, 0)
+
+    -- Adjust camera and player properties
+    setDisplayDistance(OFFSET + 100)
+    workspace.CurrentCamera.CameraSubject = handle
+    LOCAL_PLAYER.Character.HumanoidRootPart.CFrame *= CFrame.new(0, OFFSET + 3, 0)
+
+    -- Adjust HipHeight but keep collision stable
+    LOCAL_PLAYER.Character.Humanoid.HipHeight = 1 -- Small adjustment to stabilize
+    LOCAL_PLAYER.Character.HumanoidRootPart.CanCollide = true
+LOCAL_PLAYER.Character.Humanoid.HipHeight = OFFSET / 100 -- Adjust height dynamically for stability
+
+
+    -- Save original tool grips
+    for _, backpackTool in pairs(LOCAL_PLAYER.Backpack:GetChildren()) do
+        if backpackTool:IsA("Tool") then
+            grips[backpackTool] = backpackTool.Grip
+        end
+    end
+end
+
+-- Function to disable invisibility
+local function disableInvisibility(tool)
+    invisibleMode = false
+    tool.Name = "Disabled Invisible"
+
+    -- Cleanup handle and weld
+    if handle then handle:Destroy() end
+    if weld then weld:Destroy() end
+
+    -- Reset tool grips and properties
+    for tool, grip in pairs(grips) do
+        if tool then
+            tool.Grip = grip
+        end
+    end
+    grips = {}
+
+    setDisplayDistance(100)
+    workspace.CurrentCamera.CameraSubject = LOCAL_PLAYER.Character.Humanoid
+    LOCAL_PLAYER.Character.HumanoidRootPart.CFrame *= CFrame.new(0, -OFFSET + 4, 0)
+    
+
+LOCAL_PLAYER.Character.Humanoid.HipHeight = oghh
+
+
+    LOCAL_PLAYER.Character.Humanoid:ChangeState(Enum.HumanoidStateType.Running) -- Restore default physics
+
+    -- Reset animations and tool states
+    for _, toolInChar in pairs(LOCAL_PLAYER.Character:GetChildren()) do
+        if toolInChar:IsA("Tool") then
+            toolInChar.Parent = LOCAL_PLAYER.Backpack
+        end
+    end
+    if gripChanged then gripChanged:Disconnect() end
+end
+
+-- Create the invisibility tool
+local tool = Instance.new("Tool")
+tool.Name = TOOL_NAME
+tool.RequiresHandle = false
+tool.CanBeDropped = false
+tool.Parent = LOCAL_PLAYER.Backpack
+
+-- Toggle invisibility when the tool is equipped
+tool.Equipped:Connect(function()
+    if invisibleMode then
+        disableInvisibility(tool)
+    else
+        enableInvisibility(tool)
+    end
+end)
+
+-- Handle tool grip adjustments while invisible
+LOCAL_PLAYER.Character.ChildAdded:Connect(function(child)
+    if invisibleMode and child:IsA("Tool") and child ~= tool then
+        heldTool = child
+        local originalGrip = heldTool.Grip
+        if not grips[heldTool] then
+            grips[heldTool] = originalGrip
+        end
+
+        -- Adjust the grip for invisibility
+        heldTool.Grip *= CFrame.new(0, OFFSET - 1.5, 1.5) * CFrame.Angles(math.rad(-90), 0, 0)
+        heldTool.Parent = LOCAL_PLAYER.Backpack
+        heldTool.Parent = LOCAL_PLAYER.Character
+
+        -- Keep the grip adjusted when it changes
+        if gripChanged then gripChanged:Disconnect() end
+        gripChanged = heldTool:GetPropertyChangedSignal("Grip"):Connect(function()
+            if invisibleMode then
+                heldTool.Grip = originalGrip * CFrame.new(0, OFFSET - 1.5, 1.5) * CFrame.Angles(math.rad(-90), 0, 0)
+                heldTool.Parent = LOCAL_PLAYER.Backpack
+                heldTool.Parent = LOCAL_PLAYER.Character
+            else
+                gripChanged:Disconnect()
+            end
+        end)
+    end
+end)
