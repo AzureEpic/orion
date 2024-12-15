@@ -43,7 +43,7 @@ local alpaca = Instance.new("TextButton")
 --Properties:
 
 catalog.Name = "catalog"
-catalog.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+catalog.Parent = game.CoreGui
 catalog.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
 Frame.Parent = catalog
