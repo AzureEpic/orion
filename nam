@@ -1781,6 +1781,19 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/AzureEpic/orion/refs/
 end)
 
 
+
+cmd.add({"tele","tk"},{"telek","t"},function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/AzureEpic/orion/refs/heads/main/tele"))()
+
+	
+end)
+
+
+
+
+
+
+
 local hiddenfling=false
 cmd.add({"walkfling","wfling"},{"walkfling (wfling) [THANKS TO X]","probably the best fling lol"},function()
 	DoNotif("Walkfling enabled",5)
