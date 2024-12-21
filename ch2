@@ -1,0 +1,282 @@
+local args = {
+	[1] = 21420014
+}
+
+game:GetService("ReplicatedStorage").Remotes.ToggleAsset:InvokeServer(unpack(args))
+task.wait()
+local args = {
+	[1] = 90718618
+}
+
+game:GetService("ReplicatedStorage").Remotes.ToggleAsset:InvokeServer(unpack(args))
+task.wait()
+local args = {
+	[1] = 92142829
+}
+
+game:GetService("ReplicatedStorage").Remotes.ToggleAsset:InvokeServer(unpack(args))
+
+task.wait()
+local args = {
+	[1] = 68539623
+}
+
+game:GetService("ReplicatedStorage").Remotes.ToggleAsset:InvokeServer(unpack(args))
+
+local args = {
+	[1] = 212641536
+}
+
+game:GetService("ReplicatedStorage").Remotes.ToggleAsset:InvokeServer(unpack(args))
+
+
+
+
+local on = false
+	local alpacaOn = false
+	local zombie = false
+	local zombie2 = false
+
+
+
+
+
+local givingApples
+local givingCookies
+local invincible 
+	local infJumping = false -- Initialize it to false
+
+local DrRayLibrary = loadstring(game:HttpGet("https://raw.githubusercontent.com/AZYsGithub/DrRay-UI-Library/main/DrRay.lua"))()
+
+-- Create a new window and set its title and theme
+local window = DrRayLibrary:Load("dingus!", "Default")
+
+-- Create the first tab with an image ID
+local tab1 = DrRayLibrary.newTab("catalog heaven", "ImageIdHere")
+
+-- Add elements to the first tab
+tab1.newLabel("sigma sigma on the wall...")
+tab1.newButton("sonar", "spams sonar", function()
+    on = not on
+end)
+
+tab1.newButton("alpaca", "spams alpacas", function()
+    alpacaOn = not alpacaOn
+end)
+
+
+tab1.newButton("zombie", "spams zombie", function()
+    zombie2 = not zombie2
+end)
+
+tab1.newButton("GodMode", "d", function()
+game:GetService("ReplicatedStorage").Remotes.ToggleAsset:InvokeServer(93725362)
+
+task.wait()
+
+game:GetService("Players").LocalPlayer.Character:FindFirstChild("Humanoid"):EquipTool(game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Sword of the Behemoth"))
+
+task.wait(.1)
+game:GetService("Players").LocalPlayer.Character:FindFirstChild("Sword of the Behemoth").Click:FireServer(true, game.Players.LocalPlayer.PrimaryPart.Position)
+
+wait(13)
+
+game:GetService("Players").LocalPlayer.Character:FindFirstChild("Sword of the Behemoth").Click:FireServer(false, game.Players.LocalPlayer.PrimaryPart.Position)
+
+
+wait(3.5)
+
+game:GetService("ReplicatedStorage").Remotes.ToggleAsset:InvokeServer(93725362)
+end)
+
+
+tab1.newToggle("Toggle", "Toggle! (prints the state)", true, function(toggleState)
+    givingApples = toggleState
+end)
+
+tab1.newInput("Input", "Prints your input.", function(text)
+    print("Entered text in Tab 1: " .. text)
+end)
+
+tab1.newSlider("Slider", "Epic slider", 1000, false, function(num)
+    print(num)
+end)
+
+
+
+-- Create the second tab with a different image ID
+local tab2 = DrRayLibrary.newTab("Character", "ImageIdLogoHere")
+
+-- Add elements to the second tab
+tab2.newLabel("ok")
+
+tab2.newSlider("Walkspeed", "Epic walkspeed thing", 1000, false, function(num)
+    game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = num
+end)
+
+tab2.newSlider("Jumppower", "Epic jumppower thing", 30, false, function(num)
+    game.Players.LocalPlayer.Character.Humanoid.JumpPower = num
+end)
+
+tab2.newButton("Button", "Prints Hello!", function()
+    print('Hello!')
+end)
+
+tab2.newToggle("Infjump", "Enable/disable infinite jump", true, function(toggleState)
+    infJumping = toggleState
+end)
+
+tab2.newDropdown("Dropdown", "Select one of these options!", {"water", "dog", "air", "bb", "airplane", "wohhho", "yeay", "delete"}, function(selectedOption)
+    print(selectedOption)
+end)
+
+-- Infinite jump logic
+game:GetService("UserInputService").JumpRequest:Connect(function()
+    if infJumping then
+        game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid"):ChangeState("Jumping")
+    end
+end)
+
+local tab3 = DrRayLibrary.newTab("Events", "ImageIdLogoHere")
+
+
+
+tab3.newButton("Befriend The Cat", "erm!", function()
+
+game:GetService("ReplicatedStorage").RemoteEvents.Cattery:FireServer()
+
+end)
+
+tab3.newButton("heal all", "erm!", function()
+
+local args = {
+    [1] = "HealAll"
+}
+
+game:GetService("ReplicatedStorage").Events.PhoneAction:FireServer(unpack(args))
+
+end)
+
+tab3.newButton("Money", "erm!", function()
+
+local args = {
+    [1] = "Money"
+}
+
+game:GetService("ReplicatedStorage").Events.PhoneAction:FireServer(unpack(args))
+
+end)
+
+
+tab3.newButton("gym", "erm!", function()
+
+local args = {
+    [1] = "Gym"
+}
+
+game:GetService("ReplicatedStorage").Events.PhoneAction:FireServer(unpack(args))
+
+end)
+
+
+tab3.newButton("golden pizza", "erm!", function()
+
+local args = {
+    [1] = 7,
+    [2] = workspace.OnTable.GoldPizza
+}
+
+game:GetService("ReplicatedStorage").Events.OutsideFood:FireServer(unpack(args))
+
+end)
+
+
+
+
+
+
+
+
+task.spawn(function()
+		while true do
+			if on then
+				-- Fire remote to toggle GrimgoldPeriastron
+				game:GetService("ReplicatedStorage").Remotes.ToggleAsset:InvokeServer(73829193)
+	
+				-- Equip and use the tool
+				local character = game.Players.LocalPlayer.Character
+				local grimgoldTool = character and game.Players.LocalPlayer.Backpack:FindFirstChild("GrimgoldPeriastron")
+				if grimgoldTool then
+					game.Players.LocalPlayer.Character.Humanoid:EquipTool(grimgoldTool)
+					grimgoldTool.Remote:FireServer(Enum.KeyCode.Q)
+				end
+			end
+	
+			if alpacaOn then
+				-- Fire remote to toggle AnAlpacaYouKnow
+				game:GetService("ReplicatedStorage").Remotes.ToggleAsset:InvokeServer(292969139)
+	
+				-- Equip and use the tool
+				local character = game.Players.LocalPlayer.Character
+				local alpacaTool = character and game.Players.LocalPlayer.Backpack:FindFirstChild("AnAlpacaYouKnow")
+				if alpacaTool then
+					game.Players.LocalPlayer.Character.Humanoid:EquipTool(alpacaTool)
+					alpacaTool:Activate()
+				end
+			end
+	
+	
+			if zombie then
+				-- Fire remote to toggle AnAlpacaYouKnow
+				game:GetService("ReplicatedStorage").Remotes.ToggleAsset:InvokeServer(26421972)
+	
+				-- Equip and use the tool
+				local character = game.Players.LocalPlayer.Character
+				local alpacaTool = character and game.Players.LocalPlayer.Backpack:FindFirstChild("ZombieStaff")
+				if alpacaTool then
+					game.Players.LocalPlayer.Character.Humanoid:EquipTool(alpacaTool)
+					alpacaTool:Activate()
+				end
+			end
+	
+	
+			if zombie2 then
+				
+				game:GetService("ReplicatedStorage").Remotes.ToggleAsset:InvokeServer(93536844)
+	task.wait()
+				-- Equip and use the tool
+				local player = game.Players.LocalPlayer
+				local character = player.Character or player.CharacterAdded:Wait()
+				local zombieLauncher = character and player.Backpack:FindFirstChild("ZombieLauncher")
+	
+				if zombieLauncher then
+					-- Equip the tool
+					character.Humanoid:EquipTool(zombieLauncher)
+	
+					-- Use MouseButton1Down and MouseButton1Up events
+					local mouseButton1DownEvent = zombieLauncher:FindFirstChild("MouseButton1Down")
+					if mouseButton1DownEvent then
+						mouseButton1DownEvent:FireServer(character.PrimaryPart.Position)
+					end
+	
+					local mouseButton1UpEvent = zombieLauncher:FindFirstChild("MouseButton1Up")
+					if mouseButton1UpEvent then
+						mouseButton1UpEvent:FireServer(character.PrimaryPart.CFrame)
+					end
+				end
+				task.wait()
+			end
+	
+	
+	
+	
+	
+	
+			task.wait(0.001) -- Adjusted delay for better performance
+		end
+	end)
+
+
+
+
+
