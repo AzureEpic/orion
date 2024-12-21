@@ -1,33 +1,3 @@
-local args = {
-	[1] = 21420014
-}
-
-game:GetService("ReplicatedStorage").Remotes.ToggleAsset:InvokeServer(unpack(args))
-task.wait()
-local args = {
-	[1] = 90718618
-}
-
-game:GetService("ReplicatedStorage").Remotes.ToggleAsset:InvokeServer(unpack(args))
-task.wait()
-local args = {
-	[1] = 92142829
-}
-
-game:GetService("ReplicatedStorage").Remotes.ToggleAsset:InvokeServer(unpack(args))
-
-task.wait()
-local args = {
-	[1] = 68539623
-}
-
-game:GetService("ReplicatedStorage").Remotes.ToggleAsset:InvokeServer(unpack(args))
-
-local args = {
-	[1] = 212641536
-}
-
-game:GetService("ReplicatedStorage").Remotes.ToggleAsset:InvokeServer(unpack(args))
 
 
 
@@ -306,6 +276,44 @@ toggleAssets(assetGroups.primary)
 toggleAssets(assetGroups.secondary)
 
 end)
+
+
+tab4.newButton("2", "main!", function()
+
+local args = {
+	[1] = 21420014
+}
+
+game:GetService("ReplicatedStorage").Remotes.ToggleAsset:InvokeServer(unpack(args))
+task.wait()
+local args = {
+	[1] = 90718618
+}
+
+game:GetService("ReplicatedStorage").Remotes.ToggleAsset:InvokeServer(unpack(args))
+task.wait()
+local args = {
+	[1] = 92142829
+}
+
+game:GetService("ReplicatedStorage").Remotes.ToggleAsset:InvokeServer(unpack(args))
+
+task.wait()
+local args = {
+	[1] = 68539623
+}
+
+game:GetService("ReplicatedStorage").Remotes.ToggleAsset:InvokeServer(unpack(args))
+
+local args = {
+	[1] = 212641536
+}
+
+game:GetService("ReplicatedStorage").Remotes.ToggleAsset:InvokeServer(unpack(args))
+
+
+end)
+
 
 
 
