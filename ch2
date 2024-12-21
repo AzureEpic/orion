@@ -137,56 +137,46 @@ game:GetService("UserInputService").JumpRequest:Connect(function()
     end
 end)
 
-local tab3 = DrRayLibrary.newTab("Events", "ImageIdLogoHere")
+local tab3 = DrRayLibrary.newTab("stolen fits", "ImageIdLogoHere")
 
-
-
-tab3.newButton("Befriend The Cat", "erm!", function()
-
-game:GetService("ReplicatedStorage").RemoteEvents.Cattery:FireServer()
-
-end)
-
-tab3.newButton("heal all", "erm!", function()
-
+tab3.newButton("Logetono2948", "basic!", function()
 local args = {
-    [1] = "HealAll"
+    [1] = 6445269791
 }
 
-game:GetService("ReplicatedStorage").Events.PhoneAction:FireServer(unpack(args))
-
-end)
-
-tab3.newButton("Money", "erm!", function()
-
+game:GetService("ReplicatedStorage").Remotes.ToggleAsset:InvokeServer(unpack(args))
 local args = {
-    [1] = "Money"
+    [1] = 6445268819
 }
 
-game:GetService("ReplicatedStorage").Events.PhoneAction:FireServer(unpack(args))
-
-end)
-
-
-tab3.newButton("gym", "erm!", function()
-
+game:GetService("ReplicatedStorage").Remotes.ToggleAsset:InvokeServer(unpack(args))
 local args = {
-    [1] = "Gym"
+    [1] = 6445260402
 }
 
-game:GetService("ReplicatedStorage").Events.PhoneAction:FireServer(unpack(args))
-
-end)
-
-
-tab3.newButton("golden pizza", "erm!", function()
-
+game:GetService("ReplicatedStorage").Remotes.ToggleAsset:InvokeServer(unpack(args))
 local args = {
-    [1] = 7,
-    [2] = workspace.OnTable.GoldPizza
+    [1] = 6445265102
 }
 
-game:GetService("ReplicatedStorage").Events.OutsideFood:FireServer(unpack(args))
+game:GetService("ReplicatedStorage").Remotes.ToggleAsset:InvokeServer(unpack(args))
+local args = {
+    [1] = 6445262286
+}
+
+game:GetService("ReplicatedStorage").Remotes.ToggleAsset:InvokeServer(unpack(args))
+local args = {
+    [1] = 6445263379
+}
+
+game:GetService("ReplicatedStorage").Remotes.ToggleAsset:InvokeServer(unpack(args))
+local args = {
+    [1] = 6445270994
+}
+
+game:GetService("ReplicatedStorage").Remotes.ToggleAsset:InvokeServer(unpack(args))
+
+game:GetService("ReplicatedStorage").Remotes.SetBodyColor:FireServer(nil, 1003) 
 
 end)
 
@@ -194,6 +184,128 @@ end)
 
 
 
+
+tab3.newButton("Starter", "aaaa!", function()
+local args = {
+    [1] = 6445269791
+}
+
+game:GetService("ReplicatedStorage").Remotes.ToggleAsset:InvokeServer(unpack(args))
+local args = {
+    [1] = 6445268819
+}
+
+game:GetService("ReplicatedStorage").Remotes.ToggleAsset:InvokeServer(unpack(args))
+local args = {
+    [1] = 6445260402
+}
+
+game:GetService("ReplicatedStorage").Remotes.ToggleAsset:InvokeServer(unpack(args))
+local args = {
+    [1] = 6445265102
+}
+
+game:GetService("ReplicatedStorage").Remotes.ToggleAsset:InvokeServer(unpack(args))
+local args = {
+    [1] = 6445262286
+}
+
+game:GetService("ReplicatedStorage").Remotes.ToggleAsset:InvokeServer(unpack(args))
+local args = {
+    [1] = 6445263379
+}
+
+game:GetService("ReplicatedStorage").Remotes.ToggleAsset:InvokeServer(unpack(args))
+local args = {
+    [1] = 6445270994
+}
+
+game:GetService("ReplicatedStorage").Remotes.ToggleAsset:InvokeServer(unpack(args))
+
+game:GetService("ReplicatedStorage").Remotes.SetBodyColor:FireServer(nil, 1030) 
+
+end)
+
+tab3.newButton("Den", "erm!", function()
+
+local assetGroups = {
+    primary = {
+        5841499205,
+        11547488894,
+        7747978279,
+        8087463041,
+        6532336503,
+        511926133,
+        117522793,
+        6275899541,
+        7097542232,
+48474356
+    },
+    secondary = {
+        2435999675,
+        74385399,
+        77443461,
+        169602388,
+        43708943,
+        68539623,
+        92142829,
+        287426148
+    }
+}
+
+-- Function to invoke assets by group
+local function toggleAssets(group)
+    for _, assetId in ipairs(group) do
+        game:GetService("ReplicatedStorage").Remotes.ToggleAsset:InvokeServer(assetId)
+    end
+end
+
+-- Toggle primary assets
+toggleAssets(assetGroups.primary)
+
+-- Toggle secondary assets
+toggleAssets(assetGroups.secondary)
+
+end)
+
+
+
+
+local tab4 = DrRayLibrary.newTab("Gear Presets", "ImageIdLogoHere")
+
+tab4.newButton("1", "erm!", function()
+
+local assetGroups = {
+    primary = {
+     nil
+    },
+    secondary = {
+        2435999675,
+        74385399,
+        77443461,
+        169602388,
+        43708943,
+        68539623,
+        92142829,
+        287426148,
+        
+    }
+}
+
+-- Function to invoke assets by group
+local function toggleAssets(group)
+    for _, assetId in ipairs(group) do
+        game:GetService("ReplicatedStorage").Remotes.ToggleAsset:InvokeServer(assetId)
+    end
+end
+
+-- Toggle primary assets
+toggleAssets(assetGroups.primary)
+
+-- Toggle secondary assets
+toggleAssets(assetGroups.secondary)
+
+end)
 
 
 
