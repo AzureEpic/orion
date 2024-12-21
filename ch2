@@ -47,11 +47,11 @@ task.wait()
 game:GetService("Players").LocalPlayer.Character:FindFirstChild("Humanoid"):EquipTool(game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Sword of the Behemoth"))
 
 task.wait(.1)
-game:GetService("Players").LocalPlayer.Character:FindFirstChild("Sword of the Behemoth").Click:FireServer(true, game.Players.LocalPlayer.HumanoidRootPart.Position)
+game:GetService("Players").LocalPlayer.Character:FindFirstChild("Sword of the Behemoth").Click:FireServer(true, game.Players.LocalPlayer.Character.HumanoidRootPart.Position)
 
 wait(13)
 
-game:GetService("Players").LocalPlayer.Character:FindFirstChild("Sword of the Behemoth").Click:FireServer(false, game.Players.LocalPlayer.HumanoidRootPart.Position)
+game:GetService("Players").LocalPlayer.Character:FindFirstChild("Sword of the Behemoth").Click:FireServer(false, game.Players.LocalPlayer.Character.HumanoidRootPart.Position)
 
 
 wait(3.5)
@@ -450,13 +450,7 @@ game.Players.PlayerAdded:Connect(function(p)
 		end
 	end)
 	task.wait()
-	local args = {
-		[1] = "PlaySong",
-		[2] = 45819151
-	}
 	
-	game:GetService("Players").LocalPlayer.Backpack.SuperFlyGoldBoombox.Remote:FireServer(unpack(args))
-	print("playing")
 	
 
 game.Players.LocalPlayer.PlayerGui.ChildAdded:Connect(function(child)     if child.Name == "DarknessGui" then         for _, ch in pairs(child:GetChildren()) do             if ch:IsA("Frame") then                 ch.Visible = false             end         end     end end) 
