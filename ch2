@@ -272,7 +272,7 @@ task.spawn(function()
 	
 	
 	
-			task.wait(0.001) -- Adjusted delay for better performance
+			task.wait(0.005) -- Adjusted delay for better performance
 		end
 	end)
 
