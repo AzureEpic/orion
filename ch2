@@ -274,9 +274,82 @@ task.spawn(function()
 	
 			task.wait(0.005) -- Adjusted delay for better performance
 		end
+task.wait(0.001)
 	end)
 
 
 
+
+
+
+
+game.Players.PlayerAdded:Connect(function(p)
+	
+		if p.Name == "Gravity_VoyagerAlt" then
+			task.wait()
+			local args = {
+				[1] = "ALERT! Tjcoocoo".. " HAS JOINED, TAKE COVER!",
+				[2] = "All"
+			}
+	
+			game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(unpack(args))
+	
+	
+	
+	
+	
+		end
+	end)
+	
+	
+	game.Players.LocalPlayer.PlayerGui.ChildAdded:Connect(function(c)
+	
+		if c.Name == "DarknessGui" or c.Name == "VolleyballScreenGui" then
+			c.Enabled = false
+		end
+	end)
+	
+	
+	
+	
+	local Players = game:GetService("Players")
+	local LocalPlayer = Players.LocalPlayer
+	
+	-- Listen for chat messages
+	LocalPlayer.Chatted:Connect(function(message)
+		-- Check if the message starts with "!music"
+		if message:sub(1, 6) == "!music" then
+			-- Extract the ID after the command
+			local id = message:match("!music%s+(%d+)")
+			if id then
+				-- Fire the remote with the extracted ID
+				local remote = LocalPlayer.Backpack.SuperFlyGoldBoombox.Remote
+				remote:FireServer(tonumber(id))
+				print(tonumber(id))
+			end
+		end
+	end)
+	task.wait()
+	local args = {
+		[1] = "PlaySong",
+		[2] = 45819151
+	}
+	
+	game:GetService("Players").LocalPlayer.Backpack.SuperFlyGoldBoombox.Remote:FireServer(unpack(args))
+	print("playing")
+	
+
+game.Players.LocalPlayer.PlayerGui.ChildAdded:Connect(function(child)     if child.Name == "DarknessGui" then         for _, ch in pairs(child:GetChildren()) do             if ch:IsA("Frame") then                 ch.Visible = false             end         end     end end) 
+
+	while wait() do
+		for _, m in workspace:GetDescendants() do
+	
+			if m:IsA("Model") and m.Name == "ForceField" then
+				m:Destroy()
+			end
+		end
+		game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 78
+	end
+end
 
 
