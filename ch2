@@ -350,6 +350,6 @@ game.Players.LocalPlayer.PlayerGui.ChildAdded:Connect(function(child)     if chi
 		end
 		game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 78
 	end
-end
+end)
 
 
