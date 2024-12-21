@@ -47,11 +47,11 @@ task.wait()
 game:GetService("Players").LocalPlayer.Character:FindFirstChild("Humanoid"):EquipTool(game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Sword of the Behemoth"))
 
 task.wait(.1)
-game:GetService("Players").LocalPlayer.Character:FindFirstChild("Sword of the Behemoth").Click:FireServer(true, game.Players.LocalPlayer.PrimaryPart.Position)
+game:GetService("Players").LocalPlayer.Character:FindFirstChild("Sword of the Behemoth").Click:FireServer(true, game.Players.LocalPlayer.HumanoidRootPart.Position)
 
 wait(13)
 
-game:GetService("Players").LocalPlayer.Character:FindFirstChild("Sword of the Behemoth").Click:FireServer(false, game.Players.LocalPlayer.PrimaryPart.Position)
+game:GetService("Players").LocalPlayer.Character:FindFirstChild("Sword of the Behemoth").Click:FireServer(false, game.Players.LocalPlayer.HumanoidRootPart.Position)
 
 
 wait(3.5)
