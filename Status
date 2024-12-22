@@ -1,5 +1,5 @@
 local statuses = {
-    Catalog = trur
+    Catalog = true
 }
 return statuses
 --Hi
