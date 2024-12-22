@@ -1,4 +1,4 @@
 local statuses = {
-    Catalog = false
+    Catalog = true
 }
 return statuses
