@@ -9,7 +9,7 @@ local on = false
 local pwny = false
 local subspace = false
 local joyful = false
-
+local labtable = false
 
 local givingApples
 local givingCookies
@@ -43,6 +43,10 @@ end)
 
 tab1.newButton("subspace", "spams subspace tripmines", function()
     subspace = not subspace
+end)
+
+tab1.newButton("hiroshima", "spams lab tables", function()
+    labtable = not labtable
 end)
 
 
@@ -490,7 +494,26 @@ task.wait(0.1)
 					alpacaTool:Activate()
 				end
 			end
+
+if labtable then
+				-- Fire remote to toggle AnAlpacaYouKnow
+				game:GetService("ReplicatedStorage").Remotes.ToggleAsset:InvokeServer(154727201)
 	
+				-- Equip and use the tool
+				local character = game.Players.LocalPlayer.Character
+				local alpacaTool = character and game.Players.LocalPlayer.Backpack:FindFirstChild("ExplodingLabExperiment")
+				if alpacaTool then
+					game.Players.LocalPlayer.Character.Humanoid:EquipTool(alpacaTool)
+					alpacaTool:Activate()
+				end
+			end
+
+
+
+
+
+
+
 		if pwny then
 				-- Fire remote to toggle AnAlpacaYouKnow
 				game:GetService("ReplicatedStorage").Remotes.ToggleAsset:InvokeServer(26777410)
