@@ -1,3 +1,4 @@
 local statuses = {
     Catalog = true
 }
+return statuses
