@@ -6,9 +6,9 @@ local on = false
 	local alpacaOn = false
 	local zombie = false
 	local zombie2 = false
-
-
-
+local pwny = false
+local subspace = false
+local joyful = false
 
 
 local givingApples
@@ -30,14 +30,32 @@ tab1.newButton("sonar", "spams sonar", function()
     on = not on
 end)
 
+tab1.newButton("joyful", "spams eggs", function()
+    joyful = not joyful
+end)
+
+
+
+
 tab1.newButton("alpaca", "spams alpacas", function()
     alpacaOn = not alpacaOn
 end)
+
+tab1.newButton("subspace", "spams subspace tripmines", function()
+    subspace = not subspace
+end)
+
+
+
 
 
 tab1.newButton("zombie", "spams zombie", function()
     zombie2 = not zombie2
 end)
+tab1.newButton("pwny", "spams spike platforms", function()
+    pwny = not pwny
+end)
+
 
 tab1.newButton("GodMode", "d", function()
 game:GetService("ReplicatedStorage").Remotes.ToggleAsset:InvokeServer(93725362)
@@ -314,6 +332,116 @@ game:GetService("ReplicatedStorage").Remotes.ToggleAsset:InvokeServer(unpack(arg
 
 end)
 
+tab4.newButton("3", "Camping", function()
+local args = {
+    [1] = 169602010,
+
+}
+
+game:GetService("ReplicatedStorage").Remotes.ToggleAsset:InvokeServer(unpack(args))
+local args = {
+    [1] = 746687364,
+    [2] = 4866372438
+}
+
+game:GetService("ReplicatedStorage").Remotes.ToggleAsset:InvokeServer(unpack(args))
+local args = {
+    [1] = 80661504,
+    [2] = 960389574
+}
+
+game:GetService("ReplicatedStorage").Remotes.ToggleAsset:InvokeServer(unpack(args))
+local args = {
+    [1] = 21420014,
+    [2] = 83778644
+}
+
+game:GetService("ReplicatedStorage").Remotes.ToggleAsset:InvokeServer(unpack(args))
+local args = {
+    [1] = 57229337,
+    [2] = 4022841407
+}
+
+game:GetService("ReplicatedStorage").Remotes.ToggleAsset:InvokeServer(unpack(args))
+local args = {
+    [1] = 123234510,
+    [2] = 916677844
+}
+
+game:GetService("ReplicatedStorage").Remotes.ToggleAsset:InvokeServer(unpack(args))
+local args = {
+    [1] = 119917513,
+    [2] = 3602189775
+}
+
+game:GetService("ReplicatedStorage").Remotes.ToggleAsset:InvokeServer(unpack(args))
+
+
+
+end)
+
+
+local tab5 = DrRayLibrary.newTab("Abilities", "ImageIdHere") 
+
+
+tab5.newButton("Deflect Barrier", "chart peri btw", function()
+
+		local placehold = character and game.Players.LocalPlayer.Backpack:FindFirstChild("ChartreusePeriastron")
+if placehold then
+game:GetService("ReplicatedStorage").Remotes.ToggleAsset:InvokeServer(80661504)
+end
+
+
+
+game:GetService("ReplicatedStorage").Remotes.ToggleAsset:InvokeServer(80661504)
+	
+				-- Equip and use the tool
+				local character = game.Players.LocalPlayer.Character
+				local grimgoldTool = character and game.Players.LocalPlayer.Backpack:FindFirstChild("ChartreusePeriastron")
+				if grimgoldTool then
+					game.Players.LocalPlayer.Character.Humanoid:EquipTool(grimgoldTool)
+					grimgoldTool.Remote:FireServer(Enum.KeyCode.Q)
+				end
+ game:GetService("ReplicatedStorage").Remotes.ToggleAsset:InvokeServer(80661504)
+end)
+
+
+tab5.newButton("Mega Mallet Slam", "chart peri w combo", function()
+
+		local placehold = character and game.Players.LocalPlayer.Backpack:FindFirstChild("GiantAnimeMallet")
+if placehold then
+game:GetService("ReplicatedStorage").Remotes.ToggleAsset:InvokeServer(746687364)
+end
+
+
+
+game:GetService("ReplicatedStorage").Remotes.ToggleAsset:InvokeServer(746687364)
+	
+
+
+
+
+				-- Equip and use the tool
+				local character = game.Players.LocalPlayer.Character
+				local grimgoldTool = character and game.Players.LocalPlayer.Backpack:FindFirstChild("GiantAnimeMallet")
+				if grimgoldTool then
+					game.Players.LocalPlayer.Character.Humanoid:EquipTool(grimgoldTool)
+				  for i=1, 2 do
+grimgoldTool:Activate()
+wait(.1)
+          end
+wait(.4)
+				end
+ game:GetService("ReplicatedStorage").Remotes.ToggleAsset:InvokeServer(746687364)
+end)
+
+
+
+
+
+
+
+
 
 
 
@@ -331,6 +459,24 @@ task.spawn(function()
 					grimgoldTool.Remote:FireServer(Enum.KeyCode.Q)
 				end
 			end
+
+
+		if joyful then
+				-- Fire remote to toggle GrimgoldPeriastron
+				game:GetService("ReplicatedStorage").Remotes.ToggleAsset:InvokeServer(233520257)
+	
+				-- Equip and use the tool
+				local character = game.Players.LocalPlayer.Character
+				local grimgoldTool = character and game.Players.LocalPlayer.Backpack:FindFirstChild("JoyfulPeriastron")
+				if grimgoldTool then
+					game.Players.LocalPlayer.Character.Humanoid:EquipTool(grimgoldTool)
+task.wait(.2)
+					grimgoldTool.Remote:FireServer(Enum.KeyCode.Q)
+				end
+task.wait(0.1)
+			end
+
+
 	
 			if alpacaOn then
 				-- Fire remote to toggle AnAlpacaYouKnow
@@ -345,7 +491,36 @@ task.spawn(function()
 				end
 			end
 	
+		if pwny then
+				-- Fire remote to toggle AnAlpacaYouKnow
+				game:GetService("ReplicatedStorage").Remotes.ToggleAsset:InvokeServer(26777410)
 	
+				-- Equip and use the tool
+				local character = game.Players.LocalPlayer.Character
+				local alpacaTool = character and game.Players.LocalPlayer.Backpack:FindFirstChild("Pwny")
+				if alpacaTool then
+					game.Players.LocalPlayer.Character.Humanoid:EquipTool(alpacaTool)
+					alpacaTool:Activate()
+				end
+
+			end
+
+	
+		if subspace then
+				-- Fire remote to toggle AnAlpacaYouKnow
+				game:GetService("ReplicatedStorage").Remotes.ToggleAsset:InvokeServer(11999247)
+	
+				-- Equip and use the tool
+				local character = game.Players.LocalPlayer.Character
+				local alpacaTool = character and game.Players.LocalPlayer.Backpack:FindFirstChild("SubspaceTripmine")
+				if alpacaTool then
+					game.Players.LocalPlayer.Character.Humanoid:EquipTool(alpacaTool)
+					alpacaTool:Activate()
+				end
+
+			end
+
+
 			if zombie then
 				-- Fire remote to toggle AnAlpacaYouKnow
 				game:GetService("ReplicatedStorage").Remotes.ToggleAsset:InvokeServer(26421972)
@@ -453,6 +628,8 @@ game.Players.PlayerAdded:Connect(function(p)
 	
 	
 
+
+
 game.Players.LocalPlayer.PlayerGui.ChildAdded:Connect(function(child)     if child.Name == "DarknessGui" then         for _, ch in pairs(child:GetChildren()) do             if ch:IsA("Frame") then                 ch.Visible = false             end         end     end end) 
 
 	while wait() do
@@ -463,6 +640,18 @@ game.Players.LocalPlayer.PlayerGui.ChildAdded:Connect(function(child)     if chi
 			end
 		end
 		game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 78
+game.Players.LocalPlayer.Character.ChildAdded:Connect(function(c)
+if c.Name == "InternRacingChair" then
+game.Players.LocalPlayer.Character.Humanoid.HipHeight = 2
+end
+end)
+
+
+game.Players.LocalPlayer.Character.ChildRemoved:Connect(function(c)
+if c.Name == "InternRacingChair" then
+game.Players.LocalPlayer.Character.Humanoid.HipHeight = 0
+end
+end)
 	end
 
 
