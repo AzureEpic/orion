@@ -2009,6 +2009,13 @@ cmd.add({"blackholegui","blackholee"},{"unwalkfling (unwfling)","azureepics hub"
 loadstring(game:HttpGet("https://raw.githubusercontent.com/AzureEpic/orion/refs/heads/main/bla"))()
 end)
 
+cmd.add({"keyboard","keyb"},{"unwalkfling (unwfling)","keyboard gui "},function()
+	DoNotif("loading kb",5)
+loadstring(game:HttpGet("https://raw.githubusercontent.com/AzureEpic/orion/refs/heads/main/keyboard"))()
+end)
+
+
+
 --fixed-viper
 cmd.add({"adonisbypass","bypassadonis","badonis","adonisb"},{"adonisbypass (bypassadonis,badonis,adonisb)","bypasses adonis admin detection"},function()
 	loadstring(game:HttpGet("https://github.com/ltseverydayyou/Nameless-Admin/blob/main/adonisbypass.lua?raw=true"))()
