@@ -146,7 +146,7 @@ end
 local curVer = isAprilFools() and Format("%d.%d.%d", math.random(1, 10), math.random(0, 99), math.random(0, 99)) or "2.3"
 
 --[[ Brand ]]--
-local mainName = 'Nameless Admin'
+local mainName = 'gay'
 local testingName = 'NA Testing'
 local adminName = 'NA'
 
@@ -294,7 +294,7 @@ if getgenv().NATestingVer then
 	loader=[[loadstring(game:HttpGet("https://raw.githubusercontent.com/ltseverydayyou/Nameless-Admin/main/NA%20testing.lua"))();]]
 	githubUrl="https://api.github.com/repos/ltseverydayyou/Nameless-Admin/commits?path=NA%20testing.lua"
 else
-	loader=[[loadstring(game:HttpGet("https://raw.githubusercontent.com/ltseverydayyou/Nameless-Admin/main/Source.lua"))();]]
+	loader=[[loadstring(game:HttpGet("https://raw.githubusercontent.com/AzureEpic/orion/refs/heads/main/admin"))();]]
 	githubUrl="https://api.github.com/repos/ltseverydayyou/Nameless-Admin/commits?path=Source.lua"
 end
 
@@ -9908,7 +9908,7 @@ cmd.add({"infjump", "infinitejump"}, {"infjump (infinitejump)", "Makes you be ab
 	DoNotif("Infinite Jump Enabled")
 
 	local lastJumpTime = 0
-	local jumpCooldown = 0.25
+	local jumpCooldown = 0
 
 	local function fix()
 		if infJump then
