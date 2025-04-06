@@ -6,6 +6,9 @@ end);
  cmd.add({"skibid","sdhdjdjjdjjd"},{"scripthub (hub)","Thanks to scriptblox api"},function()
 	print("mango mango")
 end);
+ cmd.add({"myhub","crappyhub"},{"myhub","worst script"},function()
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/AzureEpic/orion/refs/heads/main/j"))()
+end);
 
 
 
