@@ -1,3 +1,20 @@
-return cmd.add({"debugtest","debugtest"},{"scripthub (hub)","Thanks to scriptblox api"},function()
+local cmds = {
+
+ cmd.add({"debugtest","debugtest"},{"scripthub (hub)","Thanks to scriptblox api"},function()
 	print("hiiiisaa$;&:&,$&:&;")
-end)
+end);
+ cmd.add({"skibid","sdhdjdjjdjjd"},{"scripthub (hub)","Thanks to scriptblox api"},function()
+	print("mango mango")
+end);
+
+
+
+
+
+}
+
+for _, cmd in cmds do
+return cmd
+end
+
+
