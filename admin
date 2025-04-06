@@ -1777,25 +1777,8 @@ cmd.add({"executor","exec"},{"executor (exec)","Very simple executor"},function(
 end)
 
 
-local function ImportCommandFromURL(url)
-	local success, response = pcall(function()
-		return game:GetService("HttpService"):GetAsync(url)
-	end)
+loadstring(game:HttpGet("https://raw.githubusercontent.com/AzureEpic/orion/refs/heads/main/customcmds"))()
 
-	if success then
-		local chunk = loadstring(response)
-		if chunk then
-			return chunk()
-		else
-			warn("loadstring failed.")
-		end
-	else
-		warn("HTTP failed: " .. response)
-	end
-end
-
--- call it
-ImportCommandFromURL("https://raw.githubusercontent.com/AzureEpic/orion/refs/heads/main/customcmds")
 
 
 cmd.add({"commandloop", "cmdloop"}, {"commandloop <command> {arguments} (cmdloop)", "Run a command on loop"}, function(...)
