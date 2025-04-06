@@ -1,0 +1,3 @@
+return cmd.add({"debugtest","debugtest"},{"scripthub (hub)","Thanks to scriptblox api"},function()
+	print("hiiiisaa$;&:&,$&:&;")
+end)
