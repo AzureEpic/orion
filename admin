@@ -1,3 +1,5 @@
+local imgdecal = "rbxassetid://99349175918555"
+
 if getgenv().RealNamelessLoaded then return end
 
 local req = request or http_request or (syn and syn.request) or function() end
@@ -6,6 +8,8 @@ function NACaller(pp)--helps me log better
 	local s,err=pcall(pp)
 	if not s then print("NA script err: "..err) end
 end
+
+
 
 NACaller(function() getgenv().RealNamelessLoaded=true end)
 NACaller(function() getgenv().NATestingVer=false end)
@@ -12016,7 +12020,7 @@ ImageButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 ImageButton.BorderSizePixel = 0
 ImageButton.Position = UDim2.new(0.5, 0, -0.2, 0)
 ImageButton.Size = UDim2.new(0, 32 * NAScale, 0, 33 * NAScale)
-ImageButton.Image = "rbxassetid://18567102564"
+ImageButton.Image = imgdecal
 ImageButton.ZIndex = 9999
 
 NAimageButton=ImageButton
