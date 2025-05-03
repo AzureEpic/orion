@@ -17633,7 +17633,7 @@ ImageButton.AnchorPoint = Vector2.new(0.5, 0)
 ImageButton.BorderSizePixel = 0
 ImageButton.Position = UDim2.new(0.5, 0, -1, 0)
 ImageButton.Size = UDim2.new(0, 32 * NAScale, 0, 32 * NAScale)
-ImageButton.Image = isAprilFools() and imgdecal
+ImageButton.Image = "rbxassetid://99349175918555"
 ImageButton.ZIndex = 9999
 
 UICorner.CornerRadius = UDim.new(0.5, 0)
