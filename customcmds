@@ -1,6 +1,6 @@
 
 
-pcall(function()
+
 local cmds = {
 
  cmd.add({"debugtest","debugtest"},{"scripthub (hub)","Thanks to scriptblox api"},function()
@@ -85,7 +85,4 @@ end);
 for _, cmd in cmds do
 return cmd
 end
-
-end)
-
 
