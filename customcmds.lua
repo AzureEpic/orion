@@ -3,7 +3,7 @@ local cmds={
 	Aliases={};
 	NASAVEDALIASES = {};
 }
-
+local cmd={}
 _G.cmd = cmd
 
 local commandcount=0
