@@ -73,9 +73,12 @@ end);
 ContextActionService:UnbindAction("ToggleInvisibility")
 
 
+
 end);
 
-
+cmd.add({"walkonwalls","gravcontrol"},{"wonw","gravity walk thing"},function()
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/AzureEpic/noo/refs/heads/main/STOPP.lua"))()
+end);
 
 
 
