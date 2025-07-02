@@ -1,4 +1,4 @@
--- In your Called Script
+-- In your Called Script (e.g., your_commands_script.lua)
 
 local cmds={
 	Commands={};
@@ -6,12 +6,12 @@ local cmds={
 	NASAVEDALIASES = {};
 }
 
-local cmd = {}
-local commandcount = 0 -- <--- MOVE THIS UP HERE!
-local Loops = {}      -- <--- Also good practice to make Loops local if not exported
+local cmd = {} -- Declare and initialize 'cmd' table FIRST
+local commandcount = 0
+local Loops = {} -- Make Loops local if it's not intended to be a global accessible from origin script
 
+-- *** IMPORTANT: Define all 'cmd' methods here, BEFORE any calls to cmd.add ***
 
--- Define all 'cmd' methods here, BEFORE any calls to cmd.add
 cmd.add = function(aliases, info, func, requiresArguments)
 	requiresArguments = requiresArguments or false
 	local data = {func, info, requiresArguments}
@@ -24,7 +24,7 @@ cmd.add = function(aliases, info, func, requiresArguments)
 		end
 	end
 
-	commandcount += 1 -- Now, commandcount will be 0 (or its current number) when this runs
+	commandcount += 1
 end
 
 cmd.run = function(args)
@@ -178,11 +178,7 @@ cmd.stopLoop = function()
 	})
 end
 
--- Now that 'cmd' and all its methods are defined, expose it globally
-_G.cmd = cmd
-
-
--- Now you can call cmd.add to register your commands
+-- *** Now you can call cmd.add to register your commands ***
 cmd.add({"debugtest","debugtest"},{"scripthub (hub)","Thanks to scriptblox api"},function()
 	print("hiiiisaa$;&:&,$&:&;")
 end)
@@ -234,8 +230,7 @@ cmd.add({"invisbind","invisbutton"},{"invisbind","invisible button"},function()
 		end
 	end
 
-	-- Setup ContextActionService
-	-- Assumes ContextActionService is a global from the origin script
+	-- Setup ContextActionService (assumed global from origin script)
 	local function onAction(_, inputState)
 		if inputState == Enum.UserInputState.Begin then
 			toggleInvisibility()
@@ -246,10 +241,13 @@ cmd.add({"invisbind","invisbutton"},{"invisbind","invisible button"},function()
 	ContextActionService:SetPosition("ToggleInvisibility", UDim2.new(0, 20, 0, 100))
 end)
 cmd.add({"vis","unbindinvid"},{"vis","removes invis bind"},function()
-    -- Assumes ContextActionService is a global from the origin script
+    -- ContextActionService (assumed global from origin script)
 	ContextActionService:UnbindAction("ToggleInvisibility")
 end)
 
 cmd.add({"walkonwalls","gravcontrol"},{"wonw","gravity walk thing"},function()
 	loadstring(game:HttpGet("https://raw.githubusercontent.com/AzureEpic/noo/refs/heads/main/STOPP.lua"))()
 end)
+
+-- *** IMPORTANT: Return the 'cmd' table at the very end of the script ***
+return cmd
