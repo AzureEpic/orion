@@ -6,7 +6,8 @@ local cmds={
 
 local cmd={}
 
-
+local commandcount=0
+Loops = {}
 cmd.add = function(aliases, info, func, requiresArguments)
 	requiresArguments = requiresArguments or false
 	local data = {func, info, requiresArguments}
