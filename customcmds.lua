@@ -177,17 +177,17 @@ cmd.stopLoop = function()
 		Buttons = buttons
 	})
 end
-
+local cms = {
 -- *** Now you can call cmd.add to register your commands ***
 cmd.add({"debugtest","debugtest"},{"scripthub (hub)","Thanks to scriptblox api"},function()
 	print("hiiiisaa$;&:&,$&:&;")
-end)
+end);
 cmd.add({"skibid","sdhdjdjjdjjd"},{"scripthub (hub)","Thanks to scriptblox api"},function()
 	print("mango mango")
-end)
+end);
 cmd.add({"myhub","crappyhub"},{"myhub","worst script"},function()
 	loadstring(game:HttpGet("https://raw.githubusercontent.com/AzureEpic/orion/refs/heads/main/j"))()
-end)
+end);
 cmd.add({"invisbind","invisbutton"},{"invisbind","invisible button"},function()
 	local key = Enum.KeyCode.X -- Key to toggle invisibility
 	local invis_on = false
@@ -239,15 +239,18 @@ cmd.add({"invisbind","invisbutton"},{"invisbind","invisible button"},function()
 	ContextActionService:BindAction("ToggleInvisibility", onAction, true, key)
 	ContextActionService:SetTitle("ToggleInvisibility", "Invis")
 	ContextActionService:SetPosition("ToggleInvisibility", UDim2.new(0, 20, 0, 100))
-end)
+end);
 cmd.add({"vis","unbindinvid"},{"vis","removes invis bind"},function()
     -- ContextActionService (assumed global from origin script)
 	ContextActionService:UnbindAction("ToggleInvisibility")
-end)
+end);
 
 cmd.add({"walkonwalls","gravcontrol"},{"wonw","gravity walk thing"},function()
 	loadstring(game:HttpGet("https://raw.githubusercontent.com/AzureEpic/noo/refs/heads/main/STOPP.lua"))()
-end)
-
+end);
+}
 -- *** IMPORTANT: Return the 'cmd' table at the very end of the script ***
-return cmd
+for _, c in cms do
+return c
+
+end	
