@@ -1,7 +1,198 @@
+local cmds={
+	Commands={};
+	Aliases={};
+	NASAVEDALIASES = {};
+}
+
+local cmd={}
+
+
+cmd.add = function(aliases, info, func, requiresArguments)
+	requiresArguments = requiresArguments or false
+	local data = {func, info, requiresArguments}
+
+	for i, cmdName in pairs(aliases) do
+		if i == 1 then
+			cmds.Commands[cmdName:lower()] = data
+		else
+			cmds.Aliases[cmdName:lower()] = data
+		end
+	end
+
+	commandcount += 1
+end
 
 
 
-local cmds = {
+cmd.run = function(args)
+	local caller, arguments = args[1], args
+	table.remove(args, 1)
+
+	local success, msg = pcall(function()
+		local command = cmds.Commands[caller:lower()] or cmds.Aliases[caller:lower()]
+		if command then
+			command[1](unpack(arguments))
+		else
+			local closest = didYouMean(caller:lower())
+			if closest and doPREDICTION then
+				local commandFunc = cmds.Commands[closest] and cmds.Commands[closest][1] or cmds.Aliases[closest] and cmds.Aliases[closest][1]
+				local requiresInput = cmds.Commands[closest] and cmds.Commands[closest][3] or cmds.Aliases[closest] and cmds.Aliases[closest][3]
+
+				if requiresInput then
+					Window({
+						Title = adminName,
+						Description = "Command [ "..caller.." ] doesn't exist\nDid you mean [ "..closest.." ]?",
+						InputField = true,
+						Buttons = {
+							{
+								Text = "Submit",
+								Callback = function(input)
+									local parsedArguments = ParseArguments(input)
+									if parsedArguments then
+										Spawn(function() commandFunc(unpack(parsedArguments)) end)
+									else
+										Spawn(function() commandFunc() end)
+									end
+								end
+							}
+						}
+					})
+				else
+					Window({
+						Title = adminName,
+						Description = "Command [ "..caller.." ] doesn't exist\nDid you mean [ "..closest.." ]?",
+						Buttons = {
+							{
+								Text = "Run Command",
+								Callback = function()
+									Spawn(function()
+										commandFunc()
+									end)
+								end
+							}
+						}
+					})
+				end
+			end
+		end
+	end)
+end
+
+cmd.loop = function(commandName, args)
+	local command = cmds.Commands[commandName:lower()] or cmds.Aliases[commandName:lower()]
+	if not command then
+		DoNotif("Command '"..commandName.."' does not exist.", 3)
+		return
+	end
+
+	local function GenerateLoopKey(name, arguments)
+		return name:lower().." "..Concat(arguments or {}, " ")
+	end
+
+	local function FormatArgs(arguments)
+		if not arguments or #arguments == 0 then
+			return "(no args)"
+		end
+		return Concat(arguments, ", ")
+	end
+
+	Window({
+		Title = "Set Loop Delay",
+		Description = "Enter the delay (in seconds) for the loop of command: "..commandName,
+		InputField = true,
+		Buttons = {
+			{
+				Text = "Submit",
+				Callback = function(input)
+					local interval = tonumber(input) or 0
+					if interval < 0 then
+						DoNotif("Invalid delay. Loop not started.", 3)
+						return
+					end
+
+					local loopKey = GenerateLoopKey(commandName, args)
+
+					if Loops[loopKey] then
+						DoNotif("A loop with these arguments is already running for '"..commandName.."'.", 3)
+						return
+					end
+
+					Loops[loopKey] = {
+						commandName = commandName,
+						command = command[1],
+						args = args or {},
+						interval = interval,
+						running = true
+					}
+
+					Spawn(function()
+						while Loops[loopKey] and Loops[loopKey].running do
+							pcall(function()
+								Loops[loopKey].command(unpack(Loops[loopKey].args))
+							end)
+							Wait(Loops[loopKey].interval)
+						end
+					end)
+
+					DoNotif("Loop started for '"..commandName.."' with delay: "..interval.."s. Args: "..FormatArgs(args), 3)
+				end
+			}
+		}
+	})
+end
+
+cmd.stopLoop = function()
+	if next(Loops) == nil then
+		DoNotif("No active loops to stop.", 2)
+		return
+	end
+
+	local function FormatArgs(arguments)
+		if not arguments or #arguments == 0 then
+			return "(no args)"
+		end
+		return Concat(arguments, ", ")
+	end
+
+	local buttons = {}
+
+	for loopKey, loopData in pairs(Loops) do
+		local label = Format("'%s' | Args: %s | Delay: %ss", loopData.commandName, FormatArgs(loopData.args), loopData.interval)
+		Insert(buttons, {
+			Text = label,
+			Callback = function()
+				loopData.running = false
+				Loops[loopKey] = nil
+				DoNotif("Stopped loop: '"..loopData.commandName.."' with args: "..FormatArgs(loopData.args), 3)
+			end
+		})
+	end
+
+	Window({
+		Title = "Stop a Loop",
+		Description = "Select a loop to stop:",
+		Buttons = buttons
+	})
+end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+local commands = {
 
  cmd.add({"debugtest","debugtest"},{"scripthub (hub)","Thanks to scriptblox api"},function()
 	print("hiiiisaa$;&:&,$&:&;")
@@ -85,7 +276,7 @@ end);
 
 }
 
-for _, cmd in cmds do
+for _, cmd in commands do
 return cmd
 end
 
