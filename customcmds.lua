@@ -1,3 +1,68 @@
+--[[STEPS ON IMPLEMENTATION
+Add this block of code somewhere idk
+
+
+
+-- In your Origin Script
+
+-- ... (Your global definitions: didYouMean, doPREDICTION, adminName, Window, ParseArguments, Spawn, DoNotif, Concat, Insert, Format, ContextActionService) ...
+
+local commandScriptContent = game:HttpGet("https://raw.githubusercontent.com/YourRepo/your_commands_script.lua") -- Make sure this URL is correct and accessible
+
+local success, chunk_or_error_msg = pcall(loadstring, commandScriptContent)
+
+if success then
+    local origin_env = getfenv(0)
+    setfenv(chunk_or_error_msg, origin_env) -- Use chunk_or_error_msg as the chunk function
+
+    -- Crucially: Execute the chunk and capture its return value
+    local runSuccess, returned_value = pcall(chunk_or_error_msg) -- Capture the actual returned value here
+
+    if runSuccess then
+        -- Check if the returned_value is what we expect (the cmd table)
+        if returned_value and type(returned_value) == "table" and returned_value.run then
+            local myCommands = returned_value -- This is your 'cmd' table from the other script!
+            print("Commands script loaded and 'cmd' table received successfully!")
+            myCommands.run({"debugtest"}) -- Test a command
+            -- You can now use myCommands.add(), myCommands.run(), myCommands.loop(), etc.
+        else
+            warn("Commands script did not return a valid 'cmd' table. Returned type: " .. type(returned_value))
+            if returned_value == nil then
+                warn("Returned value was nil. This might indicate an unhandled error in the called script before its return statement.")
+            end
+        end
+    else
+        -- If runSuccess is false, returned_value is the error message
+        warn("Error running commands script: " .. returned_value)
+    end
+else
+    warn("Error loading commands script content (loadstring failed): " .. chunk_or_error_msg)
+end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+]]
+
+
+
+
+
 -- In your Called Script (e.g., your_commands_script.lua)
 
 local cmds={
