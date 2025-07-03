@@ -98,20 +98,6 @@ end
 
 -- *** IMPORTANT: Define all 'cmd' methods here, BEFORE any calls to cmd.add ***
 
-cmd.add = function(aliases, info, func, requiresArguments)
-	requiresArguments = requiresArguments or false
-	local data = {func, info, requiresArguments}
-
-	for i, cmdName in pairs(aliases) do
-		if i == 1 then
-			cmds.Commands[cmdName:lower()] = data
-		else
-			cmds.Aliases[cmdName:lower()] = data
-		end
-	end
-
-	commandcount += 1
-end
 
 cmd.run = function(args)
 	local caller, arguments = args[1], args
