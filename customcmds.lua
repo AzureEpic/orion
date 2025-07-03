@@ -100,6 +100,8 @@ end
 
 
 cmd.run = function(args)
+	   print("DEBUG: cmd.run received args:", tostring(table.concat(args, ", ")))
+    print("DEBUG: Command name received by cmd.run:", args[1]) -- See the first argument specifically
 	local caller, arguments = args[1], args
 	table.remove(args, 1)
 
