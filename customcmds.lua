@@ -65,15 +65,36 @@ end
 
 -- In your Called Script (e.g., your_commands_script.lua)
 
-local cmds={
+local _cmds={ -- Renamed to '_cmds' to differentiate from 'cmd.Commands'
 	Commands={};
 	Aliases={};
 	NASAVEDALIASES = {};
 }
 
-local cmd = {} -- Declare and initialize 'cmd' table FIRST
+local cmd = {}
 local commandcount = 0
-local Loops = {} -- Make Loops local if it's not intended to be a global accessible from origin script
+local Loops = {}
+
+-- *** NEW LINES: Expose the internal command storage tables through the 'cmd' table ***
+cmd.Commands = _cmds.Commands
+cmd.Aliases = _cmds.Aliases
+-- Optionally: cmd._InternalCmdsTable = _cmds -- You could expose the whole thing if needed for debugging
+
+-- Define all 'cmd' methods, making sure they use '_cmds' internally
+cmd.add = function(aliases, info, func, requiresArguments)
+	requiresArguments = requiresArguments or false
+	local data = {func, info, requiresArguments}
+
+	for i, cmdName in pairs(aliases) do
+		if i == 1 then
+			_cmds.Commands[cmdName:lower()] = data -- Use _cmds here
+		else
+			_cmds.Aliases[cmdName:lower()] = data  -- Use _cmds here
+		end
+	end
+
+	commandcount += 1
+end
 
 -- *** IMPORTANT: Define all 'cmd' methods here, BEFORE any calls to cmd.add ***
 
